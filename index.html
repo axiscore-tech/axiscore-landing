@@ -880,7 +880,7 @@ function submitWarranty() {
   btn.textContent = currentLang==='it' ? 'INVIO IN CORSO...' : 'SENDING...';
   btn.disabled = true;
 
-  fetch('https://axiscore-warranty.axiscore-tech.workers.dev/', {
+  fetch('https://axiscore-warranty.white-wave-af86.workers.dev/', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ name, email, order: document.getElementById('wOrder').value, lang: currentLang })
