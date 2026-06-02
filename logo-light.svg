@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" fill="none">
+<defs>
+  <linearGradient id="armGradL" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:#9AAABB;stop-opacity:1"/>
+    <stop offset="100%" style="stop-color:#6A7A8A;stop-opacity:1"/>
+  </linearGradient>
+</defs>
+
+<!-- X arms -->
+<polygon points="2,2 16,2 34,34 26,34" fill="url(#armGradL)"/>
+<polygon points="58,2 72,2 46,34 38,34" fill="url(#armGradL)"/>
+<polygon points="2,78 16,78 34,46 26,46" fill="url(#armGradL)"/>
+<polygon points="58,78 72,78 46,46 38,46" fill="url(#armGradL)"/>
+
+<!-- Spine -->
+<rect x="31" y="22" width="12" height="2.5" rx="1.2" fill="#0077B3"/>
+<rect x="28" y="25.5" width="18" height="5" rx="2" fill="#0077B3"/>
+<rect x="24" y="27" width="4" height="2.5" rx="0.8" fill="#0077B3" opacity="0.55"/>
+<rect x="46" y="27" width="4" height="2.5" rx="0.8" fill="#0077B3" opacity="0.55"/>
+<rect x="32" y="30.5" width="10" height="2" rx="1" fill="#0077B3" opacity="0.4"/>
+<rect x="26" y="33" width="22" height="8" rx="2.5" fill="#0077B3"/>
+<rect x="20" y="35" width="6" height="4" rx="1" fill="#0077B3" opacity="0.65"/>
+<rect x="48" y="35" width="6" height="4" rx="1" fill="#0077B3" opacity="0.65"/>
+<rect x="32" y="41" width="10" height="2" rx="1" fill="#0077B3" opacity="0.4"/>
+<rect x="28" y="43.5" width="18" height="5" rx="2" fill="#0077B3"/>
+<rect x="24" y="45" width="4" height="2.5" rx="0.8" fill="#0077B3" opacity="0.55"/>
+<rect x="46" y="45" width="4" height="2.5" rx="0.8" fill="#0077B3" opacity="0.55"/>
+<rect x="31" y="48.5" width="12" height="2.5" rx="1.2" fill="#0077B3"/>
+<circle cx="30" cy="20" r="1.5" fill="#0077B3" opacity="0.35"/>
+<circle cx="44" cy="20" r="1.5" fill="#0077B3" opacity="0.35"/>
+<circle cx="30" cy="53" r="1.5" fill="#0077B3" opacity="0.35"/>
+<circle cx="44" cy="53" r="1.5" fill="#0077B3" opacity="0.35"/>
+
+<line x1="84" y1="16" x2="84" y2="64" stroke="#0077B3" stroke-width="0.5" opacity="0.3"/>
+<text x="96" y="47" font-family="Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#07070D">AXIS <tspan fill="#0077B3">CORE</tspan></text>
+<text x="97" y="62" font-family="Arial, sans-serif" font-size="7" font-weight="400" letter-spacing="3" fill="#5A6B80">BIO-RECOVERY TECHNOLOGIES</text>
+</svg>
