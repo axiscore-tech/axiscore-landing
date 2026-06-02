@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIS CORE — Bio-Recovery Technologies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #07070D;
+  --black2: #0D0D18;
+  --black3: #12121F;
+  --blue: #00AAFF;
+  --blue-dim: #0077B3;
+  --blue-glow: rgba(0,170,255,0.15);
+  --gold: #C9A84C;
+  --gold-dim: #8A6A1E;
+  --gold-glow: rgba(201,168,76,0.15);
+  --steel: #8A9BB0;
+  --white: #F0F4F8;
+  --white-dim: #A0AABB;
+  --border: rgba(255,255,255,0.06);
+  --border-blue: rgba(0,170,255,0.25);
+  --border-gold: rgba(201,168,76,0.3);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── LANG SWITCHER ── */
+.lang-bar {
+  position: fixed;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  background: rgba(7,7,13,0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 0.5px solid var(--border);
+}
+.lang-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding: 5px 12px;
+  border: 0.5px solid var(--border-blue);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--blue);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lang-btn:hover { background: var(--blue-glow); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh;
+  padding: 80px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,170,255,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -50px; left: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.1s forwards;
+}
+
+.logo-symbol {
+  width: 48px; height: 48px;
+  border: 1.5px solid var(--blue);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-symbol::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--blue-glow);
+}
+
+.x-shape {
+  width: 26px; height: 26px;
+  position: relative;
+}
+.x-shape::before, .x-shape::after {
+  content: '';
+  position: absolute;
+  width: 100%; height: 3px;
+  background: var(--blue);
+  top: 50%; left: 0;
+  border-radius: 2px;
+}
+.x-shape::before { transform: translateY(-50%) rotate(45deg); }
+.x-shape::after { transform: translateY(-50%) rotate(-45deg); }
+
+.spine-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--blue);
+  border-radius: 50%;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.logo-text-group { display: flex; flex-direction: column; }
+.logo-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--white);
+  line-height: 1;
+}
+.logo-name span { color: var(--blue); }
+.logo-tagline {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  color: var(--steel);
+  margin-top: 3px;
+}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--blue);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+.hero-headline {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+.hero-headline .accent { color: var(--blue); }
+.hero-headline .accent-gold { color: var(--gold); }
+
+.hero-body {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--steel);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+.cert-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+.cert-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  padding: 5px 10px;
+  border: 0.5px solid var(--border-gold);
+  border-radius: 3px;
+  color: var(--gold);
+  background: var(--gold-glow);
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.6s forwards;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--blue);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--black);
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.2s;
+}
+.btn-primary:active::after { background: rgba(255,255,255,0.1); }
+
+.btn-secondary {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: transparent;
+  border: 0.5px solid var(--border-blue);
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--blue);
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.btn-secondary:active { background: var(--blue-glow); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s forwards;
+}
+.scroll-line {
+  width: 1px; height: 32px;
+  background: linear-gradient(to bottom, var(--blue), transparent);
+  animation: scrollPulse 2s infinite;
+}
+.scroll-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--steel);
+}
+
+/* ── SECTION COMMON ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.section-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  color: var(--blue);
+  letter-spacing: 1px;
+}
+.section-line {
+  flex: 1;
+  height: 0.5px;
+  background: var(--border-blue);
+}
+
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.section-title .accent { color: var(--blue); }
+.section-title .accent-gold { color: var(--gold); }
+
+.section-sub {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--steel);
+  margin-bottom: 28px;
+}
+
+/* ── SEZIONE 2 — GUIDA ── */
+.guide-section {
+  padding: 64px 24px;
+  background: var(--black2);
+  position: relative;
+}
+
+.uso-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 20px;
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.uso-tab {
+  flex: 1;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--steel);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+.uso-tab.active {
+  background: var(--blue-glow);
+  color: var(--blue);
+  border-bottom: 2px solid var(--blue);
+}
+
+.uso-panel { display: none; }
+.uso-panel.active { display: block; }
+
+.uso-card-big {
+  background: var(--black3);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.uso-card-big.side-a { border-color: var(--border-blue); }
+.uso-card-big.side-b { border-color: var(--border-gold); }
+
+.uso-card-big::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.side-a::before { background: radial-gradient(circle, rgba(0,170,255,0.08) 0%, transparent 70%); }
+.side-b::before { background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%); }
+
+.uso-side-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.side-a .uso-side-label { color: var(--blue); }
+.side-b .uso-side-label { color: var(--gold); }
+
+.uso-side-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.uso-angle {
+  font-family: 'Space Mono', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 16px 0 4px;
+}
+.side-a .uso-angle { color: var(--blue); }
+.side-b .uso-angle { color: var(--gold); }
+
+.uso-angle-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--steel);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.uso-specs {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.uso-specs li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--steel);
+  line-height: 1.5;
+}
+.spec-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+.side-a .spec-dot { background: var(--blue); }
+.side-b .spec-dot { background: var(--gold); }
+
+.uso-week {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+.side-a .uso-week { background: var(--blue-glow); color: var(--blue); border: 0.5px solid var(--border-blue); }
+.side-b .uso-week { background: var(--gold-glow); color: var(--gold); border: 0.5px solid var(--border-gold); }
+
+/* ── SEZIONE 3 — ROUTINE ── */
+.routine-section {
+  padding: 64px 24px;
+  background: var(--black);
+}
+
+.routine-timer {
+  background: var(--black3);
+  border: 0.5px solid var(--border-blue);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.timer-display {
+  font-family: 'Space Mono', monospace;
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+.timer-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--steel);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.steps-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.step-item {
+  background: var(--black2);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.step-item.active {
+  border-color: var(--blue);
+  background: var(--blue-glow);
+}
+.step-time {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--blue);
+  line-height: 1;
+}
+.step-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--steel);
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.step-desc {
+  background: var(--black2);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}
+.step-desc p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--steel);
+}
+.step-desc p strong { color: var(--white); font-weight: 400; }
+
+.coming-soon-box {
+  background: var(--black3);
+  border: 0.5px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+.cs-icon {
+  width: 48px; height: 48px;
+  margin: 0 auto 12px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cs-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.cs-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.cs-text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--steel);
+  margin-bottom: 16px;
+}
+.cs-form {
+  display: flex;
+  gap: 8px;
+}
+.cs-input {
+  flex: 1;
+  background: var(--black2);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.cs-input:focus { border-color: var(--gold); }
+.cs-input::placeholder { color: var(--steel); opacity: 0.5; }
+.cs-btn {
+  padding: 10px 16px;
+  background: var(--gold);
+  border: none;
+  border-radius: 6px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--black);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.cs-btn:active { opacity: 0.8; }
+
+/* ── SEZIONE 4 — GARANZIA ── */
+.warranty-section {
+  padding: 64px 24px;
+  background: var(--black2);
+}
+
+.warranty-hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.warranty-badge-big {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px; height: 72px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  position: relative;
+}
+.warranty-badge-big::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  border: 0.5px solid var(--border-gold);
+}
+.badge-months {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  text-align: center;
+}
+.badge-months span {
+  display: block;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--gold-dim);
+}
+
+.perks-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.perk-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px;
+  background: var(--black3);
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+}
+.perk-icon {
+  width: 32px; height: 32px;
+  border-radius: 6px;
+  background: var(--gold-glow);
+  border: 0.5px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.perk-icon svg { width: 16px; height: 16px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.perk-text { flex: 1; }
+.perk-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 2px;
+}
+.perk-desc { font-size: 11px; color: var(--steel); line-height: 1.5; }
+
+.form-section {
+  background: var(--black3);
+  border: 0.5px solid var(--border-gold);
+  border-radius: 12px;
+  padding: 24px;
+}
+.form-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.form-subtitle {
+  font-size: 12px;
+  color: var(--steel);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.field-group { margin-bottom: 14px; }
+.field-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--steel);
+  margin-bottom: 6px;
+  display: block;
+  text-transform: uppercase;
+}
+.field-input {
+  width: 100%;
+  background: var(--black2);
+  border: 0.5px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+.field-input:focus { border-color: var(--gold); }
+.field-input::placeholder { color: var(--steel); opacity: 0.4; font-size: 13px; }
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  border-radius: 8px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 4px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+.submit-btn:active {
+  background: var(--gold-glow);
+}
+
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 20px;
+}
+.success-msg .success-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+  display: block;
+}
+.success-msg p {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.success-msg span {
+  font-size: 12px;
+  color: var(--steel);
+}
+
+.privacy-note {
+  font-size: 10px;
+  color: var(--steel);
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 14px;
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+.footer {
+  padding: 32px 24px;
+  background: var(--black);
+  border-top: 0.5px solid var(--border);
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--white-dim);
+  margin-bottom: 6px;
+}
+.footer-logo span { color: var(--blue); }
+.footer-tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: var(--steel);
+  opacity: 0.5;
+  margin-bottom: 16px;
+}
+.footer-copy {
+  font-size: 10px;
+  color: var(--steel);
+  opacity: 0.3;
+  line-height: 1.7;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SEZIONE 1 — HERO -->
+<!-- ═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="logo-mark">
+    <div class="logo-symbol">
+      <div class="x-shape"><div class="spine-dot"></div></div>
+    </div>
+    <div class="logo-text-group">
+      <div class="logo-name">AXIS <span>CORE</span></div>
+      <div class="logo-tagline">BIO-RECOVERY TECHNOLOGIES</div>
+    </div>
+  </div>
+
+  <div class="hero-eyebrow" data-it="// PROTOCOLLO DI RECUPERO CERVICALE" data-en="// CERVICAL RECOVERY PROTOCOL">
+    // PROTOCOLLO DI RECUPERO CERVICALE
+  </div>
+
+  <h1 class="hero-headline">
+    <span data-it="Sai già<br>com'è.<br>Il dolore <span class='accent'>che sale.</span>" data-en="You know<br>the feeling.<br>Pain that <span class='accent'>rises.</span>">
+      Sai già<br>com'è.<br>Il dolore <span class="accent">che sale.</span>
+    </span>
+  </h1>
+
+  <p class="hero-body" data-it="La tensione al collo. Le ore davanti allo schermo. Il risveglio rigido. AXIS CORE è stato progettato con precisione ingegneristica esattamente per questo momento." data-en="Neck tension. Hours at the screen. Waking up stiff. AXIS CORE was engineered with surgical precision exactly for this moment.">
+    La tensione al collo. Le ore davanti allo schermo. Il risveglio rigido. AXIS CORE è stato progettato con precisione ingegneristica esattamente per questo momento.
+  </p>
+
+  <div class="cert-row">
+    <span class="cert-badge">✓ CE CERTIFIED</span>
+    <span class="cert-badge">✓ ROHS</span>
+    <span class="cert-badge">✓ PREMIUM FOAM</span>
+    <span class="cert-badge">✓ USB HEAT</span>
+  </div>
+
+  <div class="hero-cta">
+    <a href="#warranty" class="btn-primary" data-it="ATTIVA LA GARANZIA ESTESA →" data-en="ACTIVATE EXTENDED WARRANTY →">ATTIVA LA GARANZIA ESTESA →</a>
+    <a href="#guide" class="btn-secondary" data-it="SCOPRI COME USARLO" data-en="DISCOVER HOW TO USE IT">SCOPRI COME USARLO</a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <div class="scroll-label">SCROLL</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SEZIONE 2 — GUIDA RAPIDA -->
+<!-- ═══════════════════════════════════════ -->
+<section class="guide-section reveal" id="guide">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title" data-it="Due lati.<br><span class='accent'>Due protocolli.</span>" data-en="Two sides.<br><span class='accent'>Two protocols.</span>">
+    Due lati.<br><span class="accent">Due protocolli.</span>
+  </h2>
+  <p class="section-sub" data-it="Il tuo collo ha bisogno di decompressione, non di forza. Ogni lato è calibrato su una fase specifica del recupero cervicale." data-en="Your neck needs decompression, not force. Each side is calibrated to a specific phase of cervical recovery.">
+    Il tuo collo ha bisogno di decompressione, non di forza. Ogni lato è calibrato su una fase specifica del recupero cervicale.
+  </p>
+
+  <div class="uso-tabs">
+    <button class="uso-tab active" onclick="switchTab('a')" data-it="LATO A — INIZIO" data-en="SIDE A — START">LATO A — INIZIO</button>
+    <button class="uso-tab" onclick="switchTab('b')" data-it="LATO B — AVANZATO" data-en="SIDE B — ADVANCED">LATO B — AVANZATO</button>
+  </div>
+
+  <div class="uso-panel active" id="panel-a">
+    <div class="uso-card-big side-a">
+      <div class="uso-side-label">LATO A — TRAZIONE LEGGERA</div>
+      <div class="uso-side-title" data-it="Inizia qui." data-en="Start here.">Inizia qui.</div>
+      <div class="uso-angle">15°</div>
+      <div class="uso-angle-label" data-it="Angolo di trazione cervicale" data-en="Cervical traction angle">Angolo di trazione cervicale</div>
+      <ul class="uso-specs">
+        <li><span class="spec-dot"></span><span data-it="Curvatura a 15° che stimola la lordosi naturale cervicale" data-en="15° curvature stimulating natural cervical lordosis">Curvatura a 15° che stimola la lordosi naturale cervicale</span></li>
+        <li><span class="spec-dot"></span><span data-it="Decompressione graduale dei dischi C4–C7" data-en="Gradual decompression of discs C4–C7">Decompressione graduale dei dischi C4–C7</span></li>
+        <li><span class="spec-dot"></span><span data-it="Schiuma poliuretanica ad alta densità per supporto costante" data-en="High-density polyurethane foam for consistent support">Schiuma poliuretanica ad alta densità per supporto costante</span></li>
+        <li><span class="spec-dot"></span><span data-it="Ideale per i primi 7–14 giorni di utilizzo" data-en="Ideal for the first 7–14 days of use">Ideale per i primi 7–14 giorni di utilizzo</span></li>
+      </ul>
+      <span class="uso-week" data-it="⏱ SETTIMANA 1–2" data-en="⏱ WEEK 1–2">⏱ SETTIMANA 1–2</span>
+    </div>
+  </div>
+
+  <div class="uso-panel" id="panel-b">
+    <div class="uso-card-big side-b">
+      <div class="uso-side-label">LATO B — TRAZIONE PROFONDA</div>
+      <div class="uso-side-title" data-it="Quando sei pronto." data-en="When you're ready.">Quando sei pronto.</div>
+      <div class="uso-angle">25°</div>
+      <div class="uso-angle-label" data-it="Angolo di trazione cervicale" data-en="Cervical traction angle">Angolo di trazione cervicale</div>
+      <ul class="uso-specs">
+        <li><span class="spec-dot"></span><span data-it="25° per una decompressione attiva e profonda" data-en="25° for active and deep decompression">25° per una decompressione attiva e profonda</span></li>
+        <li><span class="spec-dot"></span><span data-it="Maggiore separazione intervertebrale C3–C7" data-en="Greater intervertebral separation C3–C7">Maggiore separazione intervertebrale C3–C7</span></li>
+        <li><span class="spec-dot"></span><span data-it="Variante con riscaldamento in grafene via USB (38–42°C)" data-en="Variant with graphene USB heating (38–42°C)">Variante con riscaldamento in grafene via USB (38–42°C)</span></li>
+        <li><span class="spec-dot"></span><span data-it="Per utenti con pratica consolidata (dalla settimana 3)" data-en="For users with established practice (from week 3)">Per utenti con pratica consolidata (dalla settimana 3)</span></li>
+      </ul>
+      <span class="uso-week" data-it="⏱ DALLA SETTIMANA 3" data-en="⏱ FROM WEEK 3">⏱ DALLA SETTIMANA 3</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SEZIONE 3 — ROUTINE 8 MIN -->
+<!-- ═══════════════════════════════════════ -->
+<section class="routine-section reveal" id="routine">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title" data-it="8 minuti.<br><span class='accent-gold'>Ogni giorno.</span>" data-en="8 minutes.<br><span class='accent-gold'>Every day.</span>">
+    8 minuti.<br><span class="accent-gold">Ogni giorno.</span>
+  </h2>
+  <p class="section-sub" data-it="La ricerca sulla terapia di trazione cervicale mostra miglioramenti significativi già dopo 14 giorni di pratica costante. Segui i movimenti lenti e la respirazione guidata." data-en="Research on cervical traction therapy shows significant improvements after just 14 days of consistent practice. Follow the slow movements and guided breathing.">
+    La ricerca sulla terapia di trazione cervicale mostra miglioramenti significativi già dopo 14 giorni di pratica costante. Segui i movimenti lenti e la respirazione guidata.
+  </p>
+
+  <div class="routine-timer">
+    <div class="timer-display" id="timerDisplay">08:00</div>
+    <div class="timer-label" id="timerLabel" data-it="DURATA TOTALE SESSIONE" data-en="TOTAL SESSION DURATION">DURATA TOTALE SESSIONE</div>
+    <div class="steps-row">
+      <div class="step-item active" onclick="selectStep(0)" id="step0">
+        <div class="step-time">2'</div>
+        <div class="step-name" data-it="WARM UP" data-en="WARM UP">WARM UP</div>
+      </div>
+      <div class="step-item" onclick="selectStep(1)" id="step1">
+        <div class="step-time">4'</div>
+        <div class="step-name" data-it="TRAZIONE" data-en="TRACTION">TRAZIONE</div>
+      </div>
+      <div class="step-item" onclick="selectStep(2)" id="step2">
+        <div class="step-time">2'</div>
+        <div class="step-name" data-it="RESPIRO" data-en="BREATHING">RESPIRO</div>
+      </div>
+    </div>
+    <div class="step-desc" id="stepDesc">
+      <p id="stepText">
+        <strong data-it="Riscaldamento muscolare." data-en="Muscle warm-up.">Riscaldamento muscolare.</strong>
+        <span data-it=" Rotazioni lente del collo (3 per lato). Respira profondamente. Rilassa le spalle prima di posizionare il cuscino." data-en=" Slow neck rotations (3 per side). Breathe deeply. Relax shoulders before placing the cushion."> Rotazioni lente del collo (3 per lato). Respira profondamente. Rilassa le spalle prima di posizionare il cuscino.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="coming-soon-box">
+    <div class="cs-icon">
+      <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+    </div>
+    <div class="cs-title" data-it="VIDEO GUIDA IN ARRIVO" data-en="VIDEO GUIDE COMING SOON">VIDEO GUIDA IN ARRIVO</div>
+    <p class="cs-text" data-it="Stiamo producendo la guida video completa con il coach AXIS CORE. Iscriviti ora per ricevere accesso in anteprima esclusiva." data-en="We're producing the complete video guide with the AXIS CORE coach. Subscribe now for exclusive early access.">
+      Stiamo producendo la guida video completa con il coach AXIS CORE. Iscriviti ora per ricevere accesso in anteprima esclusiva.
+    </p>
+    <div class="cs-form">
+      <input type="email" class="cs-input" id="videoEmail" placeholder="la tua email" data-placeholder-it="la tua email" data-placeholder-en="your email">
+      <button class="cs-btn" onclick="subscribeVideo()" data-it="AVVISAMI" data-en="NOTIFY ME">AVVISAMI</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- SEZIONE 4 — GARANZIA -->
+<!-- ═══════════════════════════════════════ -->
+<section class="warranty-section reveal" id="warranty">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="warranty-hero">
+    <div class="warranty-badge-big">
+      <div class="badge-months">24<span>MESI</span></div>
+    </div>
+    <h2 class="section-title" style="text-align:center" data-it="Garanzia<br><span class='accent-gold'>Estesa.</span><br>Gratuita." data-en="Extended<br><span class='accent-gold'>Warranty.</span><br>Free.">
+      Garanzia<br><span class="accent-gold">Estesa.</span><br>Gratuita.
+    </h2>
+    <p class="section-sub" style="text-align:center" data-it="I clienti non registrati perdono la garanzia estesa e l'accesso ai contenuti premium. Non lasciare che succeda." data-en="Unregistered customers lose extended warranty and access to premium content. Don't let that happen.">
+      I clienti non registrati perdono la garanzia estesa e l'accesso ai contenuti premium. Non lasciare che succeda.
+    </p>
+  </div>
+
+  <ul class="perks-list">
+    <li class="perk-item">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+      </div>
+      <div class="perk-text">
+        <div class="perk-title" data-it="12 mesi aggiuntivi di garanzia" data-en="12 additional months of warranty">12 mesi aggiuntivi di garanzia</div>
+        <div class="perk-desc" data-it="Da 12 a 24 mesi totali. Copertura completa su difetti strutturali e di materiale." data-en="From 12 to 24 months total. Full coverage on structural and material defects.">Da 12 a 24 mesi totali. Copertura completa su difetti strutturali e di materiale.</div>
+      </div>
+    </li>
+    <li class="perk-item">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+      </div>
+      <div class="perk-text">
+        <div class="perk-title" data-it="Accesso anticipato ai video" data-en="Early access to videos">Accesso anticipato ai video</div>
+        <div class="perk-desc" data-it="Il coach AXIS CORE ti guiderà con video esclusivi prima del lancio pubblico." data-en="The AXIS CORE coach will guide you with exclusive videos before public launch.">Il coach AXIS CORE ti guiderà con video esclusivi prima del lancio pubblico.</div>
+      </div>
+    </li>
+    <li class="perk-item">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      </div>
+      <div class="perk-text">
+        <div class="perk-title" data-it="Community AXIS CORE" data-en="AXIS CORE Community">Community AXIS CORE</div>
+        <div class="perk-desc" data-it="Anteprime sui nuovi prodotti, protocolli avanzati e contenuti esclusivi per iscritti." data-en="Previews of new products, advanced protocols and exclusive content for subscribers.">Anteprime sui nuovi prodotti, protocolli avanzati e contenuti esclusivi per iscritti.</div>
+      </div>
+    </li>
+  </ul>
+
+  <div class="form-section" id="warrantyForm">
+    <div class="form-title" data-it="REGISTRA IL PRODOTTO" data-en="REGISTER YOUR PRODUCT">REGISTRA IL PRODOTTO</div>
+    <p class="form-subtitle" data-it="30 secondi. Nessuna carta di credito. Garanzia attiva immediatamente." data-en="30 seconds. No credit card. Warranty activated immediately.">
+      30 secondi. Nessuna carta di credito. Garanzia attiva immediatamente.
+    </p>
+
+    <div class="field-group">
+      <label class="field-label" data-it="IL TUO NOME" data-en="YOUR NAME">IL TUO NOME</label>
+      <input type="text" class="field-input" id="wName" placeholder="Federico" data-placeholder-it="Federico" data-placeholder-en="Your name">
+    </div>
+    <div class="field-group">
+      <label class="field-label" data-it="LA TUA EMAIL" data-en="YOUR EMAIL">LA TUA EMAIL</label>
+      <input type="email" class="field-input" id="wEmail" placeholder="nome@email.com">
+    </div>
+    <div class="field-group">
+      <label class="field-label" data-it="CODICE ORDINE (OPZIONALE)" data-en="ORDER CODE (OPTIONAL)">CODICE ORDINE (OPZIONALE)</label>
+      <input type="text" class="field-input" id="wOrder" placeholder="AMZ-XXXXXXX" style="text-transform:uppercase">
+    </div>
+
+    <button class="submit-btn" onclick="submitWarranty()" data-it="ATTIVA GARANZIA GRATUITA →" data-en="ACTIVATE FREE WARRANTY →">ATTIVA GARANZIA GRATUITA →</button>
+    <p class="privacy-note" data-it="🔒 I tuoi dati non vengono condivisi con terze parti. Puoi cancellarti in qualsiasi momento. GDPR compliant." data-en="🔒 Your data is never shared with third parties. Unsubscribe anytime. GDPR compliant.">
+      🔒 I tuoi dati non vengono condivisi con terze parti. Puoi cancellarti in qualsiasi momento. GDPR compliant.
+    </p>
+
+    <div class="success-msg" id="successMsg">
+      <span class="success-icon">✓</span>
+      <p data-it="Garanzia attivata!" data-en="Warranty activated!">Garanzia attivata!</p>
+      <span data-it="Controlla la tua email. Ti abbiamo inviato la conferma." data-en="Check your email. We've sent you a confirmation.">Controlla la tua email. Ti abbiamo inviato la conferma.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ═══════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo">AXIS <span>CORE</span></div>
+  <div class="footer-tagline">ALIGN. RESTORE. OPTIMIZE.</div>
+  <p class="footer-copy">
+    © 2025 Axis Core — Bio-Recovery Technologies<br>
+    <span data-it="Tutti i diritti riservati. Prodotto certificato CE / RoHS." data-en="All rights reserved. CE / RoHS certified product.">Tutti i diritti riservati. Prodotto certificato CE / RoHS.</span>
+  </p>
+</footer>
+
+<script>
+let currentLang = 'it';
+
+const stepData = {
+  it: [
+    { time: '02:00', title: 'Riscaldamento muscolare.', desc: ' Rotazioni lente del collo (3 per lato). Respira profondamente. Rilassa le spalle prima di posizionare il cuscino.' },
+    { time: '04:00', title: 'Trazione attiva.', desc: ' Posiziona la nuca sul lato corretto. Lascia il peso della testa lavorare. Inspira 4 secondi, espira 6 secondi. Ripeti.' },
+    { time: '02:00', title: 'Rilassamento finale.', desc: ' Rimuovi lentamente il cuscino. Rotazioni micro del collo. Respira. Senti la differenza.' }
+  ],
+  en: [
+    { time: '02:00', title: 'Muscle warm-up.', desc: ' Slow neck rotations (3 per side). Breathe deeply. Relax shoulders before placing the cushion.' },
+    { time: '04:00', title: 'Active traction.', desc: ' Place the back of your head on the correct side. Let the weight of your head work. Inhale 4 seconds, exhale 6 seconds. Repeat.' },
+    { time: '02:00', title: 'Final relaxation.', desc: ' Slowly remove the cushion. Micro neck rotations. Breathe. Feel the difference.' }
+  ]
+};
+
+let currentStep = 0;
+
+function selectStep(i) {
+  currentStep = i;
+  [0,1,2].forEach(j => document.getElementById('step'+j).classList.toggle('active', j===i));
+  const d = stepData[currentLang][i];
+  document.getElementById('timerDisplay').textContent = d.time;
+  document.getElementById('stepText').innerHTML = '<strong>'+d.title+'</strong>'+d.desc;
+}
+
+function switchTab(side) {
+  document.querySelectorAll('.uso-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&side==='a')||(i===1&&side==='b')));
+  document.getElementById('panel-a').classList.toggle('active', side==='a');
+  document.getElementById('panel-b').classList.toggle('active', side==='b');
+}
+
+function toggleLang() {
+  currentLang = currentLang === 'it' ? 'en' : 'it';
+  document.getElementById('langBtn').textContent = currentLang === 'it' ? 'EN' : 'IT';
+  document.querySelectorAll('[data-it]').forEach(el => {
+    const txt = el.getAttribute('data-'+currentLang);
+    if (txt) el.innerHTML = txt;
+  });
+  document.querySelectorAll('[data-placeholder-it]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-'+currentLang) || el.placeholder;
+  });
+  selectStep(currentStep);
+}
+
+function subscribeVideo() {
+  const email = document.getElementById('videoEmail').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('videoEmail').style.borderColor = '#E24B4A';
+    setTimeout(() => document.getElementById('videoEmail').style.borderColor = '', 2000);
+    return;
+  }
+  const btn = document.querySelector('.cs-btn');
+  btn.textContent = currentLang === 'it' ? '✓ ISCRITTO' : '✓ SUBSCRIBED';
+  btn.style.background = '#1D9E75';
+  document.getElementById('videoEmail').disabled = true;
+}
+
+function submitWarranty() {
+  const name = document.getElementById('wName').value;
+  const email = document.getElementById('wEmail').value;
+  if (!name || !email || !email.includes('@')) {
+    if (!name) document.getElementById('wName').style.borderColor = '#E24B4A';
+    if (!email || !email.includes('@')) document.getElementById('wEmail').style.borderColor = '#E24B4A';
+    setTimeout(() => {
+      document.getElementById('wName').style.borderColor = '';
+      document.getElementById('wEmail').style.borderColor = '';
+    }, 2000);
+    return;
+  }
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = currentLang === 'it' ? 'INVIO IN CORSO...' : 'SENDING...';
+  btn.disabled = true;
+
+  fetch('https://axiscore-warranty.axiscore-tech.workers.dev/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email, order: document.getElementById('wOrder').value })
+  })
+  .then(() => showSuccess())
+  .catch(() => showSuccess());
+}
+
+function showSuccess() {
+  document.getElementById('warrantyForm').querySelector('.field-group') && 
+  document.querySelectorAll('.field-group, .submit-btn, .form-subtitle, .form-title').forEach(el => el.style.display = 'none');
+  document.getElementById('successMsg').style.display = 'block';
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
