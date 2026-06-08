@@ -525,6 +525,204 @@ body {
 .scroll-line { width:1px; height:32px; background:linear-gradient(to bottom, var(--blue), transparent); animation:scrollPulse 2s infinite; }
 .scroll-label { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:2px; color:var(--steel); }
 @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ─── LEAD MAGNET SECTION ─── */
+.lm-section {
+  padding: clamp(60px,8vh,100px) clamp(20px,5vw,60px);
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+}
+.lm-section::before {
+  content:'';
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(201,168,76,.04) 0%, transparent 50%);
+  pointer-events:none;
+}
+
+.lm-banner {
+  max-width: var(--max);
+  margin: 0 auto;
+  border: 0.5px solid var(--border-gold);
+  border-radius: 16px;
+  background: rgba(201,168,76,0.04);
+  padding: clamp(32px,5vw,56px);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+}
+@media(min-width:768px){
+  .lm-banner { grid-template-columns: 1fr 1fr; gap: 60px; }
+}
+.lm-banner::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.lm-prelabel {
+  font-family:'Space Mono',monospace;
+  font-size:9px; letter-spacing:3px;
+  color: var(--gold); margin-bottom:16px;
+  display:block;
+}
+
+.lm-title {
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(28px,4vw,44px);
+  font-weight:700; line-height:1.05;
+  color: var(--white); margin-bottom:16px;
+}
+.lm-title .accent-gold { color: var(--gold); }
+
+.lm-body {
+  font-size:clamp(13px,1.3vw,14px);
+  line-height:1.7; color:var(--steel);
+  margin-bottom:24px; max-width:480px;
+}
+
+.lm-checks {
+  list-style:none; margin-bottom:28px; display:flex; flex-direction:column; gap:8px;
+}
+.lm-checks li {
+  display:flex; align-items:center; gap:10px;
+  font-size:13px; color:var(--white-dim);
+}
+.lm-checks li::before {
+  content:'✓';
+  font-family:'Space Mono',monospace; font-size:10px;
+  color:var(--gold); flex-shrink:0;
+}
+
+.lm-form {
+  display:flex; flex-direction:column; gap:10px; max-width:420px;
+}
+.lm-input {
+  background: rgba(255,255,255,0.04);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family:'Inter',sans-serif; font-size:14px;
+  color: var(--white); outline:none; transition: border .2s;
+}
+.lm-input::placeholder { color: var(--white-dim); }
+.lm-input:focus { border-color: var(--gold); }
+.lm-input.error { border-color: #E24B4A; }
+
+.lm-submit {
+  font-family:'Rajdhani',sans-serif;
+  font-size:13px; font-weight:700; letter-spacing:2px;
+  padding:13px 20px; border-radius:6px;
+  border:none; cursor:pointer;
+  background: var(--gold);
+  color: var(--black);
+  transition: opacity .2s, transform .1s;
+}
+.lm-submit:hover { opacity:.88; }
+.lm-submit:active { transform:scale(.98); }
+.lm-submit:disabled { opacity:.5; cursor:not-allowed; }
+
+.lm-privacy {
+  font-size:11px; color:var(--steel);
+  display:block; margin-top:4px;
+}
+
+.lm-success {
+  display:none;
+  background: rgba(0,170,255,0.08);
+  border: 0.5px solid rgba(0,170,255,0.3);
+  border-radius:8px; padding:20px;
+  text-align:center; max-width:420px;
+}
+.lm-success-icon { font-size:24px; color:var(--blue); margin-bottom:8px; display:block; }
+.lm-success p { font-size:13px; color:var(--steel); line-height:1.6; }
+.lm-success strong { color:var(--white); display:block; margin-bottom:6px; font-family:'Rajdhani',sans-serif; font-size:16px; }
+
+/* Mockup PDF */
+.lm-mockup {
+  display:flex; justify-content:center; align-items:center;
+}
+.pdf-card {
+  width: clamp(200px,30vw,280px);
+  aspect-ratio: 0.707;
+  background: #07070D;
+  border: 0.5px solid rgba(0,170,255,0.25);
+  border-radius: 10px;
+  position:relative; overflow:hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 0.5px rgba(201,168,76,.15);
+}
+.pdf-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background: var(--blue);
+}
+.pdf-card::after {
+  content:'';
+  position:absolute; left:0; top:0; bottom:0; width:3px;
+  background: var(--blue);
+}
+.pdf-inner {
+  position:absolute; inset:0;
+  padding:20px 18px;
+  display:flex; flex-direction:column;
+}
+.pdf-badge {
+  font-family:'Space Mono',monospace; font-size:7px;
+  letter-spacing:1.5px; color:var(--blue);
+  background:rgba(0,170,255,.08);
+  border:0.5px solid rgba(0,170,255,.2);
+  border-radius:3px;
+  padding:3px 7px; display:inline-block;
+  margin-bottom:14px; width:fit-content;
+}
+.pdf-title {
+  font-family:'Rajdhani',sans-serif;
+  font-size:clamp(14px,2.5vw,19px);
+  font-weight:700; line-height:1.1;
+  color:var(--white); margin-bottom:6px;
+}
+.pdf-title span { color:var(--blue); display:block; }
+.pdf-sub {
+  font-size:9px; color:var(--steel);
+  line-height:1.5; margin-bottom:14px;
+}
+.pdf-lines {
+  flex:1; display:flex; flex-direction:column; gap:4px; margin-bottom:12px;
+}
+.pdf-line {
+  height:1.5px; border-radius:1px;
+  background:rgba(138,155,176,0.12);
+}
+.pdf-line.b { background:rgba(0,170,255,0.15); width:60%; }
+.pdf-footer-bar {
+  background: rgba(0,170,255,.06);
+  border-top: 0.5px solid rgba(0,170,255,.15);
+  margin:0 -18px -20px;
+  padding:8px 18px;
+  font-family:'Rajdhani',sans-serif;
+  font-size:9px; letter-spacing:1.5px; font-weight:600;
+  color:var(--blue);
+}
+.pdf-circle {
+  position:absolute; right:-20px; top:-20px;
+  width:80px; height:80px;
+  border-radius:50%;
+  border:0.5px solid rgba(0,170,255,.08);
+}
+.pdf-circle2 {
+  position:absolute; right:-30px; top:-30px;
+  width:120px; height:120px;
+  border-radius:50%;
+  border:0.5px solid rgba(0,170,255,.05);
+}
+.pdf-pages-num {
+  position:absolute; right:14px; bottom:42px;
+  font-family:'Space Mono',monospace;
+  font-size:8px; color:rgba(138,155,176,.4);
+}
 </style>
 </head>
 <body>
@@ -628,6 +826,99 @@ body {
   <div class="scroll-hint">
     <div class="scroll-line"></div>
     <div class="scroll-label">SCROLL</div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════ -->
+<!-- S0 — LEAD MAGNET: Guida Gratuita    -->
+<!-- ════════════════════════════════════ -->
+<section class="lm-section reveal" id="guida-gratuita">
+  <div class="lm-banner">
+
+    <!-- SINISTRA: testo + form -->
+    <div class="lm-left">
+      <span class="lm-prelabel">// FASE PRE-LANCIO  —  ACCESSO GRATUITO</span>
+
+      <h2 class="lm-title">
+        5 esercizi per il<br>
+        dolore cervicale.<br>
+        <span class="accent-gold">Gratis. Subito.</span>
+      </h2>
+
+      <p class="lm-body" data-it="Una guida PDF pratica con 5 esercizi fisioterapici per ridurre tensione, rigidità e dolore cervicale in 10 minuti al giorno. Nessuna attrezzatura necessaria." data-en="A practical PDF guide with 5 physiotherapy exercises to reduce tension, stiffness and cervical pain in 10 minutes a day. No equipment needed.">
+        Una guida PDF pratica con 5 esercizi fisioterapici per ridurre tensione, rigidità e dolore cervicale in 10 minuti al giorno. Nessuna attrezzatura necessaria.
+      </p>
+
+      <ul class="lm-checks">
+        <li data-it="Basato su protocolli di fisioterapia cervicale" data-en="Based on cervical physiotherapy protocols">Basato su protocolli di fisioterapia cervicale</li>
+        <li data-it="Istruzioni passo per passo con muscoli coinvolti" data-en="Step-by-step instructions with muscles involved">Istruzioni passo per passo con muscoli coinvolti</li>
+        <li data-it="Include il principio di trazione su cui si basa AXIS CORE" data-en="Includes the traction principle behind AXIS CORE">Include il principio di trazione su cui si basa AXIS CORE</li>
+        <li data-it="Nessun account. Accesso immediato via email." data-en="No account. Immediate access via email.">Nessun account. Accesso immediato via email.</li>
+      </ul>
+
+      <!-- Form -->
+      <div class="lm-form" id="lmForm">
+        <input type="text" class="lm-input" id="lmName"
+          placeholder="Il tuo nome"
+          data-placeholder-it="Il tuo nome"
+          data-placeholder-en="Your name">
+        <input type="email" class="lm-input" id="lmEmail"
+          placeholder="La tua email"
+          data-placeholder-it="La tua email"
+          data-placeholder-en="Your email">
+        <button class="lm-submit" id="lmSubmit" onclick="submitLeadMagnet()"
+          data-it="RICEVI LA GUIDA GRATUITA →"
+          data-en="GET THE FREE GUIDE →">
+          RICEVI LA GUIDA GRATUITA →
+        </button>
+        <span class="lm-privacy" data-it="🔒 Nessuno spam. Cancellazione in qualsiasi momento. GDPR compliant." data-en="🔒 No spam. Unsubscribe anytime. GDPR compliant.">
+          🔒 Nessuno spam. Cancellazione in qualsiasi momento. GDPR compliant.
+        </span>
+      </div>
+
+      <!-- Success state -->
+      <div class="lm-success" id="lmSuccess">
+        <span class="lm-success-icon">✓</span>
+        <p>
+          <strong data-it="Controlla la tua email!" data-en="Check your email!">Controlla la tua email!</strong>
+          <span data-it="Ti abbiamo inviato la guida PDF. Benvenuto nella community AXIS CORE — riceverai aggiornamenti sul lancio e contenuti esclusivi." data-en="We've sent you the PDF guide. Welcome to the AXIS CORE community — you'll receive launch updates and exclusive content.">
+            Ti abbiamo inviato la guida PDF. Benvenuto nella community AXIS CORE — riceverai aggiornamenti sul lancio e contenuti esclusivi.
+          </span>
+        </p>
+      </div>
+    </div>
+
+    <!-- DESTRA: mockup PDF -->
+    <div class="lm-mockup">
+      <div class="pdf-card">
+        <div class="pdf-circle"></div>
+        <div class="pdf-circle2"></div>
+        <div class="pdf-inner">
+          <div class="pdf-badge">GUIDA GRATUITA</div>
+          <div class="pdf-title">
+            5 ESERCIZI<br>PER IL DOLORE
+            <span>CERVICALE</span>
+          </div>
+          <div class="pdf-sub">Routine quotidiana 10 min<br>Basata su fisioterapia cervicale</div>
+          <div class="pdf-lines">
+            <div class="pdf-line b"></div>
+            <div class="pdf-line" style="width:100%"></div>
+            <div class="pdf-line" style="width:85%"></div>
+            <div class="pdf-line b" style="width:55%"></div>
+            <div class="pdf-line" style="width:90%"></div>
+            <div class="pdf-line" style="width:70%"></div>
+            <div class="pdf-line b" style="width:65%"></div>
+            <div class="pdf-line" style="width:80%"></div>
+            <div class="pdf-line" style="width:95%"></div>
+            <div class="pdf-line b" style="width:50%"></div>
+          </div>
+          <div class="pdf-pages-num">8 PAG</div>
+          <div class="pdf-footer-bar">AXIS CORE  —  axiscore.tech</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -921,6 +1212,33 @@ function showSuccess() {
 
 const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ─── LEAD MAGNET SUBMIT ────────────────────────────────────────────────────
+async function submitLeadMagnet() {
+  const name  = document.getElementById('lmName').value.trim();
+  const email = document.getElementById('lmEmail').value.trim();
+  let ok = true;
+  ['lmName','lmEmail'].forEach(id => document.getElementById(id).classList.remove('error'));
+  if(!name)  { document.getElementById('lmName').classList.add('error');  ok=false; }
+  if(!email || !email.includes('@')) { document.getElementById('lmEmail').classList.add('error'); ok=false; }
+  if(!ok) return;
+
+  const btn = document.getElementById('lmSubmit');
+  btn.textContent = currentLang === 'it' ? 'INVIO IN CORSO...' : 'SENDING...';
+  btn.disabled = true;
+
+  try {
+    await fetch('https://warranty.axiscore.tech/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, lang: currentLang, type: 'lead_magnet' })
+    });
+  } catch(e) { /* silently continue */ }
+
+  document.getElementById('lmForm').style.display = 'none';
+  document.getElementById('lmSuccess').style.display = 'block';
+}
+// ─── END LEAD MAGNET ───────────────────────────────────────────────────────
 </script>
 </body>
 </html>
