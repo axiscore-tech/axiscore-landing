@@ -498,6 +498,11 @@ body {
 .success-msg p { font-family:'Rajdhani',sans-serif; font-size:18px; font-weight:600; letter-spacing:1px; color:var(--gold); margin-bottom:8px; }
 .success-msg span { font-size:13px; color:var(--steel); }
 
+.field-hint { display:block; font-size:10px; color:var(--steel); margin-top:5px; letter-spacing:.5px; font-family:'Space Mono',monospace; }
+.field-hint.error-hint { color:#E24B4A; }
+.form-lang-row { display:flex; gap:8px; margin-bottom:16px; }
+.form-lang-btn { font-family:'Rajdhani',sans-serif; font-size:12px; font-weight:700; letter-spacing:2px; padding:5px 14px; border:1px solid var(--steel); background:transparent; color:var(--steel); cursor:pointer; transition:all .2s; }
+.form-lang-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(193,150,84,.08); }
 .privacy-note { font-size:10px; color:var(--steel); opacity:.45; text-align:center; margin-top:16px; line-height:1.65; }
 
 /* ─── FOOTER ─── */
@@ -1093,6 +1098,10 @@ body {
         <p class="form-subtitle" data-it="30 secondi. Nessuna carta di credito. Garanzia attiva immediatamente." data-en="30 seconds. No credit card. Warranty activated immediately.">
           30 secondi. Nessuna carta di credito. Garanzia attiva immediatamente.
         </p>
+        <div class="form-lang-row">
+          <button class="form-lang-btn active" id="formLangIt" onclick="setFormLang('it')">IT</button>
+          <button class="form-lang-btn" id="formLangEn" onclick="setFormLang('en')">EN</button>
+        </div>
         <div class="field-group">
           <label class="field-label" data-it="IL TUO NOME" data-en="YOUR NAME">IL TUO NOME</label>
           <input type="text" class="field-input" id="wName" placeholder="Federico" data-placeholder-it="Federico" data-placeholder-en="Your name">
@@ -1102,8 +1111,9 @@ body {
           <input type="email" class="field-input" id="wEmail" placeholder="nome@email.com">
         </div>
         <div class="field-group">
-          <label class="field-label" data-it="CODICE ORDINE (OPZIONALE)" data-en="ORDER CODE (OPTIONAL)">CODICE ORDINE (OPZIONALE)</label>
-          <input type="text" class="field-input" id="wOrder" placeholder="AMZ-XXXXXXX" style="text-transform:uppercase">
+          <label class="field-label" data-it="NUMERO SERIALE" data-en="SERIAL NUMBER">NUMERO SERIALE</label>
+          <input type="text" class="field-input" id="wSerial" placeholder="AXC-A-0001" data-placeholder-it="AXC-A-0001" data-placeholder-en="AXC-A-0001" style="text-transform:uppercase" maxlength="10">
+          <span class="field-hint" id="wSerialHint" data-it="Formato: AXC-X-0000 — trovi il seriale sul retro del prodotto" data-en="Format: AXC-X-0000 — find the serial on the back of the product">Formato: AXC-X-0000 — trovi il seriale sul retro del prodotto</span>
         </div>
         <button class="submit-btn" id="submitBtn" onclick="submitWarranty()" data-it="ATTIVA GARANZIA GRATUITA →" data-en="ACTIVATE FREE WARRANTY →">ATTIVA GARANZIA GRATUITA →</button>
         <p class="privacy-note" data-it="🔒 Dati non condivisi con terze parti. Cancellazione in qualsiasi momento. GDPR compliant." data-en="🔒 Data never shared with third parties. Unsubscribe anytime. GDPR compliant.">
@@ -1160,16 +1170,8 @@ function switchTab(side) {
 }
 
 function toggleLang() {
-  currentLang = currentLang==='it' ? 'en' : 'it';
-  document.getElementById('langBtn').textContent = currentLang==='it' ? 'EN' : 'IT';
-  document.querySelectorAll('[data-it]').forEach(el => {
-    const txt = el.getAttribute('data-'+currentLang);
-    if(txt) el.innerHTML = txt;
-  });
-  document.querySelectorAll('[data-placeholder-it]').forEach(el => {
-    el.placeholder = el.getAttribute('data-placeholder-'+currentLang)||el.placeholder;
-  });
-  selectStep(currentStep);
+  const newLang = currentLang==='it' ? 'en' : 'it';
+  setFormLang(newLang);
 }
 
 function subscribeVideo() {
@@ -1194,13 +1196,38 @@ function subscribeVideo() {
   });
 }
 
+function setFormLang(lang) {
+  currentLang = lang;
+  document.getElementById('langBtn').textContent = lang==='it' ? 'EN' : 'IT';
+  document.getElementById('formLangIt').classList.toggle('active', lang==='it');
+  document.getElementById('formLangEn').classList.toggle('active', lang==='en');
+  document.querySelectorAll('[data-it]').forEach(el => {
+    const txt = el.getAttribute('data-'+lang);
+    if(txt) el.innerHTML = txt;
+  });
+  document.querySelectorAll('[data-placeholder-it]').forEach(el => {
+    el.placeholder = el.getAttribute('data-placeholder-'+lang)||el.placeholder;
+  });
+  selectStep(currentStep);
+}
+
 function submitWarranty() {
-  const name  = document.getElementById('wName').value.trim();
-  const email = document.getElementById('wEmail').value.trim();
+  const name   = document.getElementById('wName').value.trim();
+  const email  = document.getElementById('wEmail').value.trim();
+  const serial = document.getElementById('wSerial').value.trim().toUpperCase();
+  const serialRegex = /^AXC-[A-Z]-\d{4}$/;
   let ok = true;
-  ['wName','wEmail'].forEach(id=>document.getElementById(id).classList.remove('error'));
+
+  ['wName','wEmail','wSerial'].forEach(id=>document.getElementById(id).classList.remove('error'));
+  document.getElementById('wSerialHint').classList.remove('error-hint');
+
   if(!name)  { document.getElementById('wName').classList.add('error');  ok=false; }
   if(!email||!email.includes('@')) { document.getElementById('wEmail').classList.add('error'); ok=false; }
+  if(!serialRegex.test(serial)) {
+    document.getElementById('wSerial').classList.add('error');
+    document.getElementById('wSerialHint').classList.add('error-hint');
+    ok=false;
+  }
   if(!ok) return;
 
   const btn = document.getElementById('submitBtn');
@@ -1210,7 +1237,7 @@ function submitWarranty() {
   fetch('https://warranty.axiscore.tech/', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({ name, email, order: document.getElementById('wOrder').value, lang: currentLang })
+    body: JSON.stringify({ name, email, serialNumber: serial, language: currentLang, lang: currentLang })
   })
   .then(()=>showSuccess())
   .catch(()=>showSuccess());
