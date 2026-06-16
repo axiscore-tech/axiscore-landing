@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guida Gratuita al Dolore Cervicale — AXIS CORE</title>
+<meta name="description" content="Scarica gratis la guida AXIS CORE: cause, sintomi e rimedi efficaci per il dolore cervicale. Esercizi pratici da fare a casa.">
+<meta property="og:title" content="Guida Gratuita — Dolore Cervicale: cause, sintomi e rimedi">
+<meta property="og:description" content="La guida pratica di AXIS CORE sul dolore cervicale. Scaricala gratis.">
+<meta property="og:image" content="https://axiscore.tech/Immagini&Logo/axiscore_profile_square.png">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:  #07070D;
+  --black2: #0D0D18;
+  --black3: #12121F;
+  --blue:   #00AAFF;
+  --blue-dim: #0077B3;
+  --blue-glow: rgba(0,170,255,0.10);
+  --gold:   #C9A84C;
+  --gold-glow: rgba(201,168,76,0.12);
+  --steel:  #8A9BB0;
+  --white:  #F0F4F8;
+  --white-dim: #A0AABB;
+  --border: rgba(255,255,255,0.07);
+  --border-blue: rgba(0,170,255,0.25);
+  --border-gold: rgba(201,168,76,0.3);
+  --max: 960px;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { background:var(--black); color:var(--white); font-family:'Inter',sans-serif; font-weight:300; min-height:100vh; overflow-x:hidden; }
+
+.nav { padding:18px clamp(20px,5vw,60px); border-bottom:0.5px solid var(--border); background:rgba(7,7,13,0.9); backdrop-filter:blur(12px); position:sticky; top:0; z-index:100; }
+.nav-inner { max-width:var(--max); margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+.nav-logo { font-family:'Rajdhani',sans-serif; font-size:20px; font-weight:700; letter-spacing:4px; color:var(--white); text-decoration:none; }
+.nav-logo span { color:var(--blue); }
+.nav-back { font-family:'Rajdhani',sans-serif; font-size:12px; font-weight:600; letter-spacing:2px; color:var(--steel); text-decoration:none; border:0.5px solid var(--border); padding:6px 14px; border-radius:4px; transition:all .2s; }
+.nav-back:hover { color:var(--white); border-color:var(--border-blue); }
+
+.hero { padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px); text-align:center; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:700px; height:400px; background:radial-gradient(ellipse, rgba(0,170,255,.06) 0%, transparent 65%); pointer-events:none; }
+.hero-inner { max-width:var(--max); margin:0 auto; position:relative; }
+.badge-free { display:inline-block; font-family:'Rajdhani',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; color:var(--gold); border:0.5px solid var(--border-gold); background:var(--gold-glow); padding:5px 16px; border-radius:3px; margin-bottom:28px; }
+.hero-title { font-family:'Rajdhani',sans-serif; font-size:clamp(32px,5vw,54px); font-weight:700; line-height:1.1; letter-spacing:1px; margin-bottom:20px; }
+.hero-title .accent { color:var(--blue); }
+.hero-title .accent-gold { color:var(--gold); }
+.hero-sub { font-size:clamp(15px,2vw,17px); color:var(--white-dim); line-height:1.7; max-width:600px; margin:0 auto 40px; }
+.guide-preview { display:inline-flex; align-items:center; gap:16px; background:var(--black2); border:0.5px solid var(--border-blue); border-radius:10px; padding:16px 24px; margin-bottom:48px; text-align:left; }
+.guide-icon { width:48px; height:60px; background:var(--blue-glow); border:0.5px solid var(--border-blue); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.guide-icon svg { width:24px; height:24px; stroke:var(--blue); fill:none; stroke-width:1.5; }
+.guide-meta-title { font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:700; letter-spacing:2px; color:var(--white); margin-bottom:4px; }
+.guide-meta-sub { font-size:12px; color:var(--steel); }
+
+.inside { padding:60px clamp(20px,5vw,60px); background:var(--black2); border-top:0.5px solid var(--border); border-bottom:0.5px solid var(--border); }
+.inside-inner { max-width:var(--max); margin:0 auto; }
+.inside-label { font-family:'Rajdhani',sans-serif; font-size:11px; font-weight:700; letter-spacing:3px; color:var(--steel); margin-bottom:32px; text-align:center; }
+.inside-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; }
+.inside-card { background:var(--black3); border:0.5px solid var(--border); border-radius:8px; padding:20px; transition:border-color .2s; }
+.inside-card:hover { border-color:var(--border-blue); }
+.inside-num { font-family:'Rajdhani',sans-serif; font-size:28px; font-weight:700; color:var(--blue); opacity:.4; margin-bottom:10px; }
+.inside-title { font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; letter-spacing:1px; color:var(--white); margin-bottom:8px; }
+.inside-desc { font-size:13px; color:var(--white-dim); line-height:1.6; }
+
+.form-section { padding:60px clamp(20px,5vw,60px) 80px; }
+.form-inner { max-width:480px; margin:0 auto; }
+.form-title { font-family:'Rajdhani',sans-serif; font-size:clamp(22px,3vw,30px); font-weight:700; letter-spacing:1px; text-align:center; margin-bottom:10px; }
+.form-sub { font-size:14px; color:var(--steel); text-align:center; margin-bottom:32px; line-height:1.6; }
+.field-group { margin-bottom:16px; }
+.field-label { display:block; font-family:'Rajdhani',sans-serif; font-size:11px; font-weight:700; letter-spacing:2px; color:var(--steel); margin-bottom:8px; }
+.field-input { width:100%; background:var(--black2); border:0.5px solid var(--border); border-radius:6px; padding:14px 16px; color:var(--white); font-family:'Inter',sans-serif; font-size:15px; font-weight:300; transition:border-color .2s; outline:none; }
+.field-input:focus { border-color:var(--border-blue); }
+.field-input.error { border-color:#E24B4A; }
+.field-input::placeholder { color:var(--white-dim); opacity:.5; }
+.submit-btn { width:100%; margin-top:8px; padding:16px; background:var(--blue); color:#fff; border:none; border-radius:6px; font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700; letter-spacing:2px; cursor:pointer; transition:background .2s,transform .1s; }
+.submit-btn:hover { background:var(--blue-dim); }
+.submit-btn:active { transform:scale(.98); }
+.submit-btn:disabled { opacity:.6; cursor:default; }
+.privacy-note { font-size:12px; color:var(--white-dim); text-align:center; margin-top:14px; opacity:.6; }
+
+.success-box { display:none; text-align:center; padding:32px 24px; background:var(--black2); border:0.5px solid rgba(29,158,117,0.4); border-radius:10px; margin-top:8px; }
+.success-icon { width:52px; height:52px; background:rgba(29,158,117,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; font-size:24px; }
+.success-title { font-family:'Rajdhani',sans-serif; font-size:22px; font-weight:700; letter-spacing:1px; color:var(--white); margin-bottom:10px; }
+.success-text { font-size:14px; color:var(--white-dim); margin-bottom:24px; line-height:1.6; }
+.download-btn { display:inline-block; padding:14px 32px; background:transparent; border:1px solid var(--gold); color:var(--gold); font-family:'Rajdhani',sans-serif; font-size:14px; font-weight:700; letter-spacing:2px; border-radius:6px; text-decoration:none; transition:all .2s; }
+.download-btn:hover { background:var(--gold-glow); }
+
+.footer { padding:30px; text-align:center; border-top:0.5px solid var(--border); }
+.footer-logo { font-family:'Rajdhani',sans-serif; font-size:16px; font-weight:700; letter-spacing:4px; color:var(--white); margin-bottom:6px; }
+.footer-logo span { color:var(--blue); }
+.footer-copy { font-size:11px; color:var(--white-dim); opacity:.5; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">AXIS <span>CORE</span></a>
+    <a href="/" class="nav-back">← TORNA AL SITO</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="badge-free">DOWNLOAD GRATUITO</div>
+    <h1 class="hero-title">
+      Dolore Cervicale:<br>
+      <span class="accent">Cause, Sintomi</span> e<br>
+      <span class="accent-gold">Rimedi Efficaci</span>
+    </h1>
+    <p class="hero-sub">La guida pratica di AXIS CORE sul dolore cervicale. Esercizi da fare a casa, protocolli di trazione e tutto quello che nessuno ti ha mai spiegato sul tuo collo.</p>
+    <div class="guide-preview">
+      <div class="guide-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+      </div>
+      <div>
+        <div class="guide-meta-title">AXIS CORE — GUIDA CERVICALE</div>
+        <div class="guide-meta-sub">PDF gratuito · In italiano · Aggiornato 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inside">
+  <div class="inside-inner">
+    <div class="inside-label">COSA TROVI NELLA GUIDA</div>
+    <div class="inside-grid">
+      <div class="inside-card">
+        <div class="inside-num">01</div>
+        <div class="inside-title">Le cause reali</div>
+        <div class="inside-desc">Perché il dolore cervicale cronico non dipende dall’età ma dalle tue abitudini posturali quotidiane.</div>
+      </div>
+      <div class="inside-card">
+        <div class="inside-num">02</div>
+        <div class="inside-title">La lordosi cervicale</div>
+        <div class="inside-desc">Cos’è, perché si perde con il tempo e come recuperarla con esercizi mirati da 8 minuti al giorno.</div>
+      </div>
+      <div class="inside-card">
+        <div class="inside-num">03</div>
+        <div class="inside-title">Esercizi pratici</div>
+        <div class="inside-desc">Protocollo completo con warm-up, trazione cervicale e recupero. Nessun attrezzo necessario per iniziare.</div>
+      </div>
+      <div class="inside-card">
+        <div class="inside-num">04</div>
+        <div class="inside-title">Errori da evitare</div>
+        <div class="inside-desc">I 5 errori più comuni che peggiorano il dolore invece di alleviarlo — e come correggerli subito.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="form-inner">
+    <div class="form-title">Scarica la guida gratis</div>
+    <p class="form-sub">Inserisci il tuo nome e la tua email.<br>Ricevi il PDF subito, senza spam.</p>
+    <div id="formWrap">
+      <div class="field-group">
+        <label class="field-label">IL TUO NOME</label>
+        <input type="text" class="field-input" id="leadName" placeholder="Federico">
+      </div>
+      <div class="field-group">
+        <label class="field-label">LA TUA EMAIL</label>
+        <input type="email" class="field-input" id="leadEmail" placeholder="nome@email.com">
+      </div>
+      <button class="submit-btn" id="leadBtn" onclick="submitLead()">SCARICA LA GUIDA GRATUITA →</button>
+      <p class="privacy-note">🔒 Nessuno spam. Cancellazione in qualsiasi momento. GDPR compliant.</p>
+    </div>
+    <div class="success-box" id="successBox">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Eccola — scaricala ora</div>
+      <p class="success-text">Clicca il bottone qui sotto per aprire la guida PDF.<br>Ti abbiamo inviato anche un link via email, così la trovi sempre.</p>
+      <a href="/guida-cervicale.pdf" target="_blank" class="download-btn">↓ &nbsp;SCARICA IL PDF GRATUITO</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-logo">AXIS <span>CORE</span></div>
+  <p class="footer-copy">© 2026 Axis Core — Bio-Recovery Technologies · <a href="/privacy-policy.html" style="color:inherit;opacity:.6;">Privacy Policy</a></p>
+</footer>
+
+<script>
+async function submitLead() {
+  const name  = document.getElementById('leadName').value.trim();
+  const email = document.getElementById('leadEmail').value.trim();
+  let ok = true;
+  ['leadName','leadEmail'].forEach(id => document.getElementById(id).classList.remove('error'));
+  if (!name)  { document.getElementById('leadName').classList.add('error');  ok = false; }
+  if (!email || !email.includes('@')) { document.getElementById('leadEmail').classList.add('error'); ok = false; }
+  if (!ok) return;
+  const btn = document.getElementById('leadBtn');
+  btn.textContent = 'INVIO IN CORSO...';
+  btn.disabled = true;
+  try {
+    await fetch('https://warranty.axiscore.tech/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, lang: 'it' }),
+    });
+  } catch(e) { console.warn(e); }
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('successBox').style.display = 'block';
+}
+</script>
+</body>
+</html>

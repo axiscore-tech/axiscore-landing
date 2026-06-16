@@ -1173,16 +1173,25 @@ function toggleLang() {
 }
 
 function subscribeVideo() {
-  const email = document.getElementById('videoEmail').value;
+  const email = document.getElementById('videoEmail').value.trim();
   if(!email||!email.includes('@')) {
     document.getElementById('videoEmail').style.borderColor='#E24B4A';
     setTimeout(()=>document.getElementById('videoEmail').style.borderColor='',2000);
     return;
   }
   const btn = document.querySelector('.cs-btn');
-  btn.textContent = currentLang==='it' ? '✓ ISCRITTO' : '✓ SUBSCRIBED';
-  btn.style.background = '#1D9E75';
+  btn.textContent = currentLang==='it' ? 'INVIO...' : 'SENDING...';
+  btn.disabled = true;
   document.getElementById('videoEmail').disabled = true;
+
+  fetch('https://warranty.axiscore.tech/waitlist', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ email, lang: currentLang })
+  }).finally(() => {
+    btn.textContent = currentLang==='it' ? '\u2713 ISCRITTO' : '\u2713 SUBSCRIBED';
+    btn.style.background = '#1D9E75';
+  });
 }
 
 function submitWarranty() {
