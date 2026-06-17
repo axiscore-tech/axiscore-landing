@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXIS CORE — Admin Seriali</title>
+<style>
+  :root {
+    --black:   #07070D;
+    --black2:  #0D0D18;
+    --blue:    #00AAFF;
+    --gold:    #C9A84C;
+    --steel:   #8A9BB0;
+    --ice:     #F0F4F8;
+    --green:   #1D9E75;
+    --red:     #E05555;
+    --orange:  #E07A20;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--black); color: var(--ice); font-family: 'Inter', system-ui, sans-serif; min-height: 100vh; }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    background: var(--black2);
+    border-bottom: 1px solid rgba(0,170,255,.15);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .topbar-logo { font-family: 'Rajdhani', system-ui; font-size: 18px; font-weight: 700; letter-spacing: 3px; color: var(--ice); }
+  .topbar-logo span { color: var(--blue); }
+  .topbar-badge { font-size: 11px; color: var(--steel); background: rgba(0,170,255,.08); border: 1px solid rgba(0,170,255,.2); padding: 3px 10px; border-radius: 20px; letter-spacing: 1px; }
+  .topbar-right { display: flex; align-items: center; gap: 16px; }
+  .btn-logout { background: none; border: 1px solid rgba(138,155,176,.3); color: var(--steel); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 12px; transition: all .2s; }
+  .btn-logout:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── LOGIN ── */
+  #loginScreen {
+    display: flex; align-items: center; justify-content: center; min-height: 100vh;
+  }
+  .login-card {
+    background: var(--black2); border: 1px solid rgba(0,170,255,.15); border-radius: 16px;
+    padding: 48px 40px; width: 380px; text-align: center;
+  }
+  .login-card h1 { font-size: 22px; letter-spacing: 4px; margin-bottom: 8px; }
+  .login-card p { color: var(--steel); font-size: 13px; margin-bottom: 32px; }
+  .login-input {
+    width: 100%; padding: 12px 16px; background: rgba(255,255,255,.04);
+    border: 1px solid rgba(138,155,176,.3); border-radius: 8px; color: var(--ice);
+    font-size: 14px; letter-spacing: 2px; text-align: center; margin-bottom: 16px;
+    font-family: 'Space Mono', monospace;
+  }
+  .login-input:focus { outline: none; border-color: var(--blue); }
+  .login-error { color: var(--red); font-size: 12px; margin-bottom: 12px; min-height: 18px; }
+
+  /* ── MAIN LAYOUT ── */
+  #appScreen { display: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* ── STATS ROW ── */
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .stat-card {
+    background: var(--black2); border: 1px solid rgba(0,170,255,.12); border-radius: 12px; padding: 20px 24px;
+  }
+  .stat-label { font-size: 11px; color: var(--steel); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .stat-value { font-size: 28px; font-weight: 700; color: var(--blue); font-family: 'Space Mono', monospace; }
+  .stat-sub { font-size: 12px; color: var(--steel); margin-top: 4px; }
+
+  /* ── SEZIONI ── */
+  .section { background: var(--black2); border: 1px solid rgba(0,170,255,.12); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .section-title { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: rgba(0,170,255,.15); }
+
+  /* ── FORM CREA LOTTO ── */
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 11px; color: var(--steel); letter-spacing: 1.5px; text-transform: uppercase; }
+  .field input, .field select, .field textarea {
+    padding: 10px 14px; background: rgba(255,255,255,.04);
+    border: 1px solid rgba(138,155,176,.25); border-radius: 8px;
+    color: var(--ice); font-size: 14px; font-family: inherit;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none; border-color: var(--blue); background: rgba(0,170,255,.04);
+  }
+  .field select option { background: var(--black2); }
+  .form-actions { margin-top: 20px; display: flex; align-items: center; gap: 16px; }
+  .btn-primary {
+    background: var(--blue); color: var(--black); border: none; padding: 12px 28px;
+    border-radius: 8px; font-weight: 700; font-size: 13px; letter-spacing: 1.5px;
+    cursor: pointer; transition: opacity .2s; text-transform: uppercase;
+  }
+  .btn-primary:hover { opacity: .85; }
+  .btn-primary:disabled { opacity: .4; cursor: not-allowed; }
+  .form-result { font-size: 13px; padding: 10px 16px; border-radius: 8px; display: none; }
+  .form-result.success { background: rgba(29,158,117,.12); border: 1px solid rgba(29,158,117,.3); color: #4cd9a8; }
+  .form-result.error   { background: rgba(224,85,85,.10); border: 1px solid rgba(224,85,85,.3); color: #f08080; }
+
+  /* ── TABELLA LOTTI ── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { color: var(--steel); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 10px 14px; text-align: left; border-bottom: 1px solid rgba(138,155,176,.15); }
+  td { padding: 12px 14px; border-bottom: 1px solid rgba(138,155,176,.08); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(0,170,255,.03); }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: .5px; }
+  .badge-a { background: rgba(0,170,255,.12); color: var(--blue); border: 1px solid rgba(0,170,255,.3); }
+  .badge-b { background: rgba(201,168,76,.12); color: var(--gold); border: 1px solid rgba(201,168,76,.3); }
+  .progress-bar-wrap { background: rgba(255,255,255,.06); border-radius: 4px; height: 6px; width: 100px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; border-radius: 4px; background: var(--green); transition: width .3s; }
+  .mono { font-family: 'Space Mono', monospace; font-size: 12px; }
+  .empty-state { text-align: center; color: var(--steel); padding: 40px; font-size: 13px; }
+
+  /* ── RICERCA SERIALE ── */
+  .search-row { display: flex; gap: 12px; align-items: flex-end; }
+  .search-row .field { flex: 1; }
+  .serial-result { margin-top: 20px; display: none; }
+  .serial-card { background: rgba(0,170,255,.05); border: 1px solid rgba(0,170,255,.2); border-radius: 10px; padding: 20px 24px; }
+  .serial-field { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(138,155,176,.1); font-size: 13px; }
+  .serial-field:last-child { border-bottom: none; }
+  .serial-field .key { color: var(--steel); }
+  .serial-field .val { font-family: 'Space Mono', monospace; color: var(--ice); }
+  .status-registered { color: var(--green); }
+  .status-free { color: var(--steel); }
+  .status-not-found { color: var(--red); }
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN ─────────────────────────────────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>AXIS <span style="color:var(--blue)">CORE</span></h1>
+    <p>Pannello amministrazione seriali</p>
+    <input type="password" class="login-input" id="secretInput" placeholder="••••••••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="login-error" id="loginError"></div>
+    <button class="btn-primary" style="width:100%" onclick="doLogin()" id="loginBtn">ACCEDI →</button>
+  </div>
+</div>
+
+<!-- ── APP ───────────────────────────────────────────────────────────────── -->
+<div id="appScreen">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:16px">
+      <div class="topbar-logo">AXIS <span>CORE</span></div>
+      <div class="topbar-badge">ADMIN — SERIALI</div>
+    </div>
+    <div class="topbar-right">
+      <span style="font-size:12px;color:var(--steel)" id="workerUrl">warranty.axiscore.tech</span>
+      <button class="btn-logout" onclick="doLogout()">Esci</button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-card"><div class="stat-label">Lotti totali</div><div class="stat-value" id="statBatches">—</div></div>
+      <div class="stat-card"><div class="stat-label">Seriali generati</div><div class="stat-value" id="statSerials">—</div></div>
+      <div class="stat-card"><div class="stat-label">Registrati</div><div class="stat-value" id="statRegistered">—</div></div>
+      <div class="stat-card"><div class="stat-label">% attivazione</div><div class="stat-value" id="statPct">—</div><div class="stat-sub">garanzie attivate</div></div>
+    </div>
+
+    <!-- Crea nuovo lotto -->
+    <div class="section">
+      <div class="section-title">Crea nuovo lotto di produzione</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Variante prodotto</label>
+          <select id="fVariant">
+            <option value="A">A — Standard (doppio lato 15°/25°)</option>
+            <option value="B">B — Premium (grafene USB)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Quantità seriali</label>
+          <input type="number" id="fQuantity" placeholder="500" min="1" max="10000" value="500">
+        </div>
+        <div class="field">
+          <label>Data ordine produzione</label>
+          <input type="date" id="fDate" value="">
+        </div>
+        <div class="field">
+          <label>Note (opzionale)</label>
+          <input type="text" id="fNotes" placeholder="Es. Fornitore XYZ, PO #123">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-primary" id="createBtn" onclick="createBatch()">GENERA LOTTO →</button>
+        <div class="form-result" id="batchResult"></div>
+      </div>
+    </div>
+
+    <!-- Lista lotti -->
+    <div class="section">
+      <div class="section-title">Lotti di produzione</div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Codice lotto</th>
+              <th>Variante</th>
+              <th>Quantità</th>
+              <th>Range seriali</th>
+              <th>Data ordine</th>
+              <th>Registrati</th>
+              <th>Attivazione</th>
+            </tr>
+          </thead>
+          <tbody id="batchTable">
+            <tr><td colspan="7" class="empty-state">Caricamento...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Ricerca seriale -->
+    <div class="section">
+      <div class="section-title">Ricerca seriale</div>
+      <div class="search-row">
+        <div class="field">
+          <label>Numero seriale</label>
+          <input type="text" id="searchSerial" placeholder="AXC-A-0001" style="text-transform:uppercase;font-family:'Space Mono',monospace;letter-spacing:2px"
+            onkeydown="if(event.key==='Enter')searchSerial()">
+        </div>
+        <button class="btn-primary" onclick="searchSerial()" style="margin-bottom:0;white-space:nowrap">CERCA →</button>
+      </div>
+      <div class="serial-result" id="serialResult"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const WORKER = 'https://warranty.axiscore.tech';
+let SECRET = '';
+
+// ── Imposta data odierna come default ────────────────────────────────────────
+document.getElementById('fDate').value = new Date().toISOString().split('T')[0];
+
+// ── Auth ──────────────────────────────────────────────────────────────────────
+async function doLogin() {
+  const s = document.getElementById('secretInput').value.trim();
+  if (!s) return;
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'Verifica...'; btn.disabled = true;
+  document.getElementById('loginError').textContent = '';
+
+  try {
+    const res = await fetch(`${WORKER}/admin/batch`, { headers: { Authorization: `Bearer ${s}` } });
+    if (res.ok) {
+      SECRET = s;
+      localStorage.setItem('axc_admin_secret', s);
+      showApp();
+    } else {
+      document.getElementById('loginError').textContent = 'Secret non valido.';
+    }
+  } catch {
+    document.getElementById('loginError').textContent = 'Errore di connessione.';
+  }
+  btn.textContent = 'ACCEDI →'; btn.disabled = false;
+}
+
+function doLogout() {
+  SECRET = '';
+  localStorage.removeItem('axc_admin_secret');
+  document.getElementById('appScreen').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('secretInput').value = '';
+}
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+  loadData();
+}
+
+// Auto-login se secret in localStorage
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('axc_admin_secret');
+  if (saved) { SECRET = saved; showApp(); }
+});
+
+// ── Carica dati ───────────────────────────────────────────────────────────────
+async function loadData() {
+  try {
+    const res = await fetch(`${WORKER}/admin/batch`, { headers: { Authorization: `Bearer ${SECRET}` } });
+    if (!res.ok) { doLogout(); return; }
+    const { batches } = await res.json();
+    renderStats(batches);
+    renderTable(batches);
+  } catch { /* silent */ }
+}
+
+function renderStats(batches) {
+  const totalSerials    = batches.reduce((s, b) => s + (b.total_serials || b.quantity || 0), 0);
+  const totalRegistered = batches.reduce((s, b) => s + (b.registered_count || 0), 0);
+  const pct = totalSerials ? Math.round(totalRegistered / totalSerials * 100) : 0;
+  document.getElementById('statBatches').textContent    = batches.length;
+  document.getElementById('statSerials').textContent    = totalSerials.toLocaleString('it');
+  document.getElementById('statRegistered').textContent = totalRegistered.toLocaleString('it');
+  document.getElementById('statPct').textContent        = pct + '%';
+}
+
+function renderTable(batches) {
+  const tbody = document.getElementById('batchTable');
+  if (!batches.length) {
+    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nessun lotto ancora creato</td></tr>';
+    return;
+  }
+  tbody.innerHTML = batches.map(b => {
+    const total = b.total_serials || b.quantity || 0;
+    const reg   = b.registered_count || 0;
+    const pct   = total ? Math.round(reg / total * 100) : 0;
+    const varBadge = `<span class="badge badge-${b.variant.toLowerCase()}">${b.variant}</span>`;
+    return `<tr>
+      <td class="mono">${b.batch_code}</td>
+      <td>${varBadge}</td>
+      <td class="mono">${(b.quantity||0).toLocaleString('it')}</td>
+      <td class="mono" style="font-size:11px">${b.serial_from} → ${b.serial_to}</td>
+      <td>${b.production_order_date}</td>
+      <td class="mono">${reg} / ${total}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+          <span style="font-size:12px;color:var(--steel)">${pct}%</span>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+// ── Crea lotto ────────────────────────────────────────────────────────────────
+async function createBatch() {
+  const variant  = document.getElementById('fVariant').value;
+  const quantity = parseInt(document.getElementById('fQuantity').value);
+  const date     = document.getElementById('fDate').value;
+  const notes    = document.getElementById('fNotes').value.trim();
+  const result   = document.getElementById('batchResult');
+  const btn      = document.getElementById('createBtn');
+
+  if (!date || !quantity || quantity < 1) {
+    showResult(result, 'error', 'Compila tutti i campi obbligatori.');
+    return;
+  }
+
+  btn.textContent = 'GENERAZIONE...'; btn.disabled = true;
+  result.style.display = 'none';
+
+  try {
+    const res = await fetch(`${WORKER}/admin/batch`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${SECRET}` },
+      body: JSON.stringify({ variant, quantity, production_order_date: date, notes: notes || undefined }),
+    });
+    const data = await res.json();
+
+    if (res.ok) {
+      showResult(result, 'success',
+        `✅ Lotto ${data.batch_code} creato — ${quantity.toLocaleString('it')} seriali generati (${data.serial_from} → ${data.serial_to})`
+      );
+      document.getElementById('fNotes').value = '';
+      loadData();
+    } else {
+      showResult(result, 'error', `❌ ${data.error || 'Errore sconosciuto'}`);
+    }
+  } catch {
+    showResult(result, 'error', '❌ Errore di connessione.');
+  }
+
+  btn.textContent = 'GENERA LOTTO →'; btn.disabled = false;
+}
+
+function showResult(el, type, msg) {
+  el.className = `form-result ${type}`;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// ── Ricerca seriale ───────────────────────────────────────────────────────────
+async function searchSerial() {
+  const serial = document.getElementById('searchSerial').value.trim().toUpperCase();
+  const result = document.getElementById('serialResult');
+  if (!serial) return;
+
+  result.innerHTML = '<div style="color:var(--steel);font-size:13px;padding:16px 0">Ricerca in corso...</div>';
+  result.style.display = 'block';
+
+  try {
+    const res = await fetch(`${WORKER}/admin/serial/${serial}`, {
+      headers: { Authorization: `Bearer ${SECRET}` }
+    });
+
+    if (res.status === 404) {
+      result.innerHTML = `<div style="color:var(--red);font-size:13px;padding:16px 0">❌ Seriale <strong>${serial}</strong> non trovato nel database.</div>`;
+      return;
+    }
+
+    const d = await res.json();
+    const isReg = !!d.registered_email;
+    const statusClass = isReg ? 'status-registered' : 'status-free';
+    const statusText  = isReg ? '✅ Registrato' : '○ Non registrato';
+
+    result.innerHTML = `<div class="serial-card">
+      <div class="serial-field"><span class="key">Seriale</span><span class="val">${d.serial_number}</span></div>
+      <div class="serial-field"><span class="key">Stato</span><span class="val ${statusClass}">${statusText}</span></div>
+      <div class="serial-field"><span class="key">Variante</span><span class="val">${d.product_variant || '—'}</span></div>
+      <div class="serial-field"><span class="key">Lotto</span><span class="val">${d.batch_code || '—'}</span></div>
+      <div class="serial-field"><span class="key">Data ordine produzione</span><span class="val">${d.production_order_date || '—'}</span></div>
+      ${isReg ? `
+      <div class="serial-field"><span class="key">Registrato da</span><span class="val">${d.registered_email}</span></div>
+      <div class="serial-field"><span class="key">Nome cliente</span><span class="val">${d.registered_name || '—'}</span></div>
+      <div class="serial-field"><span class="key">Data registrazione</span><span class="val">${d.registered_at || '—'}</span></div>
+      ` : ''}
+    </div>`;
+  } catch {
+    result.innerHTML = '<div style="color:var(--red);font-size:13px;padding:16px 0">❌ Errore di connessione.</div>';
+  }
+}
+</script>
+</body>
+</html>
