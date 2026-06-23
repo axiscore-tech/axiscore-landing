@@ -966,7 +966,7 @@ async function submitWarranty() {
     if(res.status === 404) {
       document.getElementById('wSerial').classList.add('error');
       showError(currentLang==='it'
-        ? '❌ Numero seriale non riconosciuto. Controlla l'etichetta del prodotto.'
+        ? '❌ Numero seriale non riconosciuto. Controlla l\'etichetta del prodotto.'
         : '❌ Serial number not recognized. Check the product label.');
     } else if(res.status === 409) {
       document.getElementById('wSerial').classList.add('error');
