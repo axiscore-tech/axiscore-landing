@@ -507,6 +507,9 @@ body {
 .footer-logo span { color:var(--blue); }
 .footer-tagline { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:3px; color:var(--steel); opacity:.45; margin-bottom:18px; }
 .footer-copy { font-size:11px; color:var(--steel); opacity:.3; line-height:1.75; }
+.footer-links { margin-top:14px; display:flex; justify-content:center; gap:18px; font-size:11px; }
+.footer-links a { color:var(--steel); opacity:.65; text-decoration:none; letter-spacing:.5px; transition:opacity .2s ease, color .2s ease; }
+.footer-links a:hover { opacity:1; color:var(--blue); }
 
 /* ─── SCROLL REVEAL ─── */
 .reveal { opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
@@ -847,6 +850,10 @@ body {
     © 2025 Axis Core — Bio-Recovery Technologies<br>
     <span data-it="Tutti i diritti riservati. Prodotto certificato CE / RoHS." data-en="All rights reserved. CE / RoHS certified product.">Tutti i diritti riservati. Prodotto certificato CE / RoHS.</span>
   </p>
+  <nav class="footer-links">
+    <a href="/privacy-policy.html" data-it="Privacy Policy" data-en="Privacy Policy">Privacy Policy</a>
+    <a href="/terms-of-service.html" data-it="Termini di Servizio" data-en="Terms of Service">Termini di Servizio</a>
+  </nav>
 </footer>
 
 <script>
