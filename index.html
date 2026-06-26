@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AXIS CORE — Bio-Recovery Technologies</title>
-<meta name="description" content="AXIS CORE — Cuscino per trazione cervicale. Bio-Recovery Technologies. Certificato CE/RoHS.">
+<meta name="description" content="AXIS CORE — Cuscino per trazione cervicale. Bio-Recovery Technologies. Conformità CE/MDR in fase di registrazione.">
 <meta property="og:title" content="AXIS CORE — Bio-Recovery Technologies">
 <meta property="og:description" content="Guida all'uso, attiva la garanzia estesa e accedi ai contenuti esclusivi.">
 <meta name="theme-color" content="#07070D">
@@ -181,6 +181,11 @@ body {
   padding:5px 10px; border:0.5px solid var(--border-gold);
   border-radius:3px; color:var(--gold); background:var(--gold-glow);
 }
+.cert-status-note {
+  font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.3px;
+  color:var(--white-dim); font-style:italic; margin:-18px 0 28px;
+  opacity:0; animation:fadeUp .8s .55s forwards;
+}
 
 .hero-cta {
   display:flex; flex-direction:column; gap:12px; max-width:420px;
@@ -356,6 +361,11 @@ body {
 }
 .side-a .uso-week { background:var(--blue-glow); color:var(--blue); border:0.5px solid var(--border-blue); }
 .side-b .uso-week { background:var(--gold-glow); color:var(--gold); border:0.5px solid var(--border-gold); }
+.comfort-note {
+  margin-top:16px; padding-top:14px; border-top:0.5px solid var(--border);
+  font-size:12px; color:var(--white-dim); line-height:1.5; font-style:italic;
+}
+.comfort-note strong { color:var(--steel); font-style:normal; }
 
 /* ─── SECTION 3 — ROUTINE ─── */
 .routine-grid {
@@ -587,11 +597,10 @@ body {
       </p>
 
       <div class="cert-row">
-        <span class="cert-badge">✓ CE CERTIFIED</span>
-        <span class="cert-badge">✓ ROHS</span>
         <span class="cert-badge">✓ PREMIUM FOAM</span>
         <span class="cert-badge">✓ USB GRAPHENE HEAT</span>
       </div>
+      <div class="cert-status-note" data-it="Conformità CE/RoHS e dispositivo medico: percorso di registrazione in corso." data-en="CE/RoHS and medical device compliance: registration process underway.">Conformità CE/RoHS e dispositivo medico: percorso di registrazione in corso.</div>
 
       <div class="hero-cta">
         <a href="#warranty" class="btn-primary" data-it="ATTIVA GARANZIA →" data-en="ACTIVATE WARRANTY →">ATTIVA GARANZIA →</a>
@@ -664,8 +673,8 @@ body {
           <div class="uso-angle">15°</div>
           <div class="uso-angle-label" data-it="Angolo di trazione cervicale" data-en="Cervical traction angle">Angolo di trazione cervicale</div>
           <ul class="uso-specs">
-            <li><span class="spec-dot"></span><span data-it="Curvatura a 15° che stimola la lordosi naturale cervicale" data-en="15° curvature stimulating natural cervical lordosis">Curvatura a 15° che stimola la lordosi naturale cervicale</span></li>
-            <li><span class="spec-dot"></span><span data-it="Decompressione graduale dei dischi C4–C7" data-en="Gradual decompression of discs C4–C7">Decompressione graduale dei dischi C4–C7</span></li>
+            <li><span class="spec-dot"></span><span data-it="Curvatura a 15° pensata per favorire la naturale curva cervicale" data-en="15° curvature designed to support the natural cervical curve">Curvatura a 15° pensata per favorire la naturale curva cervicale</span></li>
+            <li><span class="spec-dot"></span><span data-it="Supporta una decompressione graduale delle vertebre cervicali" data-en="Supports gradual decompression of the cervical vertebrae">Supporta una decompressione graduale delle vertebre cervicali</span></li>
             <li><span class="spec-dot"></span><span data-it="Schiuma poliuretanica ad alta densità per supporto costante" data-en="High-density polyurethane foam for consistent support">Schiuma poliuretanica ad alta densità per supporto costante</span></li>
             <li><span class="spec-dot"></span><span data-it="Ideale per i primi 7–14 giorni di utilizzo" data-en="Ideal for the first 7–14 days of use">Ideale per i primi 7–14 giorni di utilizzo</span></li>
           </ul>
@@ -681,11 +690,11 @@ body {
           <div class="uso-angle-label" data-it="Angolo di trazione cervicale" data-en="Cervical traction angle">Angolo di trazione cervicale</div>
           <ul class="uso-specs">
             <li><span class="spec-dot"></span><span data-it="25° per una decompressione attiva e profonda" data-en="25° for active and deep decompression">25° per una decompressione attiva e profonda</span></li>
-            <li><span class="spec-dot"></span><span data-it="Maggiore separazione intervertebrale C3–C7" data-en="Greater intervertebral separation C3–C7">Maggiore separazione intervertebrale C3–C7</span></li>
-            <li><span class="spec-dot"></span><span data-it="Variante con riscaldamento in grafene via USB (38–42°C)" data-en="Graphene USB heating variant (38–42°C)">Variante con riscaldamento in grafene via USB (38–42°C)</span></li>
+            <li><span class="spec-dot"></span><span data-it="Supporta una maggiore decompressione delle vertebre cervicali" data-en="Supports greater decompression of the cervical vertebrae">Supporta una maggiore decompressione delle vertebre cervicali</span></li>
             <li><span class="spec-dot"></span><span data-it="Per utenti con pratica consolidata (dalla settimana 3)" data-en="For users with established practice (from week 3)">Per utenti con pratica consolidata (dalla settimana 3)</span></li>
           </ul>
           <span class="uso-week" data-it="⏱ DALLA SETTIMANA 3" data-en="⏱ FROM WEEK 3">⏱ DALLA SETTIMANA 3</span>
+          <div class="comfort-note" data-it="COMFORT AGGIUNTIVO (variante): disponibile con riscaldamento in grafene via USB (38–42°C) per un tepore avvolgente durante la sessione." data-en="ADDITIONAL COMFORT (variant): available with graphene USB heating (38–42°C) for soothing warmth during the session."><strong>COMFORT AGGIUNTIVO</strong> (variante): disponibile con riscaldamento in grafene via USB (38–42°C) per un tepore avvolgente durante la sessione.</div>
         </div>
       </div>
     </div>
@@ -704,8 +713,8 @@ body {
     <h2 class="section-title" data-it="8 minuti.<br><span class='accent-gold'>Ogni giorno.</span>" data-en="8 minutes.<br><span class='accent-gold'>Every day.</span>">
       8 minuti.<br><span class="accent-gold">Ogni giorno.</span>
     </h2>
-    <p class="section-sub" data-it="La ricerca sulla terapia di trazione cervicale mostra miglioramenti significativi già dopo 14 giorni di pratica costante. Segui i movimenti lenti e la respirazione guidata." data-en="Research on cervical traction therapy shows significant improvements after just 14 days of consistent practice. Follow the slow movements and guided breathing.">
-      La ricerca sulla terapia di trazione cervicale mostra miglioramenti significativi già dopo 14 giorni di pratica costante. Segui i movimenti lenti e la respirazione guidata.
+    <p class="section-sub" data-it="La trazione cervicale è una pratica di recupero studiata da decenni nella fisioterapia conservativa. Il protocollo AXIS CORE è pensato per un utilizzo quotidiano di 8 minuti, integrabile facilmente nella routine. Segui i movimenti lenti e la respirazione guidata." data-en="Cervical traction is a recovery practice studied for decades in conservative physiotherapy. The AXIS CORE protocol is designed for 8 minutes of daily use, easy to fit into your routine. Follow the slow movements and guided breathing.">
+      La trazione cervicale è una pratica di recupero studiata da decenni nella fisioterapia conservativa. Il protocollo AXIS CORE è pensato per un utilizzo quotidiano di 8 minuti, integrabile facilmente nella routine. Segui i movimenti lenti e la respirazione guidata.
     </p>
 
     <div class="routine-grid">
@@ -848,7 +857,7 @@ body {
   <div class="footer-tagline">ALIGN. RESTORE. OPTIMIZE.</div>
   <p class="footer-copy">
     © 2025 Axis Core — Bio-Recovery Technologies<br>
-    <span data-it="Tutti i diritti riservati. Prodotto certificato CE / RoHS." data-en="All rights reserved. CE / RoHS certified product.">Tutti i diritti riservati. Prodotto certificato CE / RoHS.</span>
+    <span data-it="Tutti i diritti riservati. Conformità al Regolamento UE sui Dispositivi Medici (MDR) e marcatura CE: percorso di autocertificazione in fase di definizione." data-en="All rights reserved. Compliance with the EU Medical Device Regulation (MDR) and CE marking: self-certification process underway.">Tutti i diritti riservati. Conformità al Regolamento UE sui Dispositivi Medici (MDR) e marcatura CE: percorso di autocertificazione in fase di definizione.</span>
   </p>
   <nav class="footer-links">
     <a href="/privacy-policy.html" data-it="Privacy Policy" data-en="Privacy Policy">Privacy Policy</a>
