@@ -434,7 +434,76 @@ body {
 }
 .cs-btn:hover { opacity:.85; }
 
-/* ─── SECTION 4 — WARRANTY ─── */
+/* ─── SECTION 4 — GUIDA GRATUITA ─── */
+.guide-grid {
+  display:grid; grid-template-columns:1fr; gap:40px;
+}
+@media(min-width:768px){
+  .guide-grid { grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+}
+.guide-badge {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px;
+  color:var(--blue); border:0.5px solid var(--border-blue);
+  background:var(--blue-glow); border-radius:3px;
+  padding:4px 10px; display:inline-block; margin-bottom:20px;
+}
+.guide-points {
+  list-style:none; display:flex; flex-direction:column; gap:10px; margin-top:20px;
+}
+.guide-points li {
+  display:flex; align-items:flex-start; gap:10px;
+  font-size:13px; color:var(--steel); line-height:1.5;
+}
+.guide-dot {
+  width:4px; height:4px; border-radius:50%;
+  background:var(--blue); margin-top:7px; flex-shrink:0;
+}
+.guide-card {
+  background:var(--black3); border:0.5px solid var(--border-blue);
+  border-radius:14px; padding:2px; box-shadow:0 0 40px rgba(0,170,255,0.06);
+}
+.guide-card-inner {
+  background:var(--black2); border-radius:12px; padding:clamp(24px,4vw,36px);
+}
+.guide-card-label {
+  font-family:'Space Mono',monospace; font-size:8px; letter-spacing:2.5px;
+  color:var(--blue); margin-bottom:14px; text-transform:uppercase;
+}
+.guide-card-title {
+  font-family:'Rajdhani',sans-serif; font-size:clamp(20px,3vw,26px);
+  font-weight:700; color:var(--white); line-height:1.2; margin-bottom:8px;
+}
+.guide-card-sub {
+  font-size:11px; color:var(--steel); letter-spacing:0.5px; margin-bottom:6px;
+}
+.guide-card-pages {
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px;
+  color:var(--blue); opacity:.7; margin-bottom:24px;
+  padding-bottom:20px; border-bottom:0.5px solid var(--border);
+}
+.guide-form { display:flex; flex-direction:column; gap:8px; }
+.guide-input {
+  background:var(--black); border:0.5px solid var(--border);
+  border-radius:6px; padding:12px 14px;
+  font-family:'Inter',sans-serif; font-size:13px; color:var(--white);
+  outline:none; transition:border-color .2s;
+}
+.guide-input:focus { border-color:var(--blue); }
+.guide-input::placeholder { color:var(--steel); opacity:.5; }
+.guide-btn {
+  padding:13px 20px; background:var(--blue); border:none; border-radius:6px;
+  font-family:'Rajdhani',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:1.5px; color:var(--black); cursor:pointer;
+  transition:opacity .2s; text-align:center;
+}
+.guide-btn:hover { opacity:.85; }
+.guide-btn:disabled { opacity:.5; cursor:default; }
+.guide-msg { font-size:12px; min-height:18px; margin-top:4px; }
+.guide-msg.ok { color:#4ADE80; }
+.guide-msg.err { color:#F87171; }
+.guide-privacy { font-size:11px; color:var(--steel); opacity:.5; margin-top:12px; }
+
+/* ─── SECTION 5 — WARRANTY ─── */
 .warranty-grid {
   display:grid; grid-template-columns:1fr; gap:32px;
 }
@@ -761,12 +830,57 @@ body {
 </section>
 
 <!-- ════════════════════════════════════ -->
-<!-- S4 — GARANZIA                       -->
+<!-- S4 — GUIDA GRATUITA                 -->
+<!-- ════════════════════════════════════ -->
+<section class="section-wrap alt reveal" id="guida-gratuita">
+  <div class="inner" style="max-width:var(--max);margin:0 auto;">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="guide-grid">
+      <div class="guide-text">
+        <div class="guide-badge" data-it="DOWNLOAD GRATUITO" data-en="FREE DOWNLOAD">DOWNLOAD GRATUITO</div>
+        <h2 class="section-title" data-it="5 esercizi.<br><span class='accent-blue'>10 minuti.</span><br>Ogni giorno." data-en="5 exercises.<br><span class='accent-blue'>10 minutes.</span><br>Every day.">
+          5 esercizi.<br><span class="accent-blue">10 minuti.</span><br>Ogni giorno.
+        </h2>
+        <p class="section-sub" data-it="La guida pratica al recupero cervicale che abbiamo preparato per chi non sa da dove iniziare. Protocollo progressivo, senza attrezzatura, adatto a qualsiasi livello." data-en="The practical cervical recovery guide we've put together for people who don't know where to start. A progressive protocol, no equipment needed, suitable for any level.">
+          La guida pratica al recupero cervicale che abbiamo preparato per chi non sa da dove iniziare. Protocollo progressivo, senza attrezzatura, adatto a qualsiasi livello.
+        </p>
+        <ul class="guide-points">
+          <li><span class="guide-dot"></span><span data-it="Protocollo in 3 fasi (mobilità, decompressione, rinforzo)" data-en="3-phase protocol (mobility, decompression, strengthening)">Protocollo in 3 fasi (mobilità, decompressione, rinforzo)</span></li>
+          <li><span class="guide-dot"></span><span data-it="Illustrazioni e istruzioni passo-passo" data-en="Step-by-step illustrations and instructions">Illustrazioni e istruzioni passo-passo</span></li>
+          <li><span class="guide-dot"></span><span data-it="Spiegazione della meccanica cervicale" data-en="Explanation of cervical mechanics">Spiegazione della meccanica cervicale</span></li>
+          <li><span class="guide-dot"></span><span data-it="Adatto anche a chi ha dolore acuto" data-en="Suitable even for people with acute pain">Adatto anche a chi ha dolore acuto</span></li>
+        </ul>
+      </div>
+
+      <div class="guide-card">
+        <div class="guide-card-inner">
+          <div class="guide-card-label" data-it="GUIDA GRATUITA PDF" data-en="FREE PDF GUIDE">GUIDA GRATUITA PDF</div>
+          <div class="guide-card-title" data-it="Come liberarsi<br>dal dolore cervicale" data-en="How to free yourself<br>from neck pain">Come liberarsi<br>dal dolore cervicale</div>
+          <div class="guide-card-sub">AXIS CORE — Bio-Recovery Technologies</div>
+          <div class="guide-card-pages" data-it="Guida completa · Esercizi illustrati" data-en="Complete guide · Illustrated exercises">Guida completa · Esercizi illustrati</div>
+          <div class="guide-form">
+            <input type="email" class="guide-input" id="guideEmail" placeholder="la tua email" data-placeholder-it="la tua email" data-placeholder-en="your email">
+            <button class="guide-btn" id="guideBtn" onclick="submitGuide()" data-it="SCARICA GRATIS →" data-en="DOWNLOAD FREE →">SCARICA GRATIS →</button>
+          </div>
+          <div class="guide-msg" id="guideMsg"></div>
+          <p class="guide-privacy" data-it="Nessuno spam. Puoi cancellarti in qualsiasi momento." data-en="No spam. Unsubscribe at any time.">Nessuno spam. Puoi cancellarti in qualsiasi momento.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- S5 — GARANZIA                       -->
 <!-- ════════════════════════════════════ -->
 <section class="section-wrap alt reveal" id="warranty">
   <div class="inner" style="max-width:var(--max);margin:0 auto;">
     <div class="section-header">
-      <span class="section-num">04</span>
+      <span class="section-num">05</span>
       <div class="section-line"></div>
     </div>
 
@@ -902,6 +1016,8 @@ function toggleLang() {
   document.getElementById('blogLink').href = currentLang==='it'
     ? 'https://blog.axiscore.tech/tag/it/'
     : 'https://blog.axiscore.tech/tag/en/';
+  const guideInput = document.getElementById('guideEmail');
+  if(guideInput) guideInput.placeholder = currentLang==='it' ? 'la tua email' : 'your email';
   document.querySelectorAll('[data-it]').forEach(el => {
     const txt = el.getAttribute('data-'+currentLang);
     if(txt) el.innerHTML = txt;
@@ -910,6 +1026,35 @@ function toggleLang() {
     el.placeholder = el.getAttribute('data-placeholder-'+currentLang)||el.placeholder;
   });
   selectStep(currentStep);
+}
+
+async function submitGuide() {
+  const email = document.getElementById('guideEmail').value.trim();
+  const btn   = document.getElementById('guideBtn');
+  const msg   = document.getElementById('guideMsg');
+  if(!email) return;
+  btn.disabled = true;
+  btn.textContent = '...';
+  try {
+    const res = await fetch('https://warranty.axiscore.tech/lead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email, lang: currentLang })
+    });
+    const data = await res.json();
+    if(data.ok) {
+      msg.textContent = currentLang==='it' ? 'Controlla la tua email — il link è in arrivo!' : 'Check your email — the link is on its way!';
+      msg.className = 'guide-msg ok';
+      btn.textContent = currentLang==='it' ? 'INVIATO ✓' : 'SENT ✓';
+      setTimeout(() => { window.open('/guida-cervicale.pdf','_blank'); }, 800);
+    } else {
+      throw new Error();
+    }
+  } catch {
+    msg.textContent = currentLang==='it' ? 'Errore, riprova.' : 'Error, please try again.';
+    msg.className = 'guide-msg err';
+    btn.disabled = false;
+    btn.textContent = currentLang==='it' ? 'SCARICA GRATIS →' : 'DOWNLOAD FREE →';
+  }
 }
 
 function subscribeVideo() {
