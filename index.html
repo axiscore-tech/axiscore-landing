@@ -860,6 +860,7 @@ body {
     <span data-it="Tutti i diritti riservati. Conformità al Regolamento UE sui Dispositivi Medici (MDR) e marcatura CE: percorso di autocertificazione in fase di definizione." data-en="All rights reserved. Compliance with the EU Medical Device Regulation (MDR) and CE marking: self-certification process underway.">Tutti i diritti riservati. Conformità al Regolamento UE sui Dispositivi Medici (MDR) e marcatura CE: percorso di autocertificazione in fase di definizione.</span>
   </p>
   <nav class="footer-links">
+    <a href="https://blog.axiscore.tech/tag/it/" id="blogLink" data-it="Blog" data-en="Blog">Blog</a>
     <a href="/privacy-policy.html" data-it="Privacy Policy" data-en="Privacy Policy">Privacy Policy</a>
     <a href="/terms-of-service.html" data-it="Termini di Servizio" data-en="Terms of Service">Termini di Servizio</a>
   </nav>
@@ -898,6 +899,9 @@ function switchTab(side) {
 function toggleLang() {
   currentLang = currentLang==='it' ? 'en' : 'it';
   document.getElementById('langBtn').textContent = currentLang==='it' ? 'EN' : 'IT';
+  document.getElementById('blogLink').href = currentLang==='it'
+    ? 'https://blog.axiscore.tech/tag/it/'
+    : 'https://blog.axiscore.tech/tag/en/';
   document.querySelectorAll('[data-it]').forEach(el => {
     const txt = el.getAttribute('data-'+currentLang);
     if(txt) el.innerHTML = txt;
