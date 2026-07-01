@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Cervicale – Scopri il tuo livello di rischio | AXIS CORE</title>
+    <meta name="description" content="Rispondi a 7 domande e scopri in 2 minuti quanto è a rischio la tua cervicale. Quiz gratuito con risultato e consigli personalizzati.">
+    <meta property="og:title" content="Test Cervicale – Scopri il tuo livello di rischio">
+    <meta property="og:description" content="7 domande, 2 minuti. Risultato immediato e consigli personalizzati.">
+    <meta property="og:url" content="https://axiscore.tech/test-cervicale">
+    <link rel="icon" href="https://axiscore.tech/favicon.ico">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #1565C0;
+            --primary-dark: #0D47A1;
+            --primary-light: #E3F2FD;
+            --bg: #F0F4FF;
+            --card: #FFFFFF;
+            --text: #0D1B2A;
+            --muted: #546E7A;
+            --border: #DDE6F5;
+            --green: #2E7D32;
+            --green-bg: #E8F5E9;
+            --orange: #BF360C;
+            --orange-bg: #FBE9E7;
+            --red: #B71C1C;
+            --red-bg: #FFEBEE;
+            --radius: 18px;
+            --shadow: 0 6px 32px rgba(21,101,192,0.10);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* ───── HEADER ───── */
+        .header {
+            background: var(--primary);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            color: white;
+            font-weight: 800;
+            font-size: 17px;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+        }
+        .header-tag {
+            background: rgba(255,255,255,0.18);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ───── CONTAINER ───── */
+        .container {
+            max-width: 660px;
+            margin: 0 auto;
+            padding: 36px 20px 100px;
+        }
+
+        /* ───── PROGRESS ───── */
+        .progress-wrap {
+            margin-bottom: 28px;
+            display: none;
+        }
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .progress-bar {
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1565C0 0%, #42A5F5 100%);
+            border-radius: 3px;
+            transition: width 0.45s cubic-bezier(.4,0,.2,1);
+        }
+
+        /* ───── SCREENS ───── */
+        .screen { display: none; }
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ───── INTRO ───── */
+        .intro-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 48px 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .intro-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .intro-card h1 {
+            font-size: clamp(22px, 5vw, 30px);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+        }
+        .intro-card h1 em {
+            font-style: normal;
+            color: var(--primary);
+        }
+        .intro-lead {
+            color: var(--muted);
+            font-size: 16px;
+            margin-bottom: 32px;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ───── BOTTONI ───── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            letter-spacing: 0.01em;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 16px rgba(21,101,192,0.3);
+        }
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(21,101,192,0.35);
+        }
+        .btn-primary:disabled {
+            background: var(--border);
+            color: var(--muted);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .btn-ghost {
+            background: transparent;
+            color: var(--muted);
+            padding: 15px 16px;
+            font-size: 15px;
+        }
+        .btn-ghost:hover { color: var(--text); }
+
+        /* ───── DOMANDA ───── */
+        .question-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        .question-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 14px;
+        }
+        .question-text {
+            font-size: clamp(18px, 4vw, 22px);
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 28px;
+            letter-spacing: -0.01em;
+        }
+
+        /* ───── OPZIONI ───── */
+        .options { display: flex; flex-direction: column; gap: 11px; }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 18px;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            background: white;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .option:hover { border-color: var(--primary); background: var(--primary-light); }
+        .option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .option-emoji { font-size: 22px; flex-shrink: 0; width: 32px; text-align: center; }
+        .option-text { font-size: 15px; font-weight: 500; flex: 1; line-height: 1.4; }
+        .option-radio {
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            flex-shrink: 0;
+            transition: all 0.18s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .option.selected .option-radio {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+        .option.selected .option-radio::after {
+            content: '';
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* ───── NAV DOMANDA ───── */
+        .q-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 28px;
+        }
+
+        /* ───── EMAIL SCREEN ───── */
+        .email-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 44px 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .score-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+        .chip-basso { background: var(--green-bg); color: var(--green); }
+        .chip-medio { background: var(--orange-bg); color: var(--orange); }
+        .chip-alto  { background: var(--red-bg);    color: var(--red); }
+
+        .email-card h2 {
+            font-size: clamp(20px, 4.5vw, 26px);
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+        .email-card .sub {
+            color: var(--muted);
+            font-size: 15px;
+            margin-bottom: 32px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .form-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto 16px;
+        }
+        .form-stack input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid var(--border);
+            border-radius: 11px;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+            color: var(--text);
+            background: white;
+            -webkit-appearance: none;
+        }
+        .form-stack input:focus { border-color: var(--primary); }
+        .form-stack input::placeholder { color: #9EAFC0; }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 11px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 16px rgba(21,101,192,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .btn-submit:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .btn-submit:disabled {
+            background: var(--border);
+            color: var(--muted);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .privacy-note {
+            font-size: 12px;
+            color: var(--muted);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .privacy-note a { color: var(--muted); }
+
+        /* ───── LOADING ───── */
+        .loading-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 80px 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .loader-ring {
+            width: 56px; height: 56px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-text {
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        /* ───── RISULTATO ───── */
+        .result-card {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        .result-hero {
+            text-align: center;
+            padding-bottom: 28px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--border);
+        }
+        .risk-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+        .badge-basso { background: var(--green-bg); color: var(--green); }
+        .badge-medio { background: var(--orange-bg); color: var(--orange); }
+        .badge-alto  { background: var(--red-bg);    color: var(--red); }
+
+        .score-label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        .result-title {
+            font-size: clamp(20px, 4.5vw, 26px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .result-desc {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        /* Meter rischio */
+        .meter-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 380px;
+            margin: 0 auto;
+        }
+        .meter-label {
+            font-size: 12px;
+            font-weight: 700;
+            min-width: 36px;
+            text-align: center;
+        }
+        .meter-track {
+            flex: 1;
+            height: 8px;
+            background: linear-gradient(90deg, #C8E6C9, #FFECB3, #FFCDD2);
+            border-radius: 4px;
+            position: relative;
+        }
+        .meter-cursor {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: left 1.2s cubic-bezier(.4,0,.2,1), background 0.6s ease;
+        }
+
+        /* ───── CONSIGLI ───── */
+        .tips-section { margin-bottom: 28px; }
+        .section-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 14px;
+        }
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 14px 16px;
+            background: #F8FAFF;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+        .tip-text { font-size: 14px; line-height: 1.55; color: var(--text); }
+
+        /* ───── CTA RISULTATO ───── */
+        .result-cta {
+            border-radius: 14px;
+            padding: 24px;
+            border-left: 4px solid var(--primary);
+        }
+        .cta-basso { background: var(--primary-light); border-color: var(--primary); }
+        .cta-medio { background: var(--orange-bg); border-color: var(--orange); }
+        .cta-alto  { background: var(--red-bg); border-color: var(--red); }
+
+        .result-cta h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .result-cta p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.55;
+        }
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 11px 22px;
+            border-radius: 9px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.2s;
+            color: white;
+        }
+        .btn-cta-blue { background: var(--primary); }
+        .btn-cta-blue:hover { background: var(--primary-dark); }
+        .btn-cta-orange { background: var(--orange); }
+        .btn-cta-red { background: var(--red); }
+
+        /* ───── SHARE ───── */
+        .share-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .share-retry {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .share-retry:hover { background: #C5D9F5; }
+
+        /* ───── ERRORE ───── */
+        .error-msg {
+            color: var(--red);
+            font-size: 13px;
+            margin-top: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        /* ───── RESPONSIVE ───── */
+        @media (max-width: 500px) {
+            .intro-card, .question-card, .email-card, .result-card, .loading-card {
+                padding: 28px 22px;
+            }
+            .stat-row { gap: 18px; }
+            .stat-num { font-size: 22px; }
+            .badges .badge { font-size: 12px; padding: 5px 11px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <a href="https://axiscore.tech" class="logo">AXIS CORE</a>
+    <span class="header-tag">Test gratuito</span>
+</header>
+
+<div class="container">
+
+    <!-- Progress bar (visibile solo durante le domande) -->
+    <div class="progress-wrap" id="progressWrap">
+        <div class="progress-meta">
+            <span id="progressLabel">Domanda 1 di 7</span>
+            <span id="progressPct">14%</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill" style="width:0%"></div>
+        </div>
+    </div>
+
+    <!-- ─── SCREEN: INTRO ─── -->
+    <div class="screen active" id="screen-intro">
+        <div class="intro-card">
+            <span class="intro-icon">🔍</span>
+            <h1>La tua cervicale<br>è <em>davvero</em> a rischio?</h1>
+            <p class="intro-lead">Risponda a 7 domande e scopri il tuo profilo di rischio cervicale in 2 minuti. Risultato immediato e consigli personalizzati.</p>
+            <div class="badges">
+                <span class="badge">✅ 7 domande</span>
+                <span class="badge">⏱ 2 minuti</span>
+                <span class="badge">🔒 Gratuito</span>
+                <span class="badge">📊 Risultato personalizzato</span>
+            </div>
+            <div class="stat-row">
+                <div class="stat-item">
+                    <span class="stat-num">1 su 2</span>
+                    <span class="stat-label">Italiani con cervicalgia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">60%</span>
+                    <span class="stat-label">Utenti digitali a rischio</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">27 kg</span>
+                    <span class="stat-label">Carico a 60° di inclinazione</span>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="startQuiz()">
+                Inizia il test &rarr;
+            </button>
+        </div>
+    </div>
+
+    <!-- ─── CONTAINER DOMANDE (generato via JS) ─── -->
+    <div id="quizContainer"></div>
+
+    <!-- ─── SCREEN: EMAIL ─── -->
+    <div class="screen" id="screen-email">
+        <div class="email-card">
+            <div id="scoreChip"></div>
+            <h2>Dove inviamo il tuo risultato?</h2>
+            <p class="sub">Inserisci la tua email per ricevere l'analisi completa con i tuoi consigli personalizzati.</p>
+            <div class="form-stack">
+                <input type="text" id="inputNome" placeholder="Il tuo nome (opzionale)" autocomplete="given-name">
+                <input type="email" id="inputEmail" placeholder="La tua email *" autocomplete="email" required>
+                <p class="error-msg" id="emailError">Inserisci un indirizzo email valido.</p>
+                <button class="btn-submit" id="btnSubmit" onclick="submitEmail()">
+                    Scopri il mio risultato &rarr;
+                </button>
+            </div>
+            <p class="privacy-note">
+                🔒 Niente spam. Puoi cancellarti in qualsiasi momento.<br>
+                <a href="https://axiscore.tech/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── SCREEN: LOADING ─── -->
+    <div class="screen" id="screen-loading">
+        <div class="loading-card">
+            <div class="loader-ring"></div>
+            <p class="loading-text">Analisi del tuo profilo cervicale in corso…</p>
+        </div>
+    </div>
+
+    <!-- ─── SCREEN: RISULTATO ─── -->
+    <div class="screen" id="screen-result">
+        <div class="result-card">
+            <div class="result-hero">
+                <div id="riskBadge" class="risk-badge"></div>
+                <p class="score-label" id="resultScore"></p>
+                <h2 class="result-title" id="resultTitle"></h2>
+                <p class="result-desc" id="resultDesc"></p>
+                <div class="meter-wrap">
+                    <span class="meter-label" style="color:var(--green)">Basso</span>
+                    <div class="meter-track">
+                        <div class="meter-cursor" id="meterCursor"></div>
+                    </div>
+                    <span class="meter-label" style="color:var(--red)">Alto</span>
+                </div>
+            </div>
+            <div class="tips-section">
+                <p class="section-label">I tuoi 3 consigli prioritari</p>
+                <div id="tipsList"></div>
+            </div>
+            <div class="result-cta" id="resultCta"></div>
+            <div class="share-row">
+                <button class="share-btn share-retry" onclick="resetQuiz()">
+                    🔄 Rifai il test
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /container -->
+
+<script>
+/* ══════════════════════════════════════════
+   CONFIGURAZIONE
+   ══════════════════════════════════════════ */
+
+// URL del Cloudflare Worker che salva su Brevo
+const WORKER_URL = 'https://quiz-cervicale.axiscore.tech';
+
+/* ══════════════════════════════════════════
+   DATI QUIZ
+   ══════════════════════════════════════════ */
+
+const domande = [
+    {
+        testo: "Quante ore al giorno trascorri al PC o smartphone?",
+        opzioni: [
+            { emoji: "☕", testo: "Meno di 4 ore", punti: 0 },
+            { emoji: "💻", testo: "Da 4 a 8 ore", punti: 1 },
+            { emoji: "🔥", testo: "Più di 8 ore", punti: 2 }
+        ]
+    },
+    {
+        testo: "Senti dolore o rigidità al collo durante la giornata?",
+        opzioni: [
+            { emoji: "😊", testo: "Mai o quasi mai", punti: 0 },
+            { emoji: "😐", testo: "A volte, qualche volta a settimana", punti: 1 },
+            { emoji: "😣", testo: "Spesso, quasi ogni giorno", punti: 2 }
+        ]
+    },
+    {
+        testo: "Soffri di mal di testa o pesantezza alla testa a fine giornata?",
+        opzioni: [
+            { emoji: "🌤", testo: "Raramente", punti: 0 },
+            { emoji: "🌥", testo: "Qualche volta a settimana", punti: 1 },
+            { emoji: "⛈", testo: "Quasi sempre a fine giornata", punti: 2 }
+        ]
+    },
+    {
+        testo: "Le tue spalle sono spesso tese o contratte?",
+        opzioni: [
+            { emoji: "🧘", testo: "No, sono rilassate", punti: 0 },
+            { emoji: "😤", testo: "Un po', lo noto a volte", punti: 1 },
+            { emoji: "🪨", testo: "Sempre tese, dure come roccia", punti: 2 }
+        ]
+    },
+    {
+        testo: "Come valuti la tua postura quando lavori alla scrivania?",
+        opzioni: [
+            { emoji: "🏅", testo: "Buona — monitor in asse, schiena diritta", punti: 0 },
+            { emoji: "🤔", testo: "Media — cerco di starci attento", punti: 1 },
+            { emoji: "🙈", testo: "Pessima — mi trovo sempre curvo", punti: 2 }
+        ]
+    },
+    {
+        testo: "Ti alzi dalla sedia almeno ogni ora per muoverti?",
+        opzioni: [
+            { emoji: "🏃", testo: "Sì, è una mia abitudine consolidata", punti: 0 },
+            { emoji: "🙂", testo: "A volte, quando me lo ricordo", punti: 1 },
+            { emoji: "🪑", testo: "Quasi mai — passo ore immobile", punti: 2 }
+        ]
+    },
+    {
+        testo: "Hai già avuto diagnosi o cure per problemi cervicali?",
+        opzioni: [
+            { emoji: "✅", testo: "No, mai avuto problemi significativi", punti: 0 },
+            { emoji: "⚠️", testo: "Qualche episodio occasionale", punti: 1 },
+            { emoji: "🏥", testo: "Sì, è un problema cronico o ricorrente", punti: 2 }
+        ]
+    }
+];
+
+const risultati = {
+    basso: {
+        badge: "🟢  Rischio Basso",
+        badgeClass: "badge-basso",
+        chipClass: "chip-basso",
+        title: "La tua cervicale è in buona forma",
+        desc: "Le tue abitudini sono nella norma e non mostri segnali d'allarme significativi. Mantieni le buone pratiche e agisci in prevenzione — è il momento migliore per farlo.",
+        tips: [
+            { icon: "⏱", text: "Continua a fare pause regolari ogni ora quando usi PC o smartphone." },
+            { icon: "🖥", text: "Mantieni il monitor all'altezza degli occhi per non sovraccaricare le vertebre cervicali." },
+            { icon: "🤸", text: "Integra qualche minuto di mobilità cervicale nella tua routine mattutina." }
+        ],
+        cta: {
+            titolo: "Vuoi saperne di più sulla prevenzione?",
+            testo: "Leggi i nostri articoli gratuiti su postura, smart working e benessere cervicale.",
+            link: "https://blog.axiscore.tech",
+            label: "Leggi il blog →",
+            ctaClass: "cta-basso",
+            btnClass: "btn-cta-blue"
+        },
+        meterPct: 12,
+        meterColor: "#2E7D32"
+    },
+    medio: {
+        badge: "🟡  Rischio Medio",
+        badgeClass: "badge-medio",
+        chipClass: "chip-medio",
+        title: "Attenzione: il tuo collo mostra segnali d'allarme",
+        desc: "I tuoi sintomi e le tue abitudini indicano un rischio moderato. Agire ora è fondamentale per evitare che il problema si cronicizzi nel tempo.",
+        tips: [
+            { icon: "⏰", text: "Imposta un promemoria ogni 45 minuti per alzarti e fare qualche movimento del collo." },
+            { icon: "📐", text: "Rivaluta la tua postazione: il monitor dovrebbe essere all'altezza degli occhi, non più in basso." },
+            { icon: "📄", text: "Scarica la nostra guida gratuita con esercizi specifici per la cervicale da smart working." }
+        ],
+        cta: {
+            titolo: "Scarica la Guida Gratuita",
+            testo: "\"Cervicale e Smart Working: la guida completa alla prevenzione\" — consigli pratici e immediati.",
+            link: "https://axiscore.tech/download",
+            label: "Scarica gratis →",
+            ctaClass: "cta-medio",
+            btnClass: "btn-cta-orange"
+        },
+        meterPct: 50,
+        meterColor: "#E65100"
+    },
+    alto: {
+        badge: "🔴  Rischio Alto",
+        badgeClass: "badge-alto",
+        chipClass: "chip-alto",
+        title: "La tua cervicale ha bisogno di attenzione immediata",
+        desc: "Il tuo profilo indica un rischio elevato. I sintomi che hai descritto — dolore frequente, rigidità, tensioni muscolari — sono esattamente quelli che abbiamo analizzato per sviluppare la nostra soluzione.",
+        tips: [
+            { icon: "🩺", text: "Consulta un fisioterapista o osteopata per una valutazione professionale della tua situazione." },
+            { icon: "⏸", text: "Riduci le sessioni continuative al PC: una pausa attiva ogni 30 minuti può fare la differenza." },
+            { icon: "💡", text: "La trazione cervicale controllata è uno dei metodi più efficaci per decomprimere le vertebre." }
+        ],
+        cta: {
+            titolo: "Entra nella lista d'attesa AXIS CORE",
+            testo: "Stiamo sviluppando un dispositivo di trazione cervicale professionale per persone esattamente come te. Sii tra i primi a scoprirlo.",
+            link: "https://axiscore.tech/#waitlist",
+            label: "Voglio saperne di più →",
+            ctaClass: "cta-alto",
+            btnClass: "btn-cta-red"
+        },
+        meterPct: 88,
+        meterColor: "#B71C1C"
+    }
+};
+
+/* ══════════════════════════════════════════
+   STATO
+   ══════════════════════════════════════════ */
+
+let currentQ   = 0;
+let answers    = new Array(domande.length).fill(null);
+let totalScore = 0;
+
+/* ══════════════════════════════════════════
+   FUNZIONI PRINCIPALI
+   ══════════════════════════════════════════ */
+
+function startQuiz() {
+    showScreen(null);            // Nasconde intro
+    document.getElementById('progressWrap').style.display = 'block';
+    currentQ = 0;
+    renderQuestion(0);
+    updateProgress(0);
+}
+
+function renderQuestion(idx) {
+    const d   = domande[idx];
+    const div = document.getElementById('quizContainer');
+
+    div.innerHTML = `
+        <div class="screen active">
+            <div class="question-card">
+                <p class="question-eyebrow">Domanda ${idx + 1} di ${domande.length}</p>
+                <h2 class="question-text">${d.testo}</h2>
+                <div class="options" id="opts-${idx}">
+                    ${d.opzioni.map((o, oi) => `
+                        <div class="option" id="opt-${idx}-${oi}"
+                             onclick="selectOption(${idx}, ${oi}, ${o.punti})"
+                             role="button" tabindex="0"
+                             onkeydown="if(event.key==='Enter'||event.key===' ')selectOption(${idx},${oi},${o.punti})">
+                            <span class="option-emoji">${o.emoji}</span>
+                            <span class="option-text">${o.testo}</span>
+                            <span class="option-radio" id="radio-${idx}-${oi}"></span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="q-nav">
+                    ${idx > 0
+                        ? `<button class="btn btn-ghost" onclick="prevQuestion(${idx})">&#8592; Indietro</button>`
+                        : `<span></span>`
+                    }
+                    <button class="btn btn-primary"
+                            id="btn-next"
+                            onclick="nextQuestion(${idx})"
+                            ${answers[idx] === null ? 'disabled' : ''}>
+                        ${idx < domande.length - 1 ? 'Avanti &rarr;' : 'Calcola il rischio &rarr;'}
+                    </button>
+                </div>
+            </div>
+        </div>`;
+
+    // Ripristina selezione precedente se l'utente è tornato indietro
+    if (answers[idx] !== null) {
+        highlightOption(idx, answers[idx].optIdx);
+    }
+}
+
+function selectOption(qIdx, optIdx, punti) {
+    // Deseleziona tutto
+    domande[qIdx].opzioni.forEach((_, i) => {
+        const el = document.getElementById(`opt-${qIdx}-${i}`);
+        if (el) el.classList.remove('selected');
+    });
+    // Seleziona corrente
+    const el = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    if (el) el.classList.add('selected');
+
+    answers[qIdx] = { optIdx, punti };
+
+    const btn = document.getElementById('btn-next');
+    if (btn) btn.disabled = false;
+}
+
+function highlightOption(qIdx, optIdx) {
+    const el = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    if (el) el.classList.add('selected');
+}
+
+function nextQuestion(idx) {
+    if (answers[idx] === null) return;
+
+    if (idx < domande.length - 1) {
+        currentQ = idx + 1;
+        renderQuestion(currentQ);
+        updateProgress(currentQ);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        // Fine quiz
+        calcScore();
+        document.getElementById('progressWrap').style.display = 'none';
+        document.getElementById('quizContainer').innerHTML = '';
+        buildScoreChip();
+        showScreen('screen-email');
+    }
+}
+
+function prevQuestion(idx) {
+    currentQ = idx - 1;
+    renderQuestion(currentQ);
+    updateProgress(currentQ);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(idx) {
+    const pct = Math.round(((idx + 1) / domande.length) * 100);
+    document.getElementById('progressFill').style.width  = pct + '%';
+    document.getElementById('progressLabel').textContent = `Domanda ${idx + 1} di ${domande.length}`;
+    document.getElementById('progressPct').textContent   = pct + '%';
+}
+
+function calcScore() {
+    totalScore = answers.reduce((s, a) => s + (a ? a.punti : 0), 0);
+}
+
+function getLevel() {
+    if (totalScore <= 4)  return 'basso';
+    if (totalScore <= 9)  return 'medio';
+    return 'alto';
+}
+
+function buildScoreChip() {
+    const r   = risultati[getLevel()];
+    const el  = document.getElementById('scoreChip');
+    el.innerHTML = `<div class="score-chip ${r.chipClass}">${r.badge} &nbsp;|&nbsp; Punteggio: ${totalScore}/14</div>`;
+}
+
+/* ══════════════════════════════════════════
+   SUBMIT EMAIL → BREVO via Worker
+   ══════════════════════════════════════════ */
+
+async function submitEmail() {
+    const email = document.getElementById('inputEmail').value.trim();
+    const nome  = document.getElementById('inputNome').value.trim();
+    const errEl = document.getElementById('emailError');
+    const btn   = document.getElementById('btnSubmit');
+
+    errEl.style.display = 'none';
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errEl.style.display = 'block';
+        return;
+    }
+
+    btn.disabled    = true;
+    btn.textContent = 'Elaborazione…';
+
+    showScreen('screen-loading');
+
+    const level = getLevel();
+    const payload = {
+        email,
+        nome,
+        score:   totalScore,
+        level,
+        answers: answers.map(a => a ? a.punti : 0)
+    };
+
+    try {
+        await fetch(WORKER_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    } catch (e) {
+        // Se il Worker non risponde, mostriamo ugualmente il risultato
+        console.warn('Worker non raggiungibile:', e);
+    }
+
+    // Pausa drammatica 1.5s
+    await new Promise(r => setTimeout(r, 1500));
+
+    showResult(level);
+}
+
+/* ══════════════════════════════════════════
+   SCHERMATA RISULTATO
+   ══════════════════════════════════════════ */
+
+function showResult(level) {
+    const r = risultati[level];
+
+    document.getElementById('riskBadge').textContent  = r.badge;
+    document.getElementById('riskBadge').className    = `risk-badge ${r.badgeClass}`;
+    document.getElementById('resultScore').textContent = `Punteggio: ${totalScore} / 14 punti`;
+    document.getElementById('resultTitle').textContent = r.title;
+    document.getElementById('resultDesc').textContent  = r.desc;
+
+    // Meter cursor
+    const cursor = document.getElementById('meterCursor');
+    cursor.style.background = r.meterColor;
+    setTimeout(() => { cursor.style.left = r.meterPct + '%'; }, 200);
+
+    // Tips
+    document.getElementById('tipsList').innerHTML = r.tips.map(t => `
+        <div class="tip-item">
+            <span class="tip-icon">${t.icon}</span>
+            <span class="tip-text">${t.text}</span>
+        </div>
+    `).join('');
+
+    // CTA
+    document.getElementById('resultCta').className   = `result-cta ${r.cta.ctaClass}`;
+    document.getElementById('resultCta').innerHTML   = `
+        <h3>${r.cta.titolo}</h3>
+        <p>${r.cta.testo}</p>
+        <a href="${r.cta.link}" class="btn-cta ${r.cta.btnClass}" target="_blank" rel="noopener">
+            ${r.cta.label}
+        </a>
+    `;
+
+    showScreen('screen-result');
+}
+
+/* ══════════════════════════════════════════
+   UTILITIES
+   ══════════════════════════════════════════ */
+
+function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    if (id) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }
+}
+
+function resetQuiz() {
+    answers    = new Array(domande.length).fill(null);
+    totalScore = 0;
+    currentQ   = 0;
+    document.getElementById('inputEmail').value = '';
+    document.getElementById('inputNome').value  = '';
+    document.getElementById('btnSubmit').disabled    = false;
+    document.getElementById('btnSubmit').textContent = 'Scopri il mio risultato →';
+    document.getElementById('quizContainer').innerHTML = '';
+    document.getElementById('progressWrap').style.display = 'none';
+    showScreen('screen-intro');
+}
+</script>
+</body>
+</html>
