@@ -472,6 +472,37 @@ const risultati = {
 
 let currentQ=0, answers=new Array(domande.length).fill(null), totalScore=0;
 
+// Tip sulla postazione personalizzato per contesto lavorativo
+const tipsPostazione = {
+    basso: {
+        ufficio:              "In ufficio verifica che il monitor sia all'altezza degli occhi e la sedia regolata correttamente — piccoli aggiustamenti, grande differenza nel tempo.",
+        smart_working:        "A casa è facile lavorare dal divano o dal letto: crea una postazione fissa con monitor in asse e schiena supportata.",
+        ibrido:               "Nei giorni a casa la postura peggiora spesso rispetto all'ufficio: tieni una postazione dedicata anche a casa.",
+        libero_professionista:"Come freelance sei responsabile della tua postazione — una sedia ergonomica e un monitor esterno sono deducibili e valgono l'investimento.",
+        studente:             "Studia sempre alla scrivania, mai sul letto o sul divano. Le buone abitudini ora proteggono la tua cervicale per decenni.",
+    },
+    medio: {
+        ufficio:              "In ufficio chiedi una valutazione ergonomica della tua postazione — molte aziende hanno obblighi di legge su questo. Il monitor deve essere all'altezza degli occhi, non più in basso.",
+        smart_working:        "La postazione casalinga è spesso il problema principale: elimina divano e cucina dal tuo setup di lavoro. Sedia regolabile e monitor in asse sono priorità.",
+        ibrido:               "Attenzione ai giorni in smart working: spesso si lavora in posizioni peggiori che in ufficio. Crea una postazione domestica fissa e corretta.",
+        libero_professionista:"Come libero professionista la postazione è tua responsabilità: sedia ergonomica e monitor esterno sono urgenti, non un lusso.",
+        studente:             "Lo studio prolungato è ugualmente dannoso del lavoro al PC. Scrivania fissa, laptop rialzato o monitor esterno, schiena sempre supportata.",
+    },
+    alto: {
+        ufficio:              "In ufficio parla con l'HR o il responsabile della sicurezza: hai diritto a una valutazione ergonomica. Non rimandare — ogni giorno in posizione sbagliata peggiora il danno.",
+        smart_working:        "Smetti subito di lavorare da postazioni improvvisate. Con questo livello di rischio, una scrivania corretta con monitor in asse non è opzionale.",
+        ibrido:               "Sia in ufficio che a casa devi avere una postazione ergonomica corretta. Non fare eccezioni nei giorni a casa — il danno si accumula.",
+        libero_professionista:"La tua postazione di lavoro è probabilmente la causa principale. Sedia ergonomica e monitor esterno sono urgenti — considera deducibili questi acquisti.",
+        studente:             "Studio e cervicale non vanno d'accordo senza postazione corretta. Parla con un fisioterapista prima che il problema diventi cronico.",
+    }
+};
+
+function getWorkType() {
+    // Domanda WORK_TYPE è all'indice 1 nell'array domande
+    const ans = answers[1];
+    return (ans && ans.value) ? ans.value : 'smart_working';
+}
+
 function startQuiz() {
     showScreen(null);
     document.getElementById('progressWrap').style.display='block';
@@ -608,7 +639,14 @@ function showResult(level) {
     cursor.style.background=r.meterColor;
     cursor.style.boxShadow=`0 0 10px ${r.meterColor}80`;
     setTimeout(()=>{cursor.style.left=r.meterPct+'%';},200);
-    document.getElementById('tipsList').innerHTML=r.tips.map(t=>`
+    // Tip personalizzato per contesto lavorativo (sostituisce il secondo tip)
+    const workType = getWorkType();
+    const tipsPersonalizzati = [
+        r.tips[0],
+        { icon: '🪑', text: tipsPostazione[level][workType] || tipsPostazione[level]['smart_working'] },
+        r.tips[2]
+    ];
+    document.getElementById('tipsList').innerHTML=tipsPersonalizzati.map(t=>`
         <div class="tip-item"><span class="tip-icon">${t.icon}</span><span class="tip-text">${t.text}</span></div>`).join('');
     document.getElementById('resultCta').className=`result-cta ${r.cta.ctaClass}`;
     document.getElementById('resultCta').innerHTML=`
