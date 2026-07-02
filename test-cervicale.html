@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Cervicale – Scopri il tuo livello di rischio | AXIS CORE</title>
-    <meta name="description" content="Rispondi a 7 domande e scopri in 2 minuti quanto è a rischio la tua cervicale. Quiz gratuito con risultato e consigli personalizzati.">
+    <meta name="description" content="Rispondi a 10 domande e scopri in 2 minuti quanto è a rischio la tua cervicale. Quiz gratuito con risultato e consigli personalizzati.">
     <meta property="og:title" content="Test Cervicale – Scopri il tuo livello di rischio | AXIS CORE">
-    <meta property="og:description" content="7 domande, 2 minuti. Risultato immediato e consigli personalizzati.">
+    <meta property="og:description" content="10 domande, 2 minuti. Risultato immediato e consigli personalizzati.">
     <meta property="og:url" content="https://axiscore.tech/test-cervicale">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         :root {
             --bg:           #07070D;
             --bg-card:      #0D1220;
-            --bg-card2:     #111827;
             --primary:      #00AAFF;
             --primary-dim:  rgba(0,170,255,0.12);
             --primary-glow: rgba(0,170,255,0.25);
@@ -30,8 +28,9 @@
             --red-bg:       rgba(255,23,68,0.1);
             --radius:       16px;
             --shadow:       0 8px 40px rgba(0,0,0,0.5);
+            --profilo-border: rgba(138,155,176,0.25);
+            --profilo-bg:   rgba(138,155,176,0.05);
         }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
             background: var(--bg);
@@ -39,8 +38,6 @@
             min-height: 100vh;
             line-height: 1.6;
         }
-
-        /* ── HEADER ── */
         .header {
             background: rgba(7,7,13,0.95);
             backdrop-filter: blur(12px);
@@ -53,12 +50,7 @@
             top: 0;
             z-index: 100;
         }
-        .logo-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-        }
+        .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
         .logo-svg { height: 36px; width: auto; }
         .header-tag {
             background: var(--primary-dim);
@@ -71,15 +63,7 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
-
-        /* ── CONTAINER ── */
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 36px 20px 100px;
-        }
-
-        /* ── PROGRESS ── */
+        .container { max-width: 640px; margin: 0 auto; padding: 36px 20px 100px; }
         .progress-wrap { margin-bottom: 28px; display: none; }
         .progress-meta {
             display: flex;
@@ -90,12 +74,7 @@
             font-weight: 600;
             letter-spacing: 0.05em;
         }
-        .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 2px;
-            overflow: hidden;
-        }
+        .progress-bar { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #0077B3, #00AAFF);
@@ -103,16 +82,9 @@
             transition: width 0.45s cubic-bezier(.4,0,.2,1);
             box-shadow: 0 0 8px rgba(0,170,255,0.6);
         }
-
-        /* ── SCREENS ── */
         .screen { display: none; }
         .screen.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ── CARD BASE ── */
+        @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -120,360 +92,136 @@
             padding: 40px;
             box-shadow: var(--shadow);
         }
-
-        /* ── INTRO ── */
-        .intro-icon { font-size: 48px; display: block; margin-bottom: 20px; text-align: center; }
-        .intro-card { text-align: center; }
-        .intro-card h1 {
-            font-size: clamp(22px, 5vw, 30px);
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 14px;
-            letter-spacing: -0.02em;
+        /* Card domanda profilazione — bordo muted diverso */
+        .card.profilo-card {
+            border-color: var(--profilo-border);
+            background: var(--bg-card);
         }
-        .intro-card h1 em {
-            font-style: normal;
-            color: var(--primary);
-        }
-        .intro-lead {
-            color: var(--muted);
-            font-size: 15px;
-            margin-bottom: 28px;
-            max-width: 440px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .badges {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 32px;
-        }
-        .badge {
-            background: var(--primary-dim);
-            border: 1px solid var(--border);
-            color: var(--primary);
-            padding: 5px 13px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        .stat-row {
-            display: flex;
-            justify-content: center;
-            gap: 28px;
-            padding: 22px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 32px;
-        }
-        .stat-num {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            display: block;
-            line-height: 1;
-            text-shadow: 0 0 20px rgba(0,170,255,0.4);
-        }
-        .stat-label {
-            font-size: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--muted);
-            margin-top: 4px;
-        }
-
-        /* ── BOTTONI ── */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: #07070D;
-            box-shadow: 0 4px 20px var(--primary-glow);
-        }
-        .btn-primary:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--primary-glow);
-        }
-        .btn-primary:disabled {
-            background: rgba(255,255,255,0.1);
-            color: var(--muted);
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        .btn-ghost {
-            background: transparent;
-            color: var(--muted);
-            padding: 14px 16px;
-            font-size: 14px;
-        }
-        .btn-ghost:hover { color: var(--text); }
-
-        /* ── DOMANDA ── */
-        .question-eyebrow {
+        .profilo-eyebrow {
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: var(--primary);
+            color: var(--muted);
             margin-bottom: 14px;
         }
-        .question-text {
-            font-size: clamp(17px, 3.5vw, 21px);
-            font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: 26px;
-        }
-
-        /* ── OPZIONI ── */
-        .options { display: flex; flex-direction: column; gap: 10px; }
+        .intro-icon { font-size: 48px; display: block; margin-bottom: 20px; text-align: center; }
+        .intro-card { text-align: center; }
+        .intro-card h1 { font-size: clamp(22px,5vw,30px); font-weight:800; line-height:1.25; margin-bottom:14px; letter-spacing:-0.02em; }
+        .intro-card h1 em { font-style:normal; color:var(--primary); }
+        .intro-lead { color:var(--muted); font-size:15px; margin-bottom:28px; max-width:440px; margin-left:auto; margin-right:auto; }
+        .badges { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:32px; }
+        .badge { background:var(--primary-dim); border:1px solid var(--border); color:var(--primary); padding:5px 13px; border-radius:20px; font-size:12px; font-weight:600; }
+        .stat-row { display:flex; justify-content:center; gap:28px; padding:22px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); margin-bottom:32px; }
+        .stat-num { font-size:24px; font-weight:800; color:var(--primary); display:block; line-height:1; text-shadow:0 0 20px rgba(0,170,255,0.4); }
+        .stat-label { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-top:4px; }
+        .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:10px; font-size:15px; font-weight:700; border:none; cursor:pointer; transition:all 0.2s ease; }
+        .btn-primary { background:var(--primary); color:#07070D; box-shadow:0 4px 20px var(--primary-glow); }
+        .btn-primary:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 30px var(--primary-glow); }
+        .btn-primary:disabled { background:rgba(255,255,255,0.1); color:var(--muted); cursor:not-allowed; box-shadow:none; }
+        .btn-ghost { background:transparent; color:var(--muted); padding:14px 16px; font-size:14px; }
+        .btn-ghost:hover { color:var(--text); }
+        .question-eyebrow { font-size:11px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--primary); margin-bottom:14px; }
+        .question-text { font-size:clamp(17px,3.5vw,21px); font-weight:700; line-height:1.4; margin-bottom:26px; }
+        .options { display:flex; flex-direction:column; gap:10px; }
         .option {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 15px 18px;
-            border: 1px solid var(--border);
-            border-radius: 11px;
-            cursor: pointer;
-            transition: all 0.18s ease;
-            background: transparent;
-            user-select: none;
+            display:flex; align-items:center; gap:14px;
+            padding:15px 18px;
+            border:1px solid var(--border);
+            border-radius:11px;
+            cursor:pointer;
+            transition:all 0.18s ease;
+            background:transparent;
+            user-select:none;
         }
-        .option:hover {
-            border-color: var(--border-hover);
-            background: var(--primary-dim);
-        }
-        .option.selected {
-            border-color: var(--primary);
-            background: var(--primary-dim);
-            box-shadow: 0 0 0 1px var(--primary), inset 0 0 20px rgba(0,170,255,0.05);
-        }
-        .option-emoji { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; }
-        .option-text { font-size: 14px; font-weight: 500; flex: 1; }
+        /* Opzioni profilazione — bordo più neutro */
+        .option.profilo-opt { border-color: var(--profilo-border); }
+        .option.profilo-opt:hover { border-color: var(--muted); background: var(--profilo-bg); }
+        .option.profilo-opt.selected { border-color: var(--muted); background: var(--profilo-bg); box-shadow: none; }
+        .option.profilo-opt.selected .option-radio { background: var(--muted); border-color: var(--muted); box-shadow: none; }
+        /* Opzioni scoring — azzurro */
+        .option:not(.profilo-opt):hover { border-color:var(--border-hover); background:var(--primary-dim); }
+        .option:not(.profilo-opt).selected { border-color:var(--primary); background:var(--primary-dim); box-shadow:0 0 0 1px var(--primary),inset 0 0 20px rgba(0,170,255,0.05); }
+        .option-emoji { font-size:20px; flex-shrink:0; width:28px; text-align:center; }
+        .option-text { font-size:14px; font-weight:500; flex:1; }
         .option-radio {
-            width: 18px; height: 18px;
-            border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.2);
-            flex-shrink: 0;
-            transition: all 0.18s;
-            display: flex; align-items: center; justify-content: center;
+            width:18px; height:18px; border-radius:50%;
+            border:2px solid rgba(255,255,255,0.2);
+            flex-shrink:0; transition:all 0.18s;
+            display:flex; align-items:center; justify-content:center;
         }
-        .option.selected .option-radio {
-            background: var(--primary);
-            border-color: var(--primary);
-            box-shadow: 0 0 8px var(--primary-glow);
+        .option:not(.profilo-opt).selected .option-radio { background:var(--primary); border-color:var(--primary); box-shadow:0 0 8px var(--primary-glow); }
+        .option.selected .option-radio::after { content:''; width:6px; height:6px; border-radius:50%; background:#07070D; }
+        .q-nav { display:flex; justify-content:space-between; align-items:center; margin-top:26px; }
+        .email-card { text-align:center; }
+        .score-chip { display:inline-flex; align-items:center; gap:6px; padding:7px 18px; border-radius:30px; font-size:13px; font-weight:700; margin-bottom:20px; border:1px solid; }
+        .chip-basso { background:var(--green-bg); color:var(--green); border-color:rgba(0,230,118,0.3); }
+        .chip-medio { background:var(--orange-bg); color:var(--orange); border-color:rgba(255,145,0,0.3); }
+        .chip-alto  { background:var(--red-bg); color:var(--red); border-color:rgba(255,23,68,0.3); }
+        .email-card h2 { font-size:clamp(20px,4.5vw,26px); font-weight:800; margin-bottom:10px; }
+        .email-card .sub { color:var(--muted); font-size:14px; margin-bottom:28px; max-width:380px; margin-left:auto; margin-right:auto; }
+        .form-stack { display:flex; flex-direction:column; gap:10px; max-width:380px; margin:0 auto 14px; }
+        .form-row { display:flex; gap:10px; }
+        .form-row input { flex:1; }
+        .form-stack input, .form-stack select {
+            width:100%; padding:14px 16px;
+            border:1px solid var(--border); border-radius:10px;
+            font-size:14px; outline:none;
+            transition:border-color 0.2s, box-shadow 0.2s;
+            color:var(--text); background:rgba(255,255,255,0.04);
+            -webkit-appearance:none;
         }
-        .option.selected .option-radio::after {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: #07070D;
-        }
-        .q-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 26px;
-        }
-
-        /* ── EMAIL SCREEN ── */
-        .email-card { text-align: center; }
-        .score-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 7px 18px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            border: 1px solid;
-        }
-        .chip-basso { background: var(--green-bg); color: var(--green); border-color: rgba(0,230,118,0.3); }
-        .chip-medio { background: var(--orange-bg); color: var(--orange); border-color: rgba(255,145,0,0.3); }
-        .chip-alto  { background: var(--red-bg); color: var(--red); border-color: rgba(255,23,68,0.3); }
-
-        .email-card h2 {
-            font-size: clamp(20px, 4.5vw, 26px);
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
-        .email-card .sub {
-            color: var(--muted);
-            font-size: 14px;
-            margin-bottom: 28px;
-            max-width: 380px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .form-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 380px;
-            margin: 0 auto 14px;
-        }
-        .form-stack input {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            color: var(--text);
-            background: rgba(255,255,255,0.04);
-        }
-        .form-stack input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-dim);
-        }
-        .form-stack input::placeholder { color: rgba(138,155,176,0.6); }
+        .form-stack input:focus, .form-stack select:focus { border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-dim); }
+        .form-stack input::placeholder { color:rgba(138,155,176,0.6); }
+        .form-stack select option { background:#0D1220; color:#E8F0FF; }
         .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
-            color: #07070D;
-            border: none;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 20px var(--primary-glow);
+            width:100%; padding:15px;
+            background:var(--primary); color:#07070D;
+            border:none; border-radius:10px;
+            font-size:15px; font-weight:700; cursor:pointer;
+            transition:all 0.2s; box-shadow:0 4px 20px var(--primary-glow);
         }
-        .btn-submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 30px var(--primary-glow); }
-        .btn-submit:disabled { background: rgba(255,255,255,0.1); color: var(--muted); cursor: not-allowed; box-shadow: none; }
-        .error-msg { color: var(--red); font-size: 12px; margin-top: 4px; display: none; }
-        .privacy-note { font-size: 11px; color: var(--muted); max-width: 380px; margin: 0 auto; }
-        .privacy-note a { color: var(--muted); }
-
-        /* ── LOADING ── */
-        .loading-card { text-align: center; padding: 70px 40px; }
-        .loader-ring {
-            width: 52px; height: 52px;
-            border: 3px solid rgba(0,170,255,0.15);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px;
-            box-shadow: 0 0 20px var(--primary-glow);
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ── RISULTATO ── */
-        .result-hero { text-align: center; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
-        .risk-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 9px 22px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            border: 1px solid;
-        }
-        .badge-basso { background: var(--green-bg); color: var(--green); border-color: rgba(0,230,118,0.3); }
-        .badge-medio { background: var(--orange-bg); color: var(--orange); border-color: rgba(255,145,0,0.3); }
-        .badge-alto  { background: var(--red-bg); color: var(--red); border-color: rgba(255,23,68,0.3); }
-
-        .score-label { font-size: 12px; color: var(--muted); margin-bottom: 12px; font-weight: 600; letter-spacing: 0.05em; }
-        .result-title { font-size: clamp(19px, 4vw, 24px); font-weight: 800; margin-bottom: 12px; }
-        .result-desc { color: var(--muted); font-size: 14px; line-height: 1.7; max-width: 480px; margin: 0 auto 20px; }
-
-        /* Meter */
-        .meter-wrap { display: flex; align-items: center; gap: 12px; max-width: 360px; margin: 0 auto; }
-        .meter-label { font-size: 11px; font-weight: 700; min-width: 36px; text-align: center; }
-        .meter-track {
-            flex: 1; height: 6px;
-            background: linear-gradient(90deg, #00E676, #FF9100, #FF1744);
-            border-radius: 3px;
-            position: relative;
-        }
-        .meter-cursor {
-            position: absolute; top: 50%;
-            transform: translate(-50%, -50%);
-            width: 18px; height: 18px;
-            border-radius: 50%;
-            border: 2px solid var(--bg-card);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            transition: left 1.2s cubic-bezier(.4,0,.2,1), background 0.6s ease;
-        }
-
-        /* Tips */
-        .tips-section { margin-bottom: 24px; }
-        .section-label {
-            font-size: 10px; font-weight: 700;
-            letter-spacing: 0.14em; text-transform: uppercase;
-            color: var(--muted); margin-bottom: 12px;
-        }
-        .tip-item {
-            display: flex; align-items: flex-start; gap: 12px;
-            padding: 12px 14px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 10px;
-            margin-bottom: 8px;
-        }
-        .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-        .tip-text { font-size: 13px; line-height: 1.55; color: var(--text); }
-
-        /* CTA risultato */
-        .result-cta { border-radius: 12px; padding: 22px; border-left: 3px solid; }
-        .cta-basso { background: var(--green-bg); border-color: var(--green); }
-        .cta-medio { background: var(--orange-bg); border-color: var(--orange); }
-        .cta-alto  { background: var(--red-bg); border-color: var(--red); }
-
-        .result-cta h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
-        .result-cta p { font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.55; }
-        .btn-cta {
-            display: inline-flex; align-items: center; gap: 6px;
-            padding: 10px 20px; border-radius: 8px;
-            font-weight: 700; font-size: 13px;
-            text-decoration: none; transition: all 0.2s;
-            color: #07070D;
-        }
-        .btn-cta:hover { transform: translateY(-1px); }
-        .btn-cta-green  { background: var(--green); }
-        .btn-cta-orange { background: var(--orange); }
-        .btn-cta-red    { background: var(--red); }
-
-        /* Share */
-        .share-row { display: flex; justify-content: center; margin-top: 20px; }
-        .btn-retry {
-            background: var(--primary-dim);
-            border: 1px solid var(--border);
-            color: var(--primary);
-            padding: 8px 18px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-retry:hover { border-color: var(--primary); }
-
-        /* Responsive */
-        @media (max-width: 500px) {
-            .card { padding: 26px 20px; }
-            .stat-row { gap: 16px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-        }
+        .btn-submit:hover:not(:disabled) { transform:translateY(-2px); box-shadow:0 8px 30px var(--primary-glow); }
+        .btn-submit:disabled { background:rgba(255,255,255,0.1); color:var(--muted); cursor:not-allowed; box-shadow:none; }
+        .error-msg { color:var(--red); font-size:12px; margin-top:4px; display:none; }
+        .privacy-note { font-size:11px; color:var(--muted); max-width:380px; margin:0 auto; }
+        .privacy-note a { color:var(--muted); }
+        .loading-card { text-align:center; padding:70px 40px; }
+        .loader-ring { width:52px; height:52px; border:3px solid rgba(0,170,255,0.15); border-top-color:var(--primary); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 20px; box-shadow:0 0 20px var(--primary-glow); }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .result-hero { text-align:center; padding-bottom:28px; margin-bottom:28px; border-bottom:1px solid var(--border); }
+        .risk-badge { display:inline-flex; align-items:center; gap:8px; padding:9px 22px; border-radius:30px; font-size:14px; font-weight:700; margin-bottom:16px; border:1px solid; }
+        .badge-basso { background:var(--green-bg); color:var(--green); border-color:rgba(0,230,118,0.3); }
+        .badge-medio { background:var(--orange-bg); color:var(--orange); border-color:rgba(255,145,0,0.3); }
+        .badge-alto  { background:var(--red-bg); color:var(--red); border-color:rgba(255,23,68,0.3); }
+        .score-label { font-size:12px; color:var(--muted); margin-bottom:12px; font-weight:600; letter-spacing:0.05em; }
+        .result-title { font-size:clamp(19px,4vw,24px); font-weight:800; margin-bottom:12px; }
+        .result-desc { color:var(--muted); font-size:14px; line-height:1.7; max-width:480px; margin:0 auto 20px; }
+        .meter-wrap { display:flex; align-items:center; gap:12px; max-width:360px; margin:0 auto; }
+        .meter-label { font-size:11px; font-weight:700; min-width:36px; text-align:center; }
+        .meter-track { flex:1; height:6px; background:linear-gradient(90deg,#00E676,#FF9100,#FF1744); border-radius:3px; position:relative; }
+        .meter-cursor { position:absolute; top:50%; transform:translate(-50%,-50%); width:18px; height:18px; border-radius:50%; border:2px solid var(--bg-card); box-shadow:0 2px 10px rgba(0,0,0,0.5); transition:left 1.2s cubic-bezier(.4,0,.2,1), background 0.6s ease; }
+        .tips-section { margin-bottom:24px; }
+        .section-label { font-size:10px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:12px; }
+        .tip-item { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.05); border-radius:10px; margin-bottom:8px; }
+        .tip-icon { font-size:16px; flex-shrink:0; margin-top:1px; }
+        .tip-text { font-size:13px; line-height:1.55; color:var(--text); }
+        .result-cta { border-radius:12px; padding:22px; border-left:3px solid; }
+        .cta-basso { background:var(--green-bg); border-color:var(--green); }
+        .cta-medio { background:var(--orange-bg); border-color:var(--orange); }
+        .cta-alto  { background:var(--red-bg); border-color:var(--red); }
+        .result-cta h3 { font-size:15px; font-weight:700; margin-bottom:6px; }
+        .result-cta p { font-size:13px; color:var(--muted); margin-bottom:14px; line-height:1.55; }
+        .btn-cta { display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:8px; font-weight:700; font-size:13px; text-decoration:none; transition:all 0.2s; color:#07070D; }
+        .btn-cta:hover { transform:translateY(-1px); }
+        .btn-cta-green  { background:var(--green); }
+        .btn-cta-orange { background:var(--orange); }
+        .btn-cta-red    { background:var(--red); }
+        .share-row { display:flex; justify-content:center; margin-top:20px; }
+        .btn-retry { background:var(--primary-dim); border:1px solid var(--border); color:var(--primary); padding:8px 18px; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+        .btn-retry:hover { border-color:var(--primary); }
+        @media (max-width:500px) { .card { padding:26px 20px; } .stat-row { gap:16px; } .form-row { flex-direction:column; } }
+        @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; } }
     </style>
 </head>
 <body>
@@ -516,8 +264,8 @@
 
     <div class="progress-wrap" id="progressWrap">
         <div class="progress-meta">
-            <span id="progressLabel">Domanda 1 di 7</span>
-            <span id="progressPct">14%</span>
+            <span id="progressLabel">Domanda 1 di 10</span>
+            <span id="progressPct">10%</span>
         </div>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill" style="width:0%"></div>
@@ -529,26 +277,17 @@
         <div class="card intro-card">
             <span class="intro-icon">🔍</span>
             <h1>La tua cervicale<br>è <em>davvero</em> a rischio?</h1>
-            <p class="intro-lead">7 domande, 2 minuti. Scopri il tuo profilo di rischio cervicale e ricevi consigli personalizzati.</p>
+            <p class="intro-lead">10 domande, 2 minuti. Scopri il tuo profilo di rischio cervicale e ricevi consigli personalizzati.</p>
             <div class="badges">
-                <span class="badge">✅ 7 domande</span>
+                <span class="badge">✅ 10 domande</span>
                 <span class="badge">⏱ 2 minuti</span>
                 <span class="badge">🔒 Gratuito</span>
                 <span class="badge">📊 Risultato immediato</span>
             </div>
             <div class="stat-row">
-                <div>
-                    <span class="stat-num">1 su 2</span>
-                    <span class="stat-label">Italiani con cervicalgia</span>
-                </div>
-                <div>
-                    <span class="stat-num">60%</span>
-                    <span class="stat-label">Smart worker a rischio</span>
-                </div>
-                <div>
-                    <span class="stat-num">27 kg</span>
-                    <span class="stat-label">Carico a 60° di inclinazione</span>
-                </div>
+                <div><span class="stat-num">1 su 2</span><span class="stat-label">Italiani con cervicalgia</span></div>
+                <div><span class="stat-num">60%</span><span class="stat-label">Smart worker a rischio</span></div>
+                <div><span class="stat-num">27 kg</span><span class="stat-label">Carico a 60° di inclinazione</span></div>
             </div>
             <button class="btn btn-primary" onclick="startQuiz()">Inizia il test &rarr;</button>
         </div>
@@ -562,14 +301,24 @@
         <div class="card email-card">
             <div id="scoreChip"></div>
             <h2>Dove inviamo il tuo risultato?</h2>
-            <p class="sub">Inserisci la tua email per ricevere l'analisi completa con consigli personalizzati.</p>
+            <p class="sub">Inserisci i tuoi dati per ricevere l'analisi completa con consigli personalizzati per il tuo profilo.</p>
             <div class="form-stack">
-                <input type="text" id="inputNome" placeholder="Il tuo nome (opzionale)" autocomplete="given-name">
+                <div class="form-row">
+                    <input type="text" id="inputNome" placeholder="Nome *" autocomplete="given-name">
+                    <input type="text" id="inputCognome" placeholder="Cognome (opzionale)" autocomplete="family-name">
+                </div>
                 <input type="email" id="inputEmail" placeholder="La tua email *" autocomplete="email">
-                <p class="error-msg" id="emailError">Inserisci un indirizzo email valido.</p>
+                <select id="inputSesso">
+                    <option value="">Sesso (opzionale)</option>
+                    <option value="M">Uomo</option>
+                    <option value="F">Donna</option>
+                    <option value="altro">Preferisco non specificare</option>
+                </select>
+                <p class="error-msg" id="emailError">Inserisci nome ed email validi.</p>
                 <button class="btn-submit" id="btnSubmit" onclick="submitEmail()">Scopri il mio risultato &rarr;</button>
             </div>
-            <p class="privacy-note">🔒 Niente spam. <a href="https://axiscore.tech/privacy-policy.html" target="_blank">Privacy Policy</a></p>
+            <p class="privacy-note">🔒 Niente spam. Puoi cancellarti in qualsiasi momento.<br>
+            <a href="https://axiscore.tech/privacy-policy.html" target="_blank">Privacy Policy</a></p>
         </div>
     </div>
 
@@ -591,9 +340,7 @@
                 <p class="result-desc" id="resultDesc"></p>
                 <div class="meter-wrap">
                     <span class="meter-label" style="color:var(--green)">Basso</span>
-                    <div class="meter-track">
-                        <div class="meter-cursor" id="meterCursor"></div>
-                    </div>
+                    <div class="meter-track"><div class="meter-cursor" id="meterCursor"></div></div>
                     <span class="meter-label" style="color:var(--red)">Alto</span>
                 </div>
             </div>
@@ -613,217 +360,276 @@
 <script>
 const WORKER_URL = 'https://quiz-cervicale.axiscore.tech';
 
+// isProfilo: true = domanda di profilazione (punti sempre 0, stile neutro)
+// value: stringa codice da mandare a Brevo
 const domande = [
-    { testo: "Quante ore al giorno trascorri al PC o smartphone?", opzioni: [
-        { emoji: "☕", testo: "Meno di 4 ore", punti: 0 },
-        { emoji: "💻", testo: "Da 4 a 8 ore", punti: 1 },
-        { emoji: "🔥", testo: "Più di 8 ore", punti: 2 }
+    // 1 — SCORING
+    { testo: "Quante ore al giorno trascorri al PC o smartphone?", isProfilo: false, opzioni: [
+        { emoji:"☕", testo:"Meno di 4 ore",   punti:0 },
+        { emoji:"💻", testo:"Da 4 a 8 ore",    punti:1 },
+        { emoji:"🔥", testo:"Più di 8 ore",    punti:2 }
     ]},
-    { testo: "Senti dolore o rigidità al collo durante la giornata?", opzioni: [
-        { emoji: "😊", testo: "Mai o quasi mai", punti: 0 },
-        { emoji: "😐", testo: "A volte, qualche volta a settimana", punti: 1 },
-        { emoji: "😣", testo: "Spesso, quasi ogni giorno", punti: 2 }
+    // 2 — PROFILAZIONE: contesto lavorativo
+    { testo: "Come lavori principalmente?", isProfilo: true, brevoAttr: "WORK_TYPE", opzioni: [
+        { emoji:"🏢", testo:"In ufficio fisso",             punti:0, value:"ufficio" },
+        { emoji:"🏠", testo:"Smart working da casa",        punti:0, value:"smart_working" },
+        { emoji:"🔄", testo:"Modalità ibrida",              punti:0, value:"ibrido" },
+        { emoji:"💼", testo:"Libero professionista",        punti:0, value:"libero_professionista" },
+        { emoji:"📚", testo:"Studente",                     punti:0, value:"studente" }
     ]},
-    { testo: "Soffri di mal di testa o pesantezza a fine giornata?", opzioni: [
-        { emoji: "🌤", testo: "Raramente", punti: 0 },
-        { emoji: "🌥", testo: "Qualche volta a settimana", punti: 1 },
-        { emoji: "⛈", testo: "Quasi sempre a fine giornata", punti: 2 }
+    // 3 — SCORING
+    { testo: "Senti dolore o rigidità al collo durante la giornata?", isProfilo: false, opzioni: [
+        { emoji:"😊", testo:"Mai o quasi mai",              punti:0 },
+        { emoji:"😐", testo:"A volte, qualche volta a settimana", punti:1 },
+        { emoji:"😣", testo:"Spesso, quasi ogni giorno",    punti:2 }
     ]},
-    { testo: "Le tue spalle sono spesso tese o contratte?", opzioni: [
-        { emoji: "🧘", testo: "No, sono rilassate", punti: 0 },
-        { emoji: "😤", testo: "Un po', lo noto a volte", punti: 1 },
-        { emoji: "🪨", testo: "Sempre tese, dure come roccia", punti: 2 }
+    // 4 — PROFILAZIONE: fascia età
+    { testo: "Qual è la tua fascia d'età?", isProfilo: true, brevoAttr: "ETA", opzioni: [
+        { emoji:"🌱", testo:"Meno di 25 anni",   punti:0, value:"under_25" },
+        { emoji:"⚡", testo:"25–34 anni",         punti:0, value:"25_34" },
+        { emoji:"🎯", testo:"35–49 anni",         punti:0, value:"35_49" },
+        { emoji:"🏆", testo:"50–64 anni",         punti:0, value:"50_64" },
+        { emoji:"🌟", testo:"65 anni o più",      punti:0, value:"65_plus" }
     ]},
-    { testo: "Come valuti la tua postura alla scrivania?", opzioni: [
-        { emoji: "🏅", testo: "Buona — monitor in asse, schiena diritta", punti: 0 },
-        { emoji: "🤔", testo: "Media — cerco di starci attento", punti: 1 },
-        { emoji: "🙈", testo: "Pessima — mi trovo sempre curvo", punti: 2 }
+    // 5 — SCORING
+    { testo: "Soffri di mal di testa o pesantezza a fine giornata?", isProfilo: false, opzioni: [
+        { emoji:"🌤", testo:"Raramente",                            punti:0 },
+        { emoji:"🌥", testo:"Qualche volta a settimana",            punti:1 },
+        { emoji:"⛈",  testo:"Quasi sempre a fine giornata",        punti:2 }
     ]},
-    { testo: "Ti alzi dalla sedia almeno ogni ora per muoverti?", opzioni: [
-        { emoji: "🏃", testo: "Sì, è una mia abitudine", punti: 0 },
-        { emoji: "🙂", testo: "A volte, quando me lo ricordo", punti: 1 },
-        { emoji: "🪑", testo: "Quasi mai — passo ore immobile", punti: 2 }
+    // 6 — SCORING
+    { testo: "Le tue spalle sono spesso tese o contratte?", isProfilo: false, opzioni: [
+        { emoji:"🧘", testo:"No, sono rilassate",                   punti:0 },
+        { emoji:"😤", testo:"Un po', lo noto a volte",              punti:1 },
+        { emoji:"🪨", testo:"Sempre tese, dure come roccia",        punti:2 }
     ]},
-    { testo: "Hai già avuto diagnosi o cure per problemi cervicali?", opzioni: [
-        { emoji: "✅", testo: "No, mai avuto problemi", punti: 0 },
-        { emoji: "⚠️", testo: "Qualche episodio occasionale", punti: 1 },
-        { emoji: "🏥", testo: "Sì, è un problema cronico", punti: 2 }
+    // 7 — SCORING
+    { testo: "Come valuti la tua postura alla scrivania?", isProfilo: false, opzioni: [
+        { emoji:"🏅", testo:"Buona — monitor in asse, schiena diritta", punti:0 },
+        { emoji:"🤔", testo:"Media — cerco di starci attento",          punti:1 },
+        { emoji:"🙈", testo:"Pessima — mi trovo sempre curvo",          punti:2 }
+    ]},
+    // 8 — SCORING
+    { testo: "Ti alzi dalla sedia almeno ogni ora per muoverti?", isProfilo: false, opzioni: [
+        { emoji:"🏃", testo:"Sì, è una mia abitudine",             punti:0 },
+        { emoji:"🙂", testo:"A volte, quando me lo ricordo",        punti:1 },
+        { emoji:"🪑", testo:"Quasi mai — passo ore immobile",       punti:2 }
+    ]},
+    // 9 — PROFILAZIONE: tentativi precedenti
+    { testo: "Hai già provato qualcosa per la cervicale?", isProfilo: true, brevoAttr: "PREV_SOLUTIONS", opzioni: [
+        { emoji:"✨", testo:"No, è la prima volta che ci penso",    punti:0, value:"mai_provato" },
+        { emoji:"📱", testo:"Sì, esercizi trovati online",          punti:0, value:"esercizi_online" },
+        { emoji:"🏥", testo:"Sì, fisioterapia o osteopatia",        punti:0, value:"fisioterapia" },
+        { emoji:"🛏",  testo:"Sì, cuscini o collari ortopedici",    punti:0, value:"cuscini_collari" },
+        { emoji:"😓", testo:"Ho provato di tutto senza risultati",  punti:0, value:"provato_tutto" }
+    ]},
+    // 10 — SCORING
+    { testo: "Hai già avuto diagnosi o cure per problemi cervicali?", isProfilo: false, opzioni: [
+        { emoji:"✅", testo:"No, mai avuto problemi",               punti:0 },
+        { emoji:"⚠️", testo:"Qualche episodio occasionale",         punti:1 },
+        { emoji:"🏥", testo:"Sì, è un problema cronico",            punti:2 }
     ]}
 ];
 
 const risultati = {
     basso: {
-        badge: "🟢  Rischio Basso", badgeClass: "badge-basso", chipClass: "chip-basso",
-        title: "La tua cervicale è in buona forma",
-        desc: "Le tue abitudini sono nella norma. Mantieni le buone pratiche e agisci in prevenzione — è il momento migliore per farlo.",
-        tips: [
-            { icon: "⏱", text: "Continua a fare pause regolari ogni ora quando usi PC o smartphone." },
-            { icon: "🖥", text: "Mantieni il monitor all'altezza degli occhi per non sovraccaricare le vertebre cervicali." },
-            { icon: "🤸", text: "Integra qualche minuto di mobilità cervicale nella tua routine mattutina." }
+        badge:"🟢  Rischio Basso", badgeClass:"badge-basso", chipClass:"chip-basso",
+        title:"La tua cervicale è in buona forma",
+        desc:"Le tue abitudini sono nella norma. Mantieni le buone pratiche e agisci in prevenzione — è il momento migliore per farlo.",
+        tips:[
+            {icon:"⏱",text:"Continua a fare pause regolari ogni ora quando usi PC o smartphone."},
+            {icon:"🖥",text:"Mantieni il monitor all'altezza degli occhi per non sovraccaricare le vertebre cervicali."},
+            {icon:"🤸",text:"Integra qualche minuto di mobilità cervicale nella tua routine mattutina."}
         ],
-        cta: { titolo: "Vuoi saperne di più sulla prevenzione?", testo: "Leggi i nostri articoli gratuiti su postura, smart working e benessere cervicale.", link: "https://blog.axiscore.tech", label: "Leggi il blog →", ctaClass: "cta-basso", btnClass: "btn-cta-green" },
-        meterPct: 12, meterColor: "#00E676"
+        cta:{titolo:"Vuoi saperne di più sulla prevenzione?",testo:"Leggi i nostri articoli gratuiti su postura, smart working e benessere cervicale.",link:"https://blog.axiscore.tech",label:"Leggi il blog →",ctaClass:"cta-basso",btnClass:"btn-cta-green"},
+        meterPct:12, meterColor:"#00E676"
     },
     medio: {
-        badge: "🟡  Rischio Medio", badgeClass: "badge-medio", chipClass: "chip-medio",
-        title: "Attenzione: il tuo collo mostra segnali d'allarme",
-        desc: "I tuoi sintomi e le tue abitudini indicano un rischio moderato. Agire ora è fondamentale per evitare che il problema si cronicizzi.",
-        tips: [
-            { icon: "⏰", text: "Imposta un promemoria ogni 45 minuti per alzarti e fare qualche movimento del collo." },
-            { icon: "📐", text: "Rivaluta la tua postazione: il monitor dovrebbe essere all'altezza degli occhi." },
-            { icon: "📄", text: "Scarica la nostra guida gratuita con esercizi specifici per la cervicale da smart working." }
+        badge:"🟡  Rischio Medio", badgeClass:"badge-medio", chipClass:"chip-medio",
+        title:"Attenzione: il tuo collo mostra segnali d'allarme",
+        desc:"I tuoi sintomi e le tue abitudini indicano un rischio moderato. Agire ora è fondamentale per evitare che il problema si cronicizzi.",
+        tips:[
+            {icon:"⏰",text:"Imposta un promemoria ogni 45 minuti per alzarti e fare qualche movimento del collo."},
+            {icon:"📐",text:"Rivaluta la tua postazione: il monitor dovrebbe essere all'altezza degli occhi."},
+            {icon:"📄",text:"Scarica la nostra guida gratuita con esercizi specifici per la cervicale da smart working."}
         ],
-        cta: { titolo: "Scarica la Guida Gratuita", testo: "\"Cervicale e Smart Working: la guida completa alla prevenzione\" — consigli pratici e immediati.", link: "https://axiscore.tech/download", label: "Scarica gratis →", ctaClass: "cta-medio", btnClass: "btn-cta-orange" },
-        meterPct: 50, meterColor: "#FF9100"
+        cta:{titolo:"Scarica la Guida Gratuita",testo:"\"Cervicale e Smart Working: la guida completa\" — consigli pratici e immediati.",link:"https://axiscore.tech/download",label:"Scarica gratis →",ctaClass:"cta-medio",btnClass:"btn-cta-orange"},
+        meterPct:50, meterColor:"#FF9100"
     },
     alto: {
-        badge: "🔴  Rischio Alto", badgeClass: "badge-alto", chipClass: "chip-alto",
-        title: "La tua cervicale ha bisogno di attenzione immediata",
-        desc: "Il tuo profilo indica un rischio elevato. I sintomi che hai descritto sono esattamente quelli che abbiamo analizzato per sviluppare la nostra soluzione.",
-        tips: [
-            { icon: "🩺", text: "Consulta un fisioterapista o osteopata per una valutazione professionale." },
-            { icon: "⏸", text: "Riduci le sessioni continuative al PC: una pausa attiva ogni 30 minuti può fare la differenza." },
-            { icon: "💡", text: "La trazione cervicale controllata è uno dei metodi più efficaci per decomprimere le vertebre." }
+        badge:"🔴  Rischio Alto", badgeClass:"badge-alto", chipClass:"chip-alto",
+        title:"La tua cervicale ha bisogno di attenzione immediata",
+        desc:"Il tuo profilo indica un rischio elevato. I sintomi che hai descritto sono esattamente quelli che abbiamo analizzato per sviluppare la nostra soluzione.",
+        tips:[
+            {icon:"🩺",text:"Consulta un fisioterapista o osteopata per una valutazione professionale."},
+            {icon:"⏸",text:"Riduci le sessioni continuative al PC: una pausa ogni 30 minuti può fare la differenza."},
+            {icon:"💡",text:"La trazione cervicale controllata è uno dei metodi più efficaci per decomprimere le vertebre."}
         ],
-        cta: { titolo: "Entra nella lista d'attesa AXIS CORE", testo: "Stiamo sviluppando un dispositivo di trazione cervicale professionale per persone come te.", link: "https://axiscore.tech/#waitlist", label: "Voglio saperne di più →", ctaClass: "cta-alto", btnClass: "btn-cta-red" },
-        meterPct: 88, meterColor: "#FF1744"
+        cta:{titolo:"Entra nella lista d'attesa AXIS CORE",testo:"Stiamo sviluppando un dispositivo di trazione cervicale professionale per persone come te.",link:"https://axiscore.tech/#waitlist",label:"Voglio saperne di più →",ctaClass:"cta-alto",btnClass:"btn-cta-red"},
+        meterPct:88, meterColor:"#FF1744"
     }
 };
 
-let currentQ = 0, answers = new Array(domande.length).fill(null), totalScore = 0;
+let currentQ=0, answers=new Array(domande.length).fill(null), totalScore=0;
 
 function startQuiz() {
     showScreen(null);
-    document.getElementById('progressWrap').style.display = 'block';
-    currentQ = 0;
-    renderQuestion(0);
-    updateProgress(0);
+    document.getElementById('progressWrap').style.display='block';
+    currentQ=0; renderQuestion(0); updateProgress(0);
 }
 
 function renderQuestion(idx) {
-    const d = domande[idx];
-    document.getElementById('quizContainer').innerHTML = `
+    const d=domande[idx];
+    const isProfilo=d.isProfilo;
+    const cardClass=isProfilo?'card profilo-card':'card';
+    const eyebrowClass=isProfilo?'profilo-eyebrow':'question-eyebrow';
+    const eyebrowLabel=isProfilo?`Informazioni — ${idx+1} di ${domande.length}`:`Domanda ${idx+1} di ${domande.length}`;
+    document.getElementById('quizContainer').innerHTML=`
         <div class="screen active">
-            <div class="card">
-                <p class="question-eyebrow">Domanda ${idx+1} di ${domande.length}</p>
+            <div class="${cardClass}">
+                <p class="${eyebrowClass}">${eyebrowLabel}</p>
                 <h2 class="question-text">${d.testo}</h2>
                 <div class="options">
-                    ${d.opzioni.map((o,oi) => `
-                        <div class="option" id="opt-${idx}-${oi}"
-                             onclick="selectOption(${idx},${oi},${o.punti})"
+                    ${d.opzioni.map((o,oi)=>`
+                        <div class="option${isProfilo?' profilo-opt':''}" id="opt-${idx}-${oi}"
+                             onclick="selectOption(${idx},${oi},${o.punti},'${o.value||''}')"
                              role="button" tabindex="0"
-                             onkeydown="if(event.key==='Enter'||event.key===' ')selectOption(${idx},${oi},${o.punti})">
+                             onkeydown="if(event.key==='Enter'||event.key===' ')selectOption(${idx},${oi},${o.punti},'${o.value||''}')">
                             <span class="option-emoji">${o.emoji}</span>
                             <span class="option-text">${o.testo}</span>
-                            <span class="option-radio" id="radio-${idx}-${oi}"></span>
+                            <span class="option-radio"></span>
                         </div>`).join('')}
                 </div>
                 <div class="q-nav">
-                    ${idx > 0 ? `<button class="btn btn-ghost" onclick="prevQuestion(${idx})">&#8592; Indietro</button>` : '<span></span>'}
+                    ${idx>0?`<button class="btn btn-ghost" onclick="prevQuestion(${idx})">&#8592; Indietro</button>`:'<span></span>'}
                     <button class="btn btn-primary" id="btn-next" onclick="nextQuestion(${idx})" ${answers[idx]===null?'disabled':''}>
-                        ${idx < domande.length-1 ? 'Avanti &rarr;' : 'Calcola il rischio &rarr;'}
+                        ${idx<domande.length-1?'Avanti &rarr;':'Calcola il rischio &rarr;'}
                     </button>
                 </div>
             </div>
         </div>`;
-    if (answers[idx] !== null) {
+    if(answers[idx]!==null) {
         document.getElementById(`opt-${idx}-${answers[idx].optIdx}`)?.classList.add('selected');
     }
 }
 
-function selectOption(qIdx, optIdx, punti) {
-    domande[qIdx].opzioni.forEach((_,i) => document.getElementById(`opt-${qIdx}-${i}`)?.classList.remove('selected'));
+function selectOption(qIdx,optIdx,punti,value) {
+    domande[qIdx].opzioni.forEach((_,i)=>document.getElementById(`opt-${qIdx}-${i}`)?.classList.remove('selected'));
     document.getElementById(`opt-${qIdx}-${optIdx}`)?.classList.add('selected');
-    answers[qIdx] = { optIdx, punti };
-    const btn = document.getElementById('btn-next');
-    if (btn) btn.disabled = false;
+    answers[qIdx]={optIdx,punti,value};
+    const btn=document.getElementById('btn-next');
+    if(btn) btn.disabled=false;
 }
 
 function nextQuestion(idx) {
-    if (!answers[idx]) return;
-    if (idx < domande.length-1) {
-        currentQ = idx+1; renderQuestion(currentQ); updateProgress(currentQ);
+    if(!answers[idx]) return;
+    if(idx<domande.length-1) {
+        currentQ=idx+1; renderQuestion(currentQ); updateProgress(currentQ);
         window.scrollTo({top:0,behavior:'smooth'});
     } else {
-        totalScore = answers.reduce((s,a) => s+(a?a.punti:0), 0);
-        document.getElementById('progressWrap').style.display = 'none';
-        document.getElementById('quizContainer').innerHTML = '';
-        const r = risultati[getLevel()];
-        document.getElementById('scoreChip').innerHTML = `<div class="score-chip ${r.chipClass}">${r.badge} &nbsp;|&nbsp; ${totalScore}/14 punti</div>`;
+        // Calcola score solo dalle domande NON di profilazione
+        totalScore=domande.reduce((s,d,i)=>s+((!d.isProfilo&&answers[i])?answers[i].punti:0),0);
+        document.getElementById('progressWrap').style.display='none';
+        document.getElementById('quizContainer').innerHTML='';
+        const r=risultati[getLevel()];
+        document.getElementById('scoreChip').innerHTML=`<div class="score-chip ${r.chipClass}">${r.badge} &nbsp;|&nbsp; ${totalScore}/14 punti</div>`;
         showScreen('screen-email');
     }
 }
 
 function prevQuestion(idx) {
-    currentQ = idx-1; renderQuestion(currentQ); updateProgress(currentQ);
+    currentQ=idx-1; renderQuestion(currentQ); updateProgress(currentQ);
     window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function updateProgress(idx) {
-    const pct = Math.round(((idx+1)/domande.length)*100);
-    document.getElementById('progressFill').style.width = pct+'%';
-    document.getElementById('progressLabel').textContent = `Domanda ${idx+1} di ${domande.length}`;
-    document.getElementById('progressPct').textContent = pct+'%';
+    const pct=Math.round(((idx+1)/domande.length)*100);
+    document.getElementById('progressFill').style.width=pct+'%';
+    document.getElementById('progressLabel').textContent=`Domanda ${idx+1} di ${domande.length}`;
+    document.getElementById('progressPct').textContent=pct+'%';
 }
 
 function getLevel() {
-    if (totalScore <= 4) return 'basso';
-    if (totalScore <= 9) return 'medio';
+    if(totalScore<=4) return 'basso';
+    if(totalScore<=9) return 'medio';
     return 'alto';
 }
 
+// Estrae i valori di profilazione dalle risposte
+function getProfilazione() {
+    const p={};
+    domande.forEach((d,i)=>{
+        if(d.isProfilo && answers[i] && answers[i].value) {
+            p[d.brevoAttr]=answers[i].value;
+        }
+    });
+    return p;
+}
+
 async function submitEmail() {
-    const email = document.getElementById('inputEmail').value.trim();
-    const nome  = document.getElementById('inputNome').value.trim();
-    const errEl = document.getElementById('emailError');
-    const btn   = document.getElementById('btnSubmit');
-    errEl.style.display = 'none';
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.style.display='block'; return; }
-    btn.disabled = true; btn.textContent = 'Elaborazione…';
+    const email=document.getElementById('inputEmail').value.trim();
+    const nome=document.getElementById('inputNome').value.trim();
+    const cognome=document.getElementById('inputCognome').value.trim();
+    const sesso=document.getElementById('inputSesso').value;
+    const errEl=document.getElementById('emailError');
+    const btn=document.getElementById('btnSubmit');
+    errEl.style.display='none';
+    if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||!nome) {
+        errEl.style.display='block'; return;
+    }
+    btn.disabled=true; btn.textContent='Elaborazione…';
     showScreen('screen-loading');
+    const profilo=getProfilazione();
     try {
-        await fetch(WORKER_URL, {
+        await fetch(WORKER_URL,{
             method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ email, nome, score: totalScore, level: getLevel(), answers: answers.map(a=>a?a.punti:0) })
+            body:JSON.stringify({
+                email, nome, cognome, sesso,
+                score:totalScore, level:getLevel(),
+                work_type:profilo.WORK_TYPE||'',
+                eta:profilo.ETA||'',
+                prev_solutions:profilo.PREV_SOLUTIONS||'',
+                answers:answers.map(a=>a?a.punti:0)
+            })
         });
-    } catch(e) { console.warn('Worker error:', e); }
-    await new Promise(r => setTimeout(r, 1500));
+    } catch(e){console.warn('Worker error:',e);}
+    await new Promise(r=>setTimeout(r,1500));
     showResult(getLevel());
 }
 
 function showResult(level) {
-    const r = risultati[level];
-    document.getElementById('riskBadge').textContent = r.badge;
-    document.getElementById('riskBadge').className = `risk-badge ${r.badgeClass}`;
-    document.getElementById('resultScore').textContent = `Punteggio: ${totalScore} / 14 punti`;
-    document.getElementById('resultTitle').textContent = r.title;
-    document.getElementById('resultDesc').textContent = r.desc;
-    const cursor = document.getElementById('meterCursor');
-    cursor.style.background = r.meterColor;
-    cursor.style.boxShadow = `0 0 10px ${r.meterColor}80`;
-    setTimeout(() => { cursor.style.left = r.meterPct+'%'; }, 200);
-    document.getElementById('tipsList').innerHTML = r.tips.map(t=>`
+    const r=risultati[level];
+    document.getElementById('riskBadge').textContent=r.badge;
+    document.getElementById('riskBadge').className=`risk-badge ${r.badgeClass}`;
+    document.getElementById('resultScore').textContent=`Punteggio: ${totalScore} / 14 punti`;
+    document.getElementById('resultTitle').textContent=r.title;
+    document.getElementById('resultDesc').textContent=r.desc;
+    const cursor=document.getElementById('meterCursor');
+    cursor.style.background=r.meterColor;
+    cursor.style.boxShadow=`0 0 10px ${r.meterColor}80`;
+    setTimeout(()=>{cursor.style.left=r.meterPct+'%';},200);
+    document.getElementById('tipsList').innerHTML=r.tips.map(t=>`
         <div class="tip-item"><span class="tip-icon">${t.icon}</span><span class="tip-text">${t.text}</span></div>`).join('');
-    document.getElementById('resultCta').className = `result-cta ${r.cta.ctaClass}`;
-    document.getElementById('resultCta').innerHTML = `
+    document.getElementById('resultCta').className=`result-cta ${r.cta.ctaClass}`;
+    document.getElementById('resultCta').innerHTML=`
         <h3>${r.cta.titolo}</h3><p>${r.cta.testo}</p>
         <a href="${r.cta.link}" class="btn-cta ${r.cta.btnClass}" target="_blank" rel="noopener">${r.cta.label}</a>`;
     showScreen('screen-result');
 }
 
 function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    if (id) { document.getElementById(id)?.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    if(id){document.getElementById(id)?.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 }
 
 function resetQuiz() {
-    answers = new Array(domande.length).fill(null); totalScore = 0; currentQ = 0;
-    document.getElementById('inputEmail').value = '';
-    document.getElementById('inputNome').value = '';
-    document.getElementById('btnSubmit').disabled = false;
-    document.getElementById('btnSubmit').textContent = 'Scopri il mio risultato →';
-    document.getElementById('quizContainer').innerHTML = '';
-    document.getElementById('progressWrap').style.display = 'none';
+    answers=new Array(domande.length).fill(null); totalScore=0; currentQ=0;
+    ['inputEmail','inputNome','inputCognome'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('inputSesso').value='';
+    document.getElementById('btnSubmit').disabled=false;
+    document.getElementById('btnSubmit').textContent='Scopri il mio risultato →';
+    document.getElementById('quizContainer').innerHTML='';
+    document.getElementById('progressWrap').style.display='none';
     showScreen('screen-intro');
 }
 </script>
