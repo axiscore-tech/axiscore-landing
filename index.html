@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AXIS CORE — Bio-Recovery Technologies</title>
-<meta name="description" content="AXIS CORE — Cuscino per trazione cervicale. Bio-Recovery Technologies. Conformità CE/MDR in fase di registrazione.">
-<meta property="og:title" content="AXIS CORE — Bio-Recovery Technologies">
-<meta property="og:description" content="Guida all'uso, attiva la garanzia estesa e accedi ai contenuti esclusivi.">
+<meta name="description" content="AXIS CORE — Il primo dispositivo di trazione cervicale per smart worker e professionisti digitali. Pre-lancio Indiegogo Q4 2026. Entra in lista d'attesa per lo sconto esclusivo.">
+<meta property="og:title" content="AXIS CORE — Trazione Cervicale per Lavoratori Digitali">
+<meta property="og:description" content="Il dispositivo di trazione cervicale domestico certificato CE progettato per chi lavora al PC. Lancio Indiegogo Q4 2026 — entra in lista d'attesa."
 <meta name="theme-color" content="#07070D">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -607,6 +607,61 @@ body {
 .scroll-line { width:1px; height:32px; background:linear-gradient(to bottom, var(--blue), transparent); animation:scrollPulse 2s infinite; }
 .scroll-label { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:2px; color:var(--steel); }
 @keyframes scrollPulse { 0%,100%{opacity:.3} 50%{opacity:1} }
+
+/* ─── SECTION 5 — WAITLIST ─── */
+.waitlist-grid {
+  display:grid; grid-template-columns:1fr; gap:32px;
+}
+@media(min-width:768px){ .waitlist-grid { grid-template-columns:1fr 1fr; gap:48px; align-items:start; } }
+
+.wl-badge-big {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:72px; height:72px; border:1.5px solid var(--blue); border-radius:50%;
+  margin-bottom:20px; position:relative;
+}
+.wl-badge-big::before {
+  content:''; position:absolute; inset:4px; border-radius:50%; border:0.5px solid var(--border-blue);
+}
+.badge-q4 {
+  font-family:'Space Mono',monospace; font-size:15px; font-weight:700;
+  color:var(--blue); line-height:1; text-align:center;
+}
+.badge-q4 span { display:block; font-size:7px; letter-spacing:1px; color:var(--blue-dim); margin-top:3px; }
+
+.wl-form-section {
+  background:var(--black3); border:0.5px solid var(--border-blue); border-radius:14px;
+  padding:clamp(20px,3vw,36px);
+}
+.wl-form-title {
+  font-family:'Rajdhani',sans-serif; font-size:16px; font-weight:700;
+  letter-spacing:2px; color:var(--blue); text-transform:uppercase; margin-bottom:6px;
+}
+.wl-form-subtitle { font-size:12px; color:var(--steel); margin-bottom:24px; line-height:1.55; }
+
+.wl-launch-tag {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--blue-glow); border:0.5px solid var(--border-blue);
+  border-radius:6px; padding:7px 14px; margin-bottom:20px;
+  font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; color:var(--blue);
+}
+.wl-submit-btn {
+  width:100%; padding:16px; background:var(--blue);
+  border:none; border-radius:8px;
+  font-family:'Rajdhani',sans-serif; font-size:15px; font-weight:700;
+  letter-spacing:2px; color:var(--black); cursor:pointer;
+  transition:opacity .2s; margin-top:4px; text-transform:uppercase;
+}
+.wl-submit-btn:hover { opacity:.88; }
+.wl-submit-btn:disabled { opacity:.5; cursor:not-allowed; }
+
+.wl-perk-icon {
+  width:34px; height:34px; border-radius:7px;
+  background:var(--blue-glow); border:0.5px solid var(--border-blue);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.wl-perk-icon svg { width:16px; height:16px; stroke:var(--blue); fill:none; stroke-width:1.5; }
+
+.accent-blue { color:var(--blue); }
 </style>
 </head>
 <body>
@@ -668,12 +723,13 @@ body {
       <div class="cert-row">
         <span class="cert-badge">✓ PREMIUM FOAM</span>
         <span class="cert-badge">✓ USB GRAPHENE HEAT</span>
+        <span class="cert-badge" style="border-color:var(--border-blue);color:var(--blue);background:var(--blue-glow);">🚀 PRE-LANCIO Q4 2026</span>
       </div>
       <div class="cert-status-note" data-it="Conformità CE/RoHS e dispositivo medico: percorso di registrazione in corso." data-en="CE/RoHS and medical device compliance: registration process underway.">Conformità CE/RoHS e dispositivo medico: percorso di registrazione in corso.</div>
 
       <div class="hero-cta">
-        <a href="#warranty" class="btn-primary" data-it="ATTIVA GARANZIA →" data-en="ACTIVATE WARRANTY →">ATTIVA GARANZIA →</a>
-        <a href="#guide" class="btn-secondary" data-it="SCOPRI COME USARLO" data-en="HOW TO USE IT">SCOPRI COME USARLO</a>
+        <a href="#waitlist" class="btn-primary" data-it="ENTRA IN LISTA D'ATTESA →" data-en="JOIN THE WAITLIST →">ENTRA IN LISTA D'ATTESA →</a>
+        <a href="#guide" class="btn-secondary" data-it="GUIDA GRATUITA" data-en="FREE GUIDE">GUIDA GRATUITA</a>
       </div>
 
     </div>
@@ -875,90 +931,90 @@ body {
 </section>
 
 <!-- ════════════════════════════════════ -->
-<!-- S5 — GARANZIA                       -->
+<!-- S5 — LISTA D'ATTESA PRE-LANCIO      -->
 <!-- ════════════════════════════════════ -->
-<section class="section-wrap alt reveal" id="warranty">
+<section class="section-wrap alt reveal" id="waitlist">
   <div class="inner" style="max-width:var(--max);margin:0 auto;">
     <div class="section-header">
       <span class="section-num">05</span>
       <div class="section-line"></div>
     </div>
 
-    <div class="warranty-grid">
+    <div class="waitlist-grid">
       <div class="warranty-left">
-        <div class="warranty-badge-big">
-          <div class="badge-months">24<span>MESI</span></div>
+        <div class="wl-badge-big">
+          <div class="badge-q4">Q4<span>2026</span></div>
         </div>
-        <h2 class="section-title" data-it="Garanzia<br><span class='accent-gold'>Estesa.</span><br>Gratuita." data-en="Extended<br><span class='accent-gold'>Warranty.</span><br>Free.">
-          Garanzia<br><span class="accent-gold">Estesa.</span><br>Gratuita.
+        <h2 class="section-title" data-it="Lista d'attesa.<br><span class='accent'>Pre-lancio.</span><br>Gratuita." data-en="Waitlist.<br><span class='accent'>Pre-launch.</span><br>Free.">
+          Lista d'attesa.<br><span class="accent">Pre-lancio.</span><br>Gratuita.
         </h2>
-        <p class="section-sub" data-it="I clienti non registrati perdono la garanzia estesa e l'accesso ai contenuti premium. Non lasciare che succeda." data-en="Unregistered customers lose extended warranty and premium content access. Don't let that happen.">
-          I clienti non registrati perdono la garanzia estesa e l'accesso ai contenuti premium. Non lasciare che succeda.
+        <p class="section-sub" data-it="AXIS CORE arriverà su Indiegogo nel Q4 2026. I primi 200 iscritti ricevono uno sconto esclusivo al lancio e accesso anticipato a tutti i contenuti." data-en="AXIS CORE launches on Indiegogo in Q4 2026. The first 200 subscribers get an exclusive launch discount and early access to all content.">
+          AXIS CORE arriverà su Indiegogo nel Q4 2026. I primi 200 iscritti ricevono uno sconto esclusivo al lancio e accesso anticipato a tutti i contenuti.
         </p>
 
         <ul class="perks-list">
           <li class="perk-item">
-            <div class="perk-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <div class="wl-perk-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </div>
             <div class="perk-text">
-              <div class="perk-title" data-it="12 mesi aggiuntivi di garanzia" data-en="12 additional months of warranty">12 mesi aggiuntivi di garanzia</div>
-              <div class="perk-desc" data-it="Da 12 a 24 mesi totali. Copertura completa su difetti strutturali e di materiale." data-en="From 12 to 24 months total. Full coverage on structural and material defects.">Da 12 a 24 mesi totali. Copertura completa su difetti strutturali e di materiale.</div>
+              <div class="perk-title" data-it="Sconto esclusivo al lancio" data-en="Exclusive launch discount">Sconto esclusivo al lancio</div>
+              <div class="perk-desc" data-it="I primi 200 in lista ricevono un prezzo riservato su Indiegogo — non disponibile successivamente." data-en="The first 200 on the list get a reserved price on Indiegogo — not available later.">I primi 200 in lista ricevono un prezzo riservato su Indiegogo — non disponibile successivamente.</div>
             </div>
           </li>
           <li class="perk-item">
-            <div class="perk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg></div>
+            <div class="wl-perk-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+            </div>
             <div class="perk-text">
-              <div class="perk-title" data-it="Accesso anticipato ai video" data-en="Early access to videos">Accesso anticipato ai video</div>
-              <div class="perk-desc" data-it="Il coach AXIS CORE ti guiderà con video esclusivi prima del lancio pubblico." data-en="The AXIS CORE coach will guide you with exclusive videos before the public launch.">Il coach AXIS CORE ti guiderà con video esclusivi prima del lancio pubblico.</div>
+              <div class="perk-title" data-it="Accesso anticipato ai contenuti" data-en="Early content access">Accesso anticipato ai contenuti</div>
+              <div class="perk-desc" data-it="Video guida con il coach AXIS CORE, protocolli avanzati e aggiornamenti esclusivi prima del lancio pubblico." data-en="AXIS CORE coach video guide, advanced protocols and exclusive updates before public launch.">Video guida con il coach AXIS CORE, protocolli avanzati e aggiornamenti esclusivi prima del lancio pubblico.</div>
             </div>
           </li>
           <li class="perk-item">
-            <div class="perk-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+            <div class="wl-perk-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </div>
             <div class="perk-text">
-              <div class="perk-title" data-it="Community AXIS CORE" data-en="AXIS CORE Community">Community AXIS CORE</div>
-              <div class="perk-desc" data-it="Anteprime sui nuovi prodotti, protocolli avanzati e contenuti esclusivi per iscritti." data-en="New product previews, advanced protocols and exclusive content for subscribers.">Anteprime sui nuovi prodotti, protocolli avanzati e contenuti esclusivi per iscritti.</div>
+              <div class="perk-title" data-it="Aggiornamenti diretti dal fondatore" data-en="Direct founder updates">Aggiornamenti diretti dal fondatore</div>
+              <div class="perk-desc" data-it="Segui il progetto in prima persona — sviluppo, test, data di lancio. Nessun intermediario." data-en="Follow the project first-hand — development, testing, launch date. No middlemen.">Segui il progetto in prima persona — sviluppo, test, data di lancio. Nessun intermediario.</div>
             </div>
           </li>
         </ul>
       </div>
 
-      <div class="form-section" id="warrantyForm">
-        <div class="form-title" data-it="REGISTRA IL PRODOTTO" data-en="REGISTER YOUR PRODUCT">REGISTRA IL PRODOTTO</div>
-        <p class="form-subtitle" data-it="30 secondi. Nessuna carta di credito. Garanzia attiva immediatamente." data-en="30 seconds. No credit card. Warranty activated immediately.">
-          30 secondi. Nessuna carta di credito. Garanzia attiva immediatamente.
+      <div class="wl-form-section">
+        <div class="wl-launch-tag" data-it="🚀 Lancio Indiegogo — Q4 2026" data-en="🚀 Indiegogo Launch — Q4 2026">🚀 Lancio Indiegogo — Q4 2026</div>
+        <div class="wl-form-title" data-it="RISERVA IL TUO POSTO" data-en="RESERVE YOUR SPOT">RISERVA IL TUO POSTO</div>
+        <p class="wl-form-subtitle" data-it="Iscriviti ora. Sconto esclusivo per i primi 200. Nessuna carta di credito." data-en="Sign up now. Exclusive discount for the first 200. No credit card required.">
+          Iscriviti ora. Sconto esclusivo per i primi 200. Nessuna carta di credito.
         </p>
         <div class="field-group">
           <label class="field-label" data-it="IL TUO NOME" data-en="YOUR NAME">IL TUO NOME</label>
-          <input type="text" class="field-input" id="wName" placeholder="Federico" data-placeholder-it="Federico" data-placeholder-en="Your name">
+          <input type="text" class="field-input" id="wlName" placeholder="Federico"
+            data-placeholder-it="Federico" data-placeholder-en="Your name">
         </div>
         <div class="field-group">
           <label class="field-label" data-it="LA TUA EMAIL" data-en="YOUR EMAIL">LA TUA EMAIL</label>
-          <input type="email" class="field-input" id="wEmail" placeholder="nome@email.com">
+          <input type="email" class="field-input" id="wlEmail" placeholder="nome@email.com">
         </div>
-        <div class="field-group">
-          <label class="field-label" data-it="NUMERO SERIALE PRODOTTO" data-en="PRODUCT SERIAL NUMBER">NUMERO SERIALE PRODOTTO</label>
-          <input type="text" class="field-input" id="wSerial" placeholder="AXC-A-0001"
-            style="text-transform:uppercase; letter-spacing:2px; font-family:'Space Mono', monospace"
-            data-placeholder-it="AXC-A-0001" data-placeholder-en="AXC-A-0001"
-            maxlength="11">
-          <small class="field-hint" id="wSerialHint" style="display:none; color:#C9A84C; font-size:11px; margin-top:4px;"
-            data-it="Trovi il seriale sull'etichetta del prodotto"
-            data-en="Find the serial number on the product label">
-            Trovi il seriale sull'etichetta del prodotto
-          </small>
-        </div>
-        <div class="field-group">
-          <label class="field-label" data-it="CODICE ORDINE (OPZIONALE)" data-en="ORDER CODE (OPTIONAL)">CODICE ORDINE (OPZIONALE)</label>
-          <input type="text" class="field-input" id="wOrder" placeholder="AMZ-XXXXXXX" style="text-transform:uppercase">
-        </div>
-        <div id="warrantyError" style="display:none; background:rgba(255,60,60,.1); border:1px solid rgba(255,60,60,.3); border-radius:8px; padding:12px 16px; margin-bottom:12px; color:#ff6b6b; font-size:13px; line-height:1.5;"></div>
-        <button class="submit-btn" id="submitBtn" onclick="submitWarranty()" data-it="ATTIVA GARANZIA GRATUITA →" data-en="ACTIVATE FREE WARRANTY →">ATTIVA GARANZIA GRATUITA →</button>
-        <p class="privacy-note" data-it="🔒 Dati non condivisi con terze parti. Cancellazione in qualsiasi momento. GDPR compliant." data-en="🔒 Data never shared with third parties. Unsubscribe anytime. GDPR compliant.">
-          🔒 Dati non condivisi con terze parti. Cancellazione in qualsiasi momento. GDPR compliant.
+        <div id="wlError" style="display:none; background:rgba(255,60,60,.1); border:1px solid rgba(255,60,60,.3); border-radius:8px; padding:12px 16px; margin-bottom:12px; color:#ff6b6b; font-size:13px; line-height:1.5;"></div>
+        <button class="wl-submit-btn" id="wlBtn" onclick="submitWaitlist()"
+          data-it="ENTRA IN LISTA D'ATTESA →" data-en="JOIN THE WAITLIST →">
+          ENTRA IN LISTA D'ATTESA →
+        </button>
+        <p class="privacy-note" data-it="🔒 Nessuno spam. Puoi cancellarti in qualsiasi momento. GDPR compliant." data-en="🔒 No spam. Unsubscribe at any time. GDPR compliant.">
+          🔒 Nessuno spam. Puoi cancellarti in qualsiasi momento. GDPR compliant.
         </p>
-        <div class="success-msg" id="successMsg">
-          <span class="success-icon">✓</span>
-          <p data-it="Garanzia attivata!" data-en="Warranty activated!">Garanzia attivata!</p>
-          <span data-it="Controlla la tua email. Ti abbiamo inviato la conferma con tutti i dettagli." data-en="Check your email. We've sent you a confirmation with all the details.">Controlla la tua email. Ti abbiamo inviato la conferma con tutti i dettagli.</span>
+        <div id="wlSuccess" style="display:none; text-align:center; padding:28px 16px;">
+          <span style="font-size:40px; margin-bottom:14px; display:block;">✓</span>
+          <p style="font-family:'Rajdhani',sans-serif; font-size:18px; font-weight:600; letter-spacing:1px; color:var(--blue); margin-bottom:8px;"
+            data-it="Sei in lista!" data-en="You're on the list!">Sei in lista!</p>
+          <span style="font-size:13px; color:var(--steel);"
+            data-it="Controlla la tua email. Ti aggiorneremo non appena il lancio si avvicina."
+            data-en="Check your email. We'll update you as the launch approaches.">
+            Controlla la tua email. Ti aggiorneremo non appena il lancio si avvicina.
+          </span>
         </div>
       </div>
     </div>
@@ -1018,6 +1074,10 @@ function toggleLang() {
     : 'https://blog.axiscore.tech/tag/en/';
   const guideInput = document.getElementById('guideEmail');
   if(guideInput) guideInput.placeholder = currentLang==='it' ? 'la tua email' : 'your email';
+  const videoInput = document.getElementById('videoEmail');
+  if(videoInput) videoInput.placeholder = currentLang==='it' ? 'la tua email' : 'your email';
+  const wlNameInput = document.getElementById('wlName');
+  if(wlNameInput) wlNameInput.placeholder = currentLang==='it' ? 'Federico' : 'Your name';
   document.querySelectorAll('[data-it]').forEach(el => {
     const txt = el.getAttribute('data-'+currentLang);
     if(txt) el.innerHTML = txt;
@@ -1028,6 +1088,7 @@ function toggleLang() {
   selectStep(currentStep);
 }
 
+/* ── GUIDA PDF ── */
 async function submitGuide() {
   const email = document.getElementById('guideEmail').value.trim();
   const btn   = document.getElementById('guideBtn');
@@ -1057,108 +1118,78 @@ async function submitGuide() {
   }
 }
 
-function subscribeVideo() {
-  const email = document.getElementById('videoEmail').value;
-  if(!email||!email.includes('@')) {
+/* ── VIDEO NOTIFY ── */
+async function subscribeVideo() {
+  const email = document.getElementById('videoEmail').value.trim();
+  const btn   = document.querySelector('.cs-btn');
+  if(!email || !email.includes('@')) {
     document.getElementById('videoEmail').style.borderColor='#E24B4A';
     setTimeout(()=>document.getElementById('videoEmail').style.borderColor='',2000);
     return;
   }
-  const btn = document.querySelector('.cs-btn');
+  btn.disabled = true;
+  btn.textContent = '...';
+  try {
+    await fetch('https://warranty.axiscore.tech/lead', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ email, lang: currentLang, source: 'video_notify' })
+    });
+  } catch {}
   btn.textContent = currentLang==='it' ? '✓ ISCRITTO' : '✓ SUBSCRIBED';
   btn.style.background = '#1D9E75';
   document.getElementById('videoEmail').disabled = true;
 }
 
-async function submitWarranty() {
-  const name   = document.getElementById('wName').value.trim();
-  const email  = document.getElementById('wEmail').value.trim();
-  const serial = document.getElementById('wSerial').value.trim().toUpperCase();
-  const errDiv = document.getElementById('warrantyError');
+/* ── WAITLIST PRE-LANCIO ── */
+async function submitWaitlist() {
+  const nome   = document.getElementById('wlName').value.trim();
+  const email  = document.getElementById('wlEmail').value.trim();
+  const errDiv = document.getElementById('wlError');
+  const btn    = document.getElementById('wlBtn');
 
-  // Reset errori
-  ['wName','wEmail','wSerial'].forEach(id=>document.getElementById(id).classList.remove('error'));
   errDiv.style.display = 'none';
+  ['wlName','wlEmail'].forEach(id => document.getElementById(id).classList.remove('error'));
 
   let ok = true;
-  if(!name)  { document.getElementById('wName').classList.add('error');  ok=false; }
-  if(!email||!email.includes('@')) { document.getElementById('wEmail').classList.add('error'); ok=false; }
-  if(!serial) { document.getElementById('wSerial').classList.add('error'); ok=false; }
-  else if(!/^AXC-[A-Z]-\d{4}$/i.test(serial)) {
-    document.getElementById('wSerial').classList.add('error');
-    document.getElementById('wSerialHint').style.display='block';
-    showError(currentLang==='it'
-      ? 'Formato seriale non valido. Esempio corretto: AXC-A-0001'
-      : 'Invalid serial format. Correct example: AXC-A-0001');
-    ok=false;
+  if(!nome)                     { document.getElementById('wlName').classList.add('error'); ok=false; }
+  if(!email||!email.includes('@')){ document.getElementById('wlEmail').classList.add('error'); ok=false; }
+  if(!ok) {
+    errDiv.textContent = currentLang==='it'
+      ? 'Inserisci nome e indirizzo email validi.'
+      : 'Please enter a valid name and email.';
+    errDiv.style.display = 'block';
+    return;
   }
-  if(!ok) return;
 
-  const btn = document.getElementById('submitBtn');
-  btn.textContent = currentLang==='it' ? 'VERIFICA IN CORSO...' : 'VERIFYING...';
   btn.disabled = true;
+  btn.textContent = currentLang==='it' ? 'ISCRIZIONE IN CORSO...' : 'SIGNING UP...';
 
   try {
-    const res = await fetch('https://warranty.axiscore.tech/', {
+    const res = await fetch('https://waitlist.axiscore.tech', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        name, email, serial,
-        order: document.getElementById('wOrder').value,
-        lang: currentLang
-      })
+      body: JSON.stringify({ nome, email, lang: currentLang, source: 'waitlist_landing' })
     });
-
     if(res.ok) {
-      showSuccess();
-      return;
-    }
-
-    // Gestione errori specifici
-    let data = {};
-    try { data = await res.json(); } catch {}
-
-    btn.textContent = currentLang==='it' ? 'ATTIVA GARANZIA GRATUITA →' : 'ACTIVATE FREE WARRANTY →';
-    btn.disabled = false;
-
-    if(res.status === 404) {
-      document.getElementById('wSerial').classList.add('error');
-      showError(currentLang==='it'
-        ? '❌ Numero seriale non riconosciuto. Controlla l\'etichetta del prodotto.'
-        : '❌ Serial number not recognized. Check the product label.');
-    } else if(res.status === 409) {
-      document.getElementById('wSerial').classList.add('error');
-      showError(currentLang==='it'
-        ? '⚠️ Questo seriale è già stato registrato da un altro account.'
-        : '⚠️ This serial number is already registered by another account.');
-    } else if(res.status === 400) {
-      showError(currentLang==='it'
-        ? 'Dati non validi. Controlla i campi e riprova.'
-        : 'Invalid data. Check the fields and try again.');
+      document.getElementById('wlSuccess').style.display = 'block';
+      document.getElementById('wlBtn').style.display     = 'none';
+      document.getElementById('wlError').style.display   = 'none';
+      document.querySelectorAll('.wl-form-section .field-group').forEach(el=>el.style.display='none');
+      document.querySelector('.wl-form-section .wl-form-subtitle').style.display = 'none';
+      document.querySelector('.wl-form-section .wl-form-title').style.display    = 'none';
+      document.querySelector('.wl-form-section .wl-launch-tag').style.display    = 'none';
+      document.querySelector('.wl-form-section .privacy-note').style.display     = 'none';
     } else {
-      showError(currentLang==='it'
-        ? 'Errore temporaneo. Riprova tra qualche secondo.'
-        : 'Temporary error. Please try again in a few seconds.');
+      throw new Error();
     }
-
-  } catch(err) {
-    btn.textContent = currentLang==='it' ? 'ATTIVA GARANZIA GRATUITA →' : 'ACTIVATE FREE WARRANTY →';
+  } catch {
+    errDiv.textContent = currentLang==='it'
+      ? 'Errore temporaneo. Riprova tra qualche secondo.'
+      : 'Temporary error. Please try again.';
+    errDiv.style.display = 'block';
     btn.disabled = false;
-    showError(currentLang==='it'
-      ? 'Errore di connessione. Controlla la tua rete e riprova.'
-      : 'Connection error. Check your network and try again.');
+    btn.textContent = currentLang==='it' ? "ENTRA IN LISTA D'ATTESA →" : 'JOIN THE WAITLIST →';
   }
-}
-
-function showError(msg) {
-  const errDiv = document.getElementById('warrantyError');
-  errDiv.textContent = msg;
-  errDiv.style.display = 'block';
-}
-
-function showSuccess() {
-  document.querySelectorAll('#warrantyForm .field-group, #warrantyForm .form-subtitle, #warrantyForm .form-title, #submitBtn, #warrantyForm .privacy-note, #warrantyError').forEach(el=>el.style.display='none');
-  document.getElementById('successMsg').style.display='block';
 }
 
 const obs = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.08});
