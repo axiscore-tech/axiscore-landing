@@ -122,6 +122,49 @@
   .status-registered { color: var(--green); }
   .status-free { color: var(--steel); }
   .status-not-found { color: var(--red); }
+
+  /* ── PULSANTI AZIONE TABELLA ── */
+  .btn-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 30px; height: 30px; border-radius: 6px; cursor: pointer;
+    border: 1px solid transparent; background: none; font-size: 14px;
+    transition: all .2s; color: var(--steel);
+  }
+  .btn-icon:hover:not(:disabled) { transform: scale(1.1); }
+  .btn-icon.edit:hover  { border-color: rgba(0,170,255,.4); color: var(--blue); background: rgba(0,170,255,.08); }
+  .btn-icon.delete:hover { border-color: rgba(224,85,85,.4); color: var(--red); background: rgba(224,85,85,.08); }
+  .btn-icon:disabled { opacity: .25; cursor: not-allowed; transform: none; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(7,7,13,.85); backdrop-filter: blur(4px);
+    z-index: 200; align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-card {
+    background: var(--black2); border: 1px solid rgba(0,170,255,.2);
+    border-radius: 14px; padding: 32px; width: 480px; max-width: 95vw;
+  }
+  .modal-title { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue); margin-bottom: 24px; }
+  .modal-subtitle { font-size: 12px; color: var(--steel); margin-bottom: 20px; line-height: 1.6; }
+  .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
+  .btn-secondary {
+    background: none; border: 1px solid rgba(138,155,176,.3); color: var(--steel);
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; cursor: pointer; transition: all .2s; text-transform: uppercase;
+  }
+  .btn-secondary:hover { border-color: var(--steel); color: var(--ice); }
+  .btn-danger {
+    background: rgba(224,85,85,.12); border: 1px solid rgba(224,85,85,.4); color: #f08080;
+    padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    letter-spacing: 1px; cursor: pointer; transition: all .2s; text-transform: uppercase;
+  }
+  .btn-danger:hover { background: rgba(224,85,85,.22); }
+  .btn-danger:disabled { opacity: .4; cursor: not-allowed; }
+  .modal-result { font-size: 13px; padding: 10px 16px; border-radius: 8px; display: none; margin-top: 16px; }
+  .modal-result.success { background: rgba(29,158,117,.12); border: 1px solid rgba(29,158,117,.3); color: #4cd9a8; }
+  .modal-result.error   { background: rgba(224,85,85,.10); border: 1px solid rgba(224,85,85,.3); color: #f08080; }
 </style>
 </head>
 <body>
@@ -204,10 +247,11 @@
               <th>Data ordine</th>
               <th>Registrati</th>
               <th>Attivazione</th>
+              <th>Azioni</th>
             </tr>
           </thead>
           <tbody id="batchTable">
-            <tr><td colspan="7" class="empty-state">Caricamento...</td></tr>
+            <tr><td colspan="8" class="empty-state">Caricamento...</td></tr>
           </tbody>
         </table>
       </div>
@@ -227,6 +271,43 @@
       <div class="serial-result" id="serialResult"></div>
     </div>
 
+  </div>
+</div>
+
+<!-- ── MODAL MODIFICA LOTTO ──────────────────────────────────────────────── -->
+<div class="modal-overlay" id="editModal" onclick="if(event.target===this)closeEditModal()">
+  <div class="modal-card">
+    <div class="modal-title">✏️ Modifica lotto — <span id="editBatchCode" style="color:var(--ice)"></span></div>
+    <p class="modal-subtitle">Puoi modificare data e note. Variante e seriali restano invariati.</p>
+    <div class="field" style="margin-bottom:16px">
+      <label>Data ordine produzione</label>
+      <input type="date" id="editDate">
+    </div>
+    <div class="field">
+      <label>Note (opzionale)</label>
+      <input type="text" id="editNotes" placeholder="Es. Fornitore XYZ, PO #123">
+    </div>
+    <div class="modal-result" id="editResult"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeEditModal()">Annulla</button>
+      <button class="btn-primary" id="saveEditBtn" onclick="saveEdit()">SALVA →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL ELIMINA LOTTO ───────────────────────────────────────────────── -->
+<div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeDeleteModal()">
+  <div class="modal-card">
+    <div class="modal-title">🗑️ Elimina lotto — <span id="deleteBatchCode" style="color:var(--red)"></span></div>
+    <p class="modal-subtitle">
+      Questa operazione è <strong style="color:var(--red)">irreversibile</strong>.<br>
+      Verranno eliminati il lotto e tutti i seriali non ancora registrati.
+    </p>
+    <div class="modal-result" id="deleteResult"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeDeleteModal()">Annulla</button>
+      <button class="btn-danger" id="confirmDeleteBtn" onclick="deleteBatch()">ELIMINA</button>
+    </div>
   </div>
 </div>
 
@@ -304,14 +385,19 @@ function renderStats(batches) {
 function renderTable(batches) {
   const tbody = document.getElementById('batchTable');
   if (!batches.length) {
-    tbody.innerHTML = '<tr><td colspan="7" class="empty-state">Nessun lotto ancora creato</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Nessun lotto ancora creato</td></tr>';
     return;
   }
   tbody.innerHTML = batches.map(b => {
-    const total = b.total_serials || b.quantity || 0;
-    const reg   = b.registered_count || 0;
-    const pct   = total ? Math.round(reg / total * 100) : 0;
-    const varBadge = `<span class="badge badge-${b.variant.toLowerCase()}">${b.variant}</span>`;
+    const total      = b.total_serials || b.quantity || 0;
+    const reg        = b.registered_count || 0;
+    const pct        = total ? Math.round(reg / total * 100) : 0;
+    const canDelete  = reg === 0;
+    const varBadge   = `<span class="badge badge-${b.variant.toLowerCase()}">${b.variant}</span>`;
+    const notesEsc   = (b.notes || '').replace(/'/g, "\\'");
+    const deleteTitle = canDelete
+      ? 'Elimina lotto'
+      : `Non eliminabile: ${reg} seriale/i già registrati`;
     return `<tr>
       <td class="mono">${b.batch_code}</td>
       <td>${varBadge}</td>
@@ -323,6 +409,14 @@ function renderTable(batches) {
         <div style="display:flex;align-items:center;gap:8px">
           <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
           <span style="font-size:12px;color:var(--steel)">${pct}%</span>
+        </div>
+      </td>
+      <td>
+        <div style="display:flex;gap:4px">
+          <button class="btn-icon edit" title="Modifica data / note"
+            onclick="openEditModal('${b.batch_code}','${b.production_order_date}','${notesEsc}')">✏️</button>
+          <button class="btn-icon delete" title="${deleteTitle}"
+            ${canDelete ? `onclick="openDeleteConfirm('${b.batch_code}')"` : 'disabled'}>🗑️</button>
         </div>
       </td>
     </tr>`;
@@ -374,6 +468,109 @@ function showResult(el, type, msg) {
   el.className = `form-result ${type}`;
   el.textContent = msg;
   el.style.display = 'block';
+}
+
+// ── Modal modifica lotto ──────────────────────────────────────────────────────
+let _editBatch = '';
+
+function openEditModal(batchCode, date, notes) {
+  _editBatch = batchCode;
+  document.getElementById('editBatchCode').textContent = batchCode;
+  document.getElementById('editDate').value  = date;
+  document.getElementById('editNotes').value = notes || '';
+  document.getElementById('editResult').style.display = 'none';
+  document.getElementById('saveEditBtn').textContent = 'SALVA →';
+  document.getElementById('saveEditBtn').disabled = false;
+  document.getElementById('editModal').classList.add('open');
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').classList.remove('open');
+}
+
+async function saveEdit() {
+  const date   = document.getElementById('editDate').value;
+  const notes  = document.getElementById('editNotes').value.trim();
+  const result = document.getElementById('editResult');
+  const btn    = document.getElementById('saveEditBtn');
+
+  btn.textContent = 'SALVATAGGIO...'; btn.disabled = true;
+  result.style.display = 'none';
+
+  try {
+    const res = await fetch(`${WORKER}/admin/batch/${encodeURIComponent(_editBatch)}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${SECRET}` },
+      body: JSON.stringify({ production_order_date: date, notes: notes || null }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      result.className = 'modal-result success';
+      result.textContent = `✅ Lotto ${_editBatch} aggiornato.`;
+      result.style.display = 'block';
+      loadData();
+      setTimeout(closeEditModal, 900);
+    } else {
+      result.className = 'modal-result error';
+      result.textContent = `❌ ${data.message || data.error || 'Errore sconosciuto'}`;
+      result.style.display = 'block';
+      btn.textContent = 'SALVA →'; btn.disabled = false;
+    }
+  } catch {
+    result.className = 'modal-result error';
+    result.textContent = '❌ Errore di connessione.';
+    result.style.display = 'block';
+    btn.textContent = 'SALVA →'; btn.disabled = false;
+  }
+}
+
+// ── Modal elimina lotto ───────────────────────────────────────────────────────
+let _deleteBatch = '';
+
+function openDeleteConfirm(batchCode) {
+  _deleteBatch = batchCode;
+  document.getElementById('deleteBatchCode').textContent = batchCode;
+  document.getElementById('deleteResult').style.display = 'none';
+  document.getElementById('confirmDeleteBtn').textContent = 'ELIMINA';
+  document.getElementById('confirmDeleteBtn').disabled = false;
+  document.getElementById('deleteModal').classList.add('open');
+}
+
+function closeDeleteModal() {
+  document.getElementById('deleteModal').classList.remove('open');
+}
+
+async function deleteBatch() {
+  const result = document.getElementById('deleteResult');
+  const btn    = document.getElementById('confirmDeleteBtn');
+
+  btn.textContent = 'ELIMINAZIONE...'; btn.disabled = true;
+  result.style.display = 'none';
+
+  try {
+    const res = await fetch(`${WORKER}/admin/batch/${encodeURIComponent(_deleteBatch)}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${SECRET}` },
+    });
+    const data = await res.json();
+    if (res.ok) {
+      result.className = 'modal-result success';
+      result.textContent = `✅ Lotto ${_deleteBatch} eliminato — ${data.deleted_serials} seriali rimossi.`;
+      result.style.display = 'block';
+      loadData();
+      setTimeout(closeDeleteModal, 1100);
+    } else {
+      result.className = 'modal-result error';
+      result.textContent = `❌ ${data.message || data.error || 'Errore sconosciuto'}`;
+      result.style.display = 'block';
+      btn.textContent = 'ELIMINA'; btn.disabled = false;
+    }
+  } catch {
+    result.className = 'modal-result error';
+    result.textContent = '❌ Errore di connessione.';
+    result.style.display = 'block';
+    btn.textContent = 'ELIMINA'; btn.disabled = false;
+  }
 }
 
 // ── Ricerca seriale ───────────────────────────────────────────────────────────
