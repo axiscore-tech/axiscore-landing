@@ -165,6 +165,39 @@
   .modal-result { font-size: 13px; padding: 10px 16px; border-radius: 8px; display: none; margin-top: 16px; }
   .modal-result.success { background: rgba(29,158,117,.12); border: 1px solid rgba(29,158,117,.3); color: #4cd9a8; }
   .modal-result.error   { background: rgba(224,85,85,.10); border: 1px solid rgba(224,85,85,.3); color: #f08080; }
+
+  /* ── TIMELINE STORICO ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item  { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(138,155,176,.08); }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-dot   { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 2px; }
+  .tl-dot.registration  { background: rgba(29,158,117,.15); border: 1px solid rgba(29,158,117,.3); }
+  .tl-dot.correction    { background: rgba(0,170,255,.12);  border: 1px solid rgba(0,170,255,.25); }
+  .tl-dot.transfer      { background: rgba(201,168,76,.12); border: 1px solid rgba(201,168,76,.3); }
+  .tl-dot.unregistration{ background: rgba(224,85,85,.12);  border: 1px solid rgba(224,85,85,.3); }
+  .tl-dot.note          { background: rgba(138,155,176,.1); border: 1px solid rgba(138,155,176,.2); }
+  .tl-dot.batch-created { background: rgba(29,158,117,.15); border: 1px solid rgba(29,158,117,.3); }
+  .tl-dot.batch-edited  { background: rgba(0,170,255,.12);  border: 1px solid rgba(0,170,255,.25); }
+  .tl-dot.batch-deleted { background: rgba(224,85,85,.12);  border: 1px solid rgba(224,85,85,.3); }
+  .tl-body  { flex: 1; min-width: 0; }
+  .tl-action{ font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--steel); margin-bottom: 4px; }
+  .tl-change{ font-family: 'Space Mono', monospace; font-size: 11px; color: var(--ice); word-break: break-all; margin-bottom: 4px; }
+  .tl-reason{ font-size: 12px; color: var(--steel); font-style: italic; margin-bottom: 2px; }
+  .tl-date  { font-size: 11px; color: rgba(138,155,176,.6); }
+  .reason-badge {
+    display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10px;
+    font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-right: 6px;
+    background: rgba(138,155,176,.1); border: 1px solid rgba(138,155,176,.2); color: var(--steel);
+  }
+  .tl-empty { text-align: center; color: var(--steel); padding: 32px; font-size: 13px; }
+  .modal-card.wide { width: 600px; max-height: 85vh; overflow-y: auto; }
+  select.field-input {
+    padding: 10px 14px; background: rgba(255,255,255,.04);
+    border: 1px solid rgba(138,155,176,.25); border-radius: 8px;
+    color: var(--ice); font-size: 14px; font-family: inherit; width: 100%;
+  }
+  select.field-input:focus { outline: none; border-color: var(--blue); }
+  select.field-input option { background: var(--black2); }
 </style>
 </head>
 <body>
@@ -307,6 +340,75 @@
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeDeleteModal()">Annulla</button>
       <button class="btn-danger" id="confirmDeleteBtn" onclick="deleteBatch()">ELIMINA</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL MODIFICA REGISTRANTE ────────────────────────────────────────── -->
+<div class="modal-overlay" id="editRegistrantModal" onclick="if(event.target===this)closeEditRegistrantModal()">
+  <div class="modal-card">
+    <div class="modal-title">✏️ Modifica registrante — <span id="erSerial" style="color:var(--ice);font-family:'Space Mono',monospace"></span></div>
+    <p class="modal-subtitle" id="erCurrentInfo" style="margin-bottom:20px"></p>
+
+    <div class="field" style="margin-bottom:16px">
+      <label>Tipo azione</label>
+      <select class="field-input" id="erAction" onchange="updateErFields()">
+        <option value="">— Seleziona azione —</option>
+        <option value="EMAIL_CORRECTION">Correzione email</option>
+        <option value="NAME_CORRECTION">Correzione nome</option>
+        <option value="TRANSFER">Trasferimento proprietà</option>
+        <option value="UNREGISTRATION">Annulla registrazione</option>
+        <option value="ADMIN_NOTE">Nota amministrativa (senza modifica)</option>
+      </select>
+    </div>
+
+    <div id="erEmailField" style="display:none;margin-bottom:16px" class="field">
+      <label>Nuova email</label>
+      <input type="email" id="erNewEmail" placeholder="nuova@email.com">
+    </div>
+    <div id="erNameField" style="display:none;margin-bottom:16px" class="field">
+      <label>Nuovo nome</label>
+      <input type="text" id="erNewName" placeholder="Nome Cognome">
+    </div>
+
+    <div class="field" style="margin-bottom:16px">
+      <label>Causale</label>
+      <select class="field-input" id="erReasonCode">
+        <option value="">— Seleziona causale —</option>
+        <option value="TYPO">Errore di digitazione</option>
+        <option value="TRANSFER">Trasferimento proprietà</option>
+        <option value="RETURN">Reso / rimborso</option>
+        <option value="REPLACEMENT">Sostituzione prodotto</option>
+        <option value="CUSTOMER_REQUEST">Richiesta cliente</option>
+        <option value="ADMIN_CORRECTION">Correzione amministrativa</option>
+        <option value="OTHER">Altro</option>
+      </select>
+    </div>
+    <div class="field" style="margin-bottom:4px">
+      <label>Note obbligatorie <span style="color:var(--red)">*</span></label>
+      <input type="text" id="erReasonDetail" placeholder="Descrivi il motivo della modifica (min 5 caratteri)">
+    </div>
+    <p style="font-size:11px;color:var(--steel);margin-bottom:0">
+      Questa modifica viene registrata in modo permanente nell'audit log.
+    </p>
+
+    <div class="modal-result" id="erResult"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeEditRegistrantModal()">Annulla</button>
+      <button class="btn-primary" id="erSubmitBtn" onclick="submitEditRegistrant()">REGISTRA MODIFICA →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL STORICO SERIALE ─────────────────────────────────────────────── -->
+<div class="modal-overlay" id="historyModal" onclick="if(event.target===this)closeHistoryModal()">
+  <div class="modal-card wide">
+    <div class="modal-title">📋 Storico — <span id="histSerial" style="color:var(--ice);font-family:'Space Mono',monospace"></span></div>
+    <div id="historyContent">
+      <div class="tl-empty">Caricamento...</div>
+    </div>
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-secondary" onclick="closeHistoryModal()">Chiudi</button>
     </div>
   </div>
 </div>
@@ -592,7 +694,7 @@ async function searchSerial() {
       return;
     }
 
-    const d = await res.json();
+    const d     = await res.json();
     const isReg = !!d.registered_email;
     const statusClass = isReg ? 'status-registered' : 'status-free';
     const statusText  = isReg ? '✅ Registrato' : '○ Non registrato';
@@ -608,11 +710,175 @@ async function searchSerial() {
       <div class="serial-field"><span class="key">Nome cliente</span><span class="val">${d.registered_name || '—'}</span></div>
       <div class="serial-field"><span class="key">Data registrazione</span><span class="val">${d.registered_at || '—'}</span></div>
       ` : ''}
+      <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap">
+        ${isReg ? `<button class="btn-primary" style="font-size:12px;padding:8px 16px"
+          onclick="openEditRegistrantModal('${d.serial_number}','${d.registered_email}','${(d.registered_name||'').replace(/'/g,"\\'")}')">
+          ✏️ Modifica registrante</button>` : ''}
+        <button class="btn-secondary" style="font-size:12px;padding:8px 16px"
+          onclick="openSerialHistory('${d.serial_number}')">
+          📋 Storico modifiche</button>
+      </div>
     </div>`;
   } catch {
     result.innerHTML = '<div style="color:var(--red);font-size:13px;padding:16px 0">❌ Errore di connessione.</div>';
   }
 }
+
+// ── Modal modifica registrante ────────────────────────────────────────────────
+let _erSerial = '';
+
+function openEditRegistrantModal(serial, currentEmail, currentName) {
+  _erSerial = serial;
+  document.getElementById('erSerial').textContent = serial;
+  document.getElementById('erCurrentInfo').innerHTML =
+    `Registrante attuale: <strong style="color:var(--ice)">${currentEmail}</strong> — ${currentName || '—'}`;
+  document.getElementById('erAction').value     = '';
+  document.getElementById('erReasonCode').value = '';
+  document.getElementById('erReasonDetail').value = '';
+  document.getElementById('erNewEmail').value   = '';
+  document.getElementById('erNewName').value    = '';
+  document.getElementById('erResult').style.display = 'none';
+  document.getElementById('erSubmitBtn').textContent = 'REGISTRA MODIFICA →';
+  document.getElementById('erSubmitBtn').disabled = false;
+  updateErFields();
+  document.getElementById('editRegistrantModal').classList.add('open');
+}
+
+function closeEditRegistrantModal() {
+  document.getElementById('editRegistrantModal').classList.remove('open');
+}
+
+function updateErFields() {
+  const action = document.getElementById('erAction').value;
+  document.getElementById('erEmailField').style.display =
+    (action === 'EMAIL_CORRECTION' || action === 'TRANSFER') ? 'block' : 'none';
+  document.getElementById('erNameField').style.display  =
+    (action === 'NAME_CORRECTION'  || action === 'TRANSFER') ? 'block' : 'none';
+}
+
+async function submitEditRegistrant() {
+  const action       = document.getElementById('erAction').value;
+  const reasonCode   = document.getElementById('erReasonCode').value;
+  const reasonDetail = document.getElementById('erReasonDetail').value.trim();
+  const newEmail     = document.getElementById('erNewEmail').value.trim();
+  const newName      = document.getElementById('erNewName').value.trim();
+  const result       = document.getElementById('erResult');
+  const btn          = document.getElementById('erSubmitBtn');
+
+  if (!action)       { showModalResult(result, 'error', '❌ Seleziona il tipo di azione.'); return; }
+  if (!reasonCode)   { showModalResult(result, 'error', '❌ Seleziona la causale.'); return; }
+  if (reasonDetail.length < 5) { showModalResult(result, 'error', '❌ Note troppo brevi (min 5 caratteri).'); return; }
+
+  btn.textContent = 'INVIO...'; btn.disabled = true;
+  result.style.display = 'none';
+
+  const payload = { action, reason_code: reasonCode, reason_detail: reasonDetail };
+  if (newEmail) payload.new_email = newEmail;
+  if (newName)  payload.new_name  = newName;
+
+  try {
+    const res  = await fetch(`${WORKER}/admin/serial/${encodeURIComponent(_erSerial)}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${SECRET}` },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      showModalResult(result, 'success', `✅ Modifica registrata nell'audit log.`);
+      searchSerial(); // ricarica la scheda seriale
+      setTimeout(closeEditRegistrantModal, 1000);
+    } else {
+      showModalResult(result, 'error', `❌ ${data.error || data.message || 'Errore sconosciuto'}`);
+      btn.textContent = 'REGISTRA MODIFICA →'; btn.disabled = false;
+    }
+  } catch {
+    showModalResult(result, 'error', '❌ Errore di connessione.');
+    btn.textContent = 'REGISTRA MODIFICA →'; btn.disabled = false;
+  }
+}
+
+// ── Modal storico seriale ─────────────────────────────────────────────────────
+function openSerialHistory(serial) {
+  document.getElementById('histSerial').textContent = serial;
+  document.getElementById('historyContent').innerHTML = '<div class="tl-empty">Caricamento...</div>';
+  document.getElementById('historyModal').classList.add('open');
+  loadSerialHistory(serial);
+}
+
+function closeHistoryModal() {
+  document.getElementById('historyModal').classList.remove('open');
+}
+
+async function loadSerialHistory(serial) {
+  try {
+    const res  = await fetch(`${WORKER}/admin/serial/${encodeURIComponent(serial)}/log`, {
+      headers: { Authorization: `Bearer ${SECRET}` }
+    });
+    const data = await res.json();
+    const events = data.events || [];
+    if (!events.length) {
+      document.getElementById('historyContent').innerHTML =
+        '<div class="tl-empty">Nessun evento registrato per questo seriale.</div>';
+      return;
+    }
+    document.getElementById('historyContent').innerHTML = `
+      <div class="timeline">${events.map(renderTimelineEvent).join('')}</div>`;
+  } catch {
+    document.getElementById('historyContent').innerHTML =
+      '<div class="tl-empty" style="color:var(--red)">❌ Errore di caricamento.</div>';
+  }
+}
+
+function renderTimelineEvent(e) {
+  const iconMap = {
+    REGISTRATION:    { icon: '✅', cls: 'registration'   },
+    EMAIL_CORRECTION:{ icon: '✉️', cls: 'correction'     },
+    NAME_CORRECTION: { icon: '🏷️', cls: 'correction'     },
+    TRANSFER:        { icon: '🔄', cls: 'transfer'        },
+    UNREGISTRATION:  { icon: '⛔', cls: 'unregistration' },
+    ADMIN_NOTE:      { icon: '📝', cls: 'note'            },
+    CREATED:         { icon: '✅', cls: 'batch-created'   },
+    EDITED:          { icon: '✏️', cls: 'batch-edited'    },
+    DELETED:         { icon: '🗑️', cls: 'batch-deleted'   },
+  };
+  const { icon, cls } = iconMap[e.action] || { icon: '•', cls: 'note' };
+  const labelMap = {
+    REGISTRATION: 'Registrazione', EMAIL_CORRECTION: 'Correzione email',
+    NAME_CORRECTION: 'Correzione nome', TRANSFER: 'Trasferimento proprietà',
+    UNREGISTRATION: 'Annullamento registrazione', ADMIN_NOTE: 'Nota admin',
+  };
+  const reasonLabel = {
+    SELF_REGISTRATION: 'Auto-registrazione', TYPO: 'Errore digitazione',
+    TRANSFER: 'Trasferimento', RETURN: 'Reso', REPLACEMENT: 'Sostituzione',
+    CUSTOMER_REQUEST: 'Richiesta cliente', ADMIN_CORRECTION: 'Correzione admin', OTHER: 'Altro',
+  };
+  const changeHtml = (e.old_value || e.new_value) ? `
+    <div class="tl-change">
+      ${e.old_value ? `<span style="color:var(--red);text-decoration:line-through">${e.old_value}</span>` : ''}
+      ${e.old_value && e.new_value ? ' → ' : ''}
+      ${e.new_value ? `<span style="color:var(--green)">${e.new_value}</span>` : '<span style="color:var(--steel)">(rimosso)</span>'}
+    </div>` : '';
+  return `
+    <div class="tl-item">
+      <div class="tl-dot ${cls}">${icon}</div>
+      <div class="tl-body">
+        <div class="tl-action">${labelMap[e.action] || e.action}</div>
+        ${changeHtml}
+        <div class="tl-reason">
+          <span class="reason-badge">${reasonLabel[e.reason_code] || e.reason_code}</span>
+          ${e.reason_detail}
+        </div>
+        <div class="tl-date">${e.changed_at}</div>
+      </div>
+    </div>`;
+}
+
+function showModalResult(el, type, msg) {
+  el.className = `modal-result ${type}`;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
 </script>
 </body>
 </html>
