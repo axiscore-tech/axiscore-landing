@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<script src="https://warranty.axiscore.tech/ref-tracker.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AXIS CORE — Bio-Recovery Technologies</title>
 <meta name="description" content="AXIS CORE — Il primo dispositivo di trazione cervicale per smart worker e professionisti digitali. Pre-lancio Indiegogo Q4 2026. Entra in lista d'attesa per lo sconto esclusivo.">
@@ -1102,7 +1103,7 @@ async function submitGuide() {
   try {
     const res = await fetch('https://warranty.axiscore.tech/lead', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email, lang: currentLang })
+      body: JSON.stringify({ email, lang: currentLang, ref: (window.axiscoreGetRef && window.axiscoreGetRef()) || null })
     });
     const data = await res.json();
     if(data.ok) {
@@ -1135,7 +1136,7 @@ async function subscribeVideo() {
   try {
     await fetch('https://warranty.axiscore.tech/lead', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ email, lang: currentLang, source: 'video_notify' })
+      body: JSON.stringify({ email, lang: currentLang, source: 'video_notify', ref: (window.axiscoreGetRef && window.axiscoreGetRef()) || null })
     });
   } catch {}
   btn.textContent = currentLang==='it' ? '✓ ISCRITTO' : '✓ SUBSCRIBED';
@@ -1171,7 +1172,7 @@ async function submitWaitlist() {
     const res = await fetch('https://waitlist.axiscore.tech', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ nome, email, lang: currentLang, source: 'waitlist_landing' })
+      body: JSON.stringify({ nome, email, lang: currentLang, source: 'waitlist_landing', ref: (window.axiscoreGetRef && window.axiscoreGetRef()) || null })
     });
     if(res.ok) {
       document.getElementById('wlSuccess').style.display = 'block';
