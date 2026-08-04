@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
+    <script src="https://warranty.axiscore.tech/ref-tracker.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Cervicale – Scopri il tuo livello di rischio | AXIS CORE</title>
     <meta name="description" content="Rispondi a 10 domande e scopri in 2 minuti quanto è a rischio la tua cervicale. Quiz gratuito con risultato e consigli personalizzati.">
@@ -620,7 +621,8 @@ async function submitEmail() {
                 work_type:profilo.WORK_TYPE||'',
                 eta:profilo.ETA||'',
                 prev_solutions:profilo.PREV_SOLUTIONS||'',
-                answers:answers.map(a=>a?a.punti:0)
+                answers:answers.map(a=>a?a.punti:0),
+                ref:(window.axiscoreGetRef && window.axiscoreGetRef()) || null
             })
         });
     } catch(e){console.warn('Worker error:',e);}
