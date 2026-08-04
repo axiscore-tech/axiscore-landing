@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<script src="https://warranty.axiscore.tech/ref-tracker.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guida Gratuita al Dolore Cervicale — AXIS CORE</title>
 <meta name="description" content="Scarica gratis la guida AXIS CORE: cause, sintomi e rimedi efficaci per il dolore cervicale. Esercizi pratici da fare a casa.">
@@ -198,7 +199,7 @@ async function submitLead() {
     await fetch('https://warranty.axiscore.tech/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, lang: 'it' }),
+      body: JSON.stringify({ name, email, lang: 'it', ref: (window.axiscoreGetRef && window.axiscoreGetRef()) || null }),
     });
   } catch(e) { console.warn(e); }
   document.getElementById('formWrap').style.display = 'none';
