@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/9e9460f59ea4343e7e25e1ccb68ddad0.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y805WBX2WY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Y805WBX2WY');
+</script>
 <meta charset="UTF-8">
 <script src="https://warranty.axiscore.tech/ref-tracker.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AXIS CORE — Bio-Recovery Technologies</title>
 <meta name="description" content="AXIS CORE — Il primo dispositivo di trazione cervicale per smart worker e professionisti digitali. Pre-lancio Indiegogo Q4 2026. Entra in lista d'attesa per lo sconto esclusivo.">
 <meta property="og:title" content="AXIS CORE — Trazione Cervicale per Lavoratori Digitali">
-<meta property="og:description" content="Il dispositivo di trazione cervicale domestico certificato CE progettato per chi lavora al PC. Lancio Indiegogo Q4 2026 — entra in lista d'attesa."
+<meta property="og:description" content="Il dispositivo di trazione cervicale domestico certificato CE progettato per chi lavora al PC. Lancio Indiegogo Q4 2026 — entra in lista d'attesa.">
 <meta name="theme-color" content="#07070D">
    <link rel="icon" type="image/svg+xml" href="favicon.svg">
    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -995,8 +1005,8 @@ body {
         </p>
         <div class="field-group">
           <label class="field-label" data-it="IL TUO NOME" data-en="YOUR NAME">IL TUO NOME</label>
-          <input type="text" class="field-input" id="wlName" placeholder="Federico"
-            data-placeholder-it="Federico" data-placeholder-en="Your name">
+          <input type="text" class="field-input" id="wlName" placeholder="Il tuo nome"
+            data-placeholder-it="Il tuo nome" data-placeholder-en="Your name">
         </div>
         <div class="field-group">
           <label class="field-label" data-it="LA TUA EMAIL" data-en="YOUR EMAIL">LA TUA EMAIL</label>
@@ -1081,7 +1091,7 @@ function toggleLang() {
   const videoInput = document.getElementById('videoEmail');
   if(videoInput) videoInput.placeholder = currentLang==='it' ? 'la tua email' : 'your email';
   const wlNameInput = document.getElementById('wlName');
-  if(wlNameInput) wlNameInput.placeholder = currentLang==='it' ? 'Federico' : 'Your name';
+  if(wlNameInput) wlNameInput.placeholder = currentLang==='it' ? 'Il tuo nome' : 'Your name';
   document.querySelectorAll('[data-it]').forEach(el => {
     const txt = el.getAttribute('data-'+currentLang);
     if(txt) el.innerHTML = txt;
